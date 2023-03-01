@@ -1,9 +1,9 @@
-package com.mygdx.game;
+package com.mygdx.game.Model;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-public class playerPlane {
+public class Plane {
 
     //Plane characteristics
     int movementSpeed; //world units per seconds
@@ -17,7 +17,7 @@ public class playerPlane {
     Texture planeTexture;
 
     //Constructor
-    public playerPlane(int width, int height,
+    public Plane(int width, int height,
                        int xCentre, int yCentre,
                        int movementSpeed,
                        Texture planeTexture) {
@@ -34,4 +34,39 @@ public class playerPlane {
         batch.draw(planeTexture,xPos,yPos,width,height);
     }
 
+    public int getMovementSpeed() {
+        return movementSpeed;
+    }
+
+    public int getShield() {
+        return shield;
+    }
+
+    public int getxPos() {
+        return xPos;
+    }
+
+    public int getyPos() {
+        return yPos;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setMovementSpeed(int movementSpeed) {
+        this.movementSpeed = movementSpeed;
+    }
+
+    public void setxPos(int xPos) {
+        this.xPos = xPos;
+    }
+
+    public void setyPos(int yPos) {
+        this.yPos = yPos;
+    }
 }

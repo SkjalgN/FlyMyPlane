@@ -1,10 +1,11 @@
-package com.mygdx.game;
+package com.mygdx.game.Controller;
 
 import com.badlogic.gdx.Game;
+import com.mygdx.game.GameScreen;
 
 //Her starter spillet!!!
 
-public class FlyMyPlaneGame extends Game {
+public class GameController extends Game {
 
 	GameScreen gamescreen;
 
