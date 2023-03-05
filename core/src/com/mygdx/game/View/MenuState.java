@@ -2,9 +2,9 @@ package com.mygdx.game.View;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class StartGameState extends State{
+public class MenuState extends State{
 
-    protected StartGameState(GameStateManager gsm) {
+    protected MenuState(GameStateManager gsm) {
         super(gsm);
     }
 
