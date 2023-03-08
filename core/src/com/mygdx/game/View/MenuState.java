@@ -10,7 +10,7 @@ public class MenuState extends State{
     public MenuState(GameStateManager gsm) {
         super(gsm);
         cam.setToOrtho(false, 2640, 2480);
-        background = new Texture("MapClean.jpg");
+        //background = new Texture("MapChart.png");
     }
 
     @Override
