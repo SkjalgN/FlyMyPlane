@@ -2,9 +2,9 @@ package com.mygdx.game.View;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class ToturialState extends State{
+public class TutorialState extends State{
 
-    protected ToturialState(GameStateManager gsm) {
+    protected TutorialState(GameStateManager gsm) {
         super(gsm);
     }
 
