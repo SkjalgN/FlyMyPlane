@@ -3,7 +3,7 @@ package com.mygdx.game.Model;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-public abstract class Plane {
+public class Plane {
 
     private float xPos,yPos;
     private float speed;
