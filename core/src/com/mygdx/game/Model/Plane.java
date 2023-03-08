@@ -22,19 +22,19 @@ public class Plane {
         this.planeTextureRegion = planeTextureRegion;
     }
 
-    public float getX() {
+    public float getxPos() {
         return xPos;
     }
 
-    public void setX(float x) {
+    public void setxPos(float x) {
         this.xPos = x;
     }
 
-    public float getY() {
+    public float getyPos() {
         return yPos;
     }
 
-    public void setY(float y) {
+    public void setyPos(float y) {
         this.yPos = y;
     }
 
@@ -82,5 +82,6 @@ public class Plane {
     public void draw(Batch batch) {
         batch.draw(planeTextureRegion, xPos, yPos, planeWidth, planeHeight);
     }
+    
 }
 

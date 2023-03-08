@@ -26,6 +26,7 @@ public class MenuState extends State{
 
     @Override
     public void render(SpriteBatch sb) {
+        handleInput();
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0);
