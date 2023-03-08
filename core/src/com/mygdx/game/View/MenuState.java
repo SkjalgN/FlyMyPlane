@@ -16,7 +16,7 @@ public class MenuState extends State{
         super(gsm);
         cam.setToOrtho(false, 2640, 2480);
         background = new Texture("MapClean.jpg");
-        plane = new Plane(1000,1000,10,0,100,100,new TextureRegion(new Texture("plane.png")));
+        plane = new Plane(1000,1000,10,0,1000,1000,new TextureRegion(new Texture("plane.png")));
     }
 
     @Override

@@ -28,4 +28,6 @@ public class GameController extends Game {
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
 	}
+
+
 }
