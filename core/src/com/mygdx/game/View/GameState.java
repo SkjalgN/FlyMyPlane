@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Model.Plane;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 
 
 public class GameState extends State{
@@ -18,9 +16,9 @@ public class GameState extends State{
     public GameState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("MapChart.png");
-        cam.setToOrtho(false, 3500, 2000);
-        cam.zoom = (float)0.5;
-        //cam.setToOrtho(false, background.getWidth(),background.getHeight());
+        //cam.setToOrtho(false, 3500, 2000);
+        cam.setToOrtho(false, background.getWidth(),background.getHeight());
+        cam.zoom = (float)0.2;
         plane = new Plane(1000,1000,10,0,1000,1000,new TextureRegion(new Texture("plane.png")));
     }
 
