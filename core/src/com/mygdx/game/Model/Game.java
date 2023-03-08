@@ -18,7 +18,7 @@ public class Game {
         this.map = map;
     }
 
-    public void addPackage(Package package) {
-        this.packages.add(package);
+    public void addPackage(Package pkg) {
+        this.packages.add(pkg);
     }
 }
