@@ -6,7 +6,9 @@ public class GameState extends State{
 
     protected GameState(GameStateManager gsm) {
         super(gsm);
-        System.out.println("Magnus");
+        System.out.println("Biggen hadde rett");
+        System.out.println("OBOS var for lett");
+        System.out.println("Først tok vi Ranheim");
     }
 
     @Override

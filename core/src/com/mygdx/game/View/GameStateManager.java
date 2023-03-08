@@ -2,6 +2,8 @@ package com.mygdx.game.View;
 
 import java.util.Stack;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 public class GameStateManager {
     private Stack<State> states;
     
@@ -24,5 +26,9 @@ public class GameStateManager {
 
     public State getCurrentState(){
         return states.peek();
+    }
+
+    public void render(SpriteBatch sb){
+        states.peek().render(sb);
     }
 }
