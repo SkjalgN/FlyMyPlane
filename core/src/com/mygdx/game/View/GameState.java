@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Model.Plane;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+
 
 public class GameState extends State{
     
@@ -15,7 +18,9 @@ public class GameState extends State{
     public GameState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("MapChart.png");
-        cam.setToOrtho(false, background.getWidth(),background.getHeight());
+        cam.setToOrtho(false, 3500, 2000);
+        cam.zoom = (float)0.5;
+        //cam.setToOrtho(false, background.getWidth(),background.getHeight());
         plane = new Plane(1000,1000,10,0,1000,1000,new TextureRegion(new Texture("plane.png")));
     }
 
@@ -32,6 +37,7 @@ public class GameState extends State{
         sb.draw(background,0,0);
         plane.draw(sb);
         sb.end();
+        moveCamera();
     }
 
     @Override
@@ -43,5 +49,20 @@ public class GameState extends State{
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 			gsm.set(new MenuState(gsm));
 		}
+    }
+    
+    public void moveCamera() {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            cam.translate(-6, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            cam.translate(6, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            cam.translate(0, -6, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            cam.translate(0, 6, 0);
+        }
     }
 }
