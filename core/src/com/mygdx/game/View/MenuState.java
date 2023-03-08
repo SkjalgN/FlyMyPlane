@@ -4,13 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Model.Plane;
 
 public class MenuState extends State{
     
     private Texture background;
-    private Plane plane;
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
@@ -26,7 +24,6 @@ public class MenuState extends State{
 
     @Override
     public void render(SpriteBatch sb) {
-        handleInput();
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0);
