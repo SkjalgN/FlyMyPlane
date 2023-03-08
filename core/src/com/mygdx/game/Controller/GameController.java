@@ -9,6 +9,7 @@ import com.mygdx.game.View.GameState;
 import com.mygdx.game.View.GameStateManager;
 import com.mygdx.game.View.MenuState;
 import com.mygdx.game.View.State;
+import com.mygdx.game.View.GameState;
 
 
 public class GameController extends Game {

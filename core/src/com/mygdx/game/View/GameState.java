@@ -14,7 +14,7 @@ public class GameState extends State{
 
     public GameState(GameStateManager gsm) {
         super(gsm);
-        background = new Texture("MapClean.jpg");
+        background = new Texture("MapChart.png");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         plane = new Plane(1000,1000,10,0,1000,1000,new TextureRegion(new Texture("plane.png")));
     }
