@@ -1,11 +1,11 @@
 package com.mygdx.game.View;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Model.Plane;
-
-
 
 public class MenuState extends State{
     
@@ -14,14 +14,14 @@ public class MenuState extends State{
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
-        cam.setToOrtho(false, 2640, 2480);
-        background = new Texture("MapClean.jpg");
-        plane = new Plane(1000,1000,10,0,100,100,new TextureRegion(new Texture("plane.png")));
+        background = new Texture("Menu.jpg");
+        cam.setToOrtho(false, background.getWidth(),background.getHeight());
     }
 
     @Override
     public void update(float dt) {
         cam.update();
+        handleInput();
     }
 
     @Override
@@ -29,12 +29,17 @@ public class MenuState extends State{
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0);
-        plane.draw(sb);
         sb.end();
     }
 
     @Override
     public void dispose() {
         background.dispose();
+    }
+
+    public void handleInput() {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+            gsm.set(new GameState(gsm));
+        }
     }
 }
