@@ -1,29 +1,33 @@
 package com.mygdx.game.View;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameState extends State{
+    
+    private Texture background;
 
-    protected GameState(GameStateManager gsm) {
+    public GameState(GameStateManager gsm) {
         super(gsm);
-        System.out.println("Biggen hadde rett");
-        System.out.println("OBOS var for lett");
-        System.out.println("Først tok vi Ranheim");
+        cam.setToOrtho(false, 2640, 2480);
+        background = new Texture("MapClean.jpg");
     }
 
     @Override
     public void update(float dt) {
-
-
+        cam.update();
     }
 
     @Override
     public void render(SpriteBatch sb) {
-
+        sb.setProjectionMatrix(cam.combined);
+        sb.begin();
+        sb.draw(background,0,0);
+        sb.end();
     }
 
     @Override
     public void dispose() {
-
+        background.dispose();
     }
 }
