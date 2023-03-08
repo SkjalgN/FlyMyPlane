@@ -4,12 +4,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-public class ToturialState extends State{
+public class TutorialState extends State{
     private SpriteBatch batch;
     private BitmapFont font = new BitmapFont();
     
 
-    protected ToturialState(GameStateManager gsm) {
+    protected TutorialState(GameStateManager gsm) {
         super(gsm);
         batch = new SpriteBatch();
     }
@@ -25,7 +25,7 @@ public class ToturialState extends State{
         cam.update();
         batch.setProjectionMatrix(cam.combined);
         batch.begin();
-        font.draw(batch, "Game Over!", 200 / 2, 200 / 2);
+        font.draw(batch, "TutorialStaten!", 200 / 2, 200 / 2);
         batch.end();
 
     }

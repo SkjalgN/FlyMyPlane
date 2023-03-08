@@ -9,7 +9,7 @@ public class MenuState extends State{
 
     public MenuState(GameStateManager gsm) {
         super(gsm);
-        cam.setToOrtho(false, 100, 100);
+        cam.setToOrtho(false, 2640, 2480);
         background = new Texture("MapClean.jpg");
     }
 
