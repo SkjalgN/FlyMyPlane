@@ -2,6 +2,9 @@ package com.mygdx.game.View;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+
 
 public class GameState extends State{
     
@@ -9,7 +12,8 @@ public class GameState extends State{
 
     public GameState(GameStateManager gsm) {
         super(gsm);
-        cam.setToOrtho(false, 2640, 2480);
+        cam.setToOrtho(false, 3500, 2000);
+        cam.zoom = (float)0.5;
         background = new Texture("MapChart.png");
     }
 
@@ -24,10 +28,26 @@ public class GameState extends State{
         sb.begin();
         sb.draw(background,0,0);
         sb.end();
+        moveCamera();
     }
 
     @Override
     public void dispose() {
         background.dispose();
+    }
+
+    public void moveCamera() {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            cam.translate(-6, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            cam.translate(6, 0, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            cam.translate(0, -6, 0);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            cam.translate(0, 6, 0);
+        }
     }
 }
