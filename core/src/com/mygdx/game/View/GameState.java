@@ -5,20 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-
-
-
-public class GameState extends ApplicationAdapter {
-
-    int posX = 0;
-    int posY = 0;
-    int velX = 4;
-    int velY = 4;
-
-    SpriteBatch batch;
-    TextureRegion img;
-    Sprite sprite;
-
 public class GameState extends State{
     
     private Texture background;

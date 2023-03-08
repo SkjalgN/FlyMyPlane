@@ -18,6 +18,10 @@ public class Game {
         this.map = map;
     }
 
+    public void setPlane(Plane plane) {
+        this.plane = plane;
+    }
+
     public void addPackage(Package pkg) {
         this.packages.add(pkg);
     }
