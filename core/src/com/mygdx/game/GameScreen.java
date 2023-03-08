@@ -6,13 +6,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import java.util.LinkedList;
+import com.mygdx.game.Model.Plane;
 
 public class GameScreen implements Screen {
 
@@ -32,11 +28,11 @@ public class GameScreen implements Screen {
     private final int WorldHeight = 700;
 
     //game Objects
-    private playerPlane playerPlane;
+    private com.mygdx.game.Model.Plane playerPlane;
 
 
 
-    GameScreen(){
+    public GameScreen(){
 
         //Camera
         camera = new OrthographicCamera();
@@ -48,8 +44,7 @@ public class GameScreen implements Screen {
 
 
         //set up Game Object
-        playerPlane = new playerPlane(500,400,WorldWidth/2,
-                WorldHeight/2,4,playerPlaneTexture);
+        playerPlane = new Plane(500,400,WorldWidth/2,WorldHeight/2,4,playerPlaneTexture);
         batch = new SpriteBatch();
         sprite = new Sprite(playerPlaneTexture);
 
@@ -65,13 +60,13 @@ public class GameScreen implements Screen {
         batch.draw(background,0,0,WorldWidth,WorldHeight);
 
         //player plane
-        batch.draw(playerPlaneTexture,playerPlane.xPos,playerPlane.yPos,playerPlane.width,playerPlane.height);
-        playerPlane.yPos += playerPlane.movementSpeed;
+        batch.draw(playerPlaneTexture,playerPlane.getxPos(),playerPlane.getyPos(),playerPlane.getWidth(),playerPlane.getHeight());
+        playerPlane.setyPos(playerPlane.getyPos() + playerPlane.getMovementSpeed());
 
         batch.end();
 
-        if (playerPlane.yPos >= WorldHeight- playerPlane.height/2-50 || playerPlane.yPos <= -150){
-            playerPlane.movementSpeed = -playerPlane.movementSpeed;
+        if (playerPlane.getyPos() >= WorldHeight- playerPlane.getHeight()/2-50 || playerPlane.getyPos() <= -150){
+            playerPlane.setMovementSpeed(-playerPlane.getMovementSpeed());
         }
 
 
