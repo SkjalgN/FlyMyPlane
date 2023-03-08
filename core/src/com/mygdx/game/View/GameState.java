@@ -6,6 +6,7 @@ public class GameState extends State{
 
     protected GameState(GameStateManager gsm) {
         super(gsm);
+        System.out.println("Magnus");
     }
 
     @Override
