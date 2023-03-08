@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "930844225554",
+    "project_id": "flymyplane-6119e",
+    "storage_bucket": "flymyplane-6119e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:930844225554:android:6d52988e3b4d7f06baa8cb",
+        "android_client_info": {
+          "package_name": "com.mygdx.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "930844225554-ceck5ssuuo6v3njkcib4acman8d1jst5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0BQ5wBysdS8YYUhLm9_zHuLFy0ctTgfQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "930844225554-ceck5ssuuo6v3njkcib4acman8d1jst5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
