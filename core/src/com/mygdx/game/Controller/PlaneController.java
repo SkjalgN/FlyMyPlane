@@ -47,8 +47,6 @@ public class PlaneController extends InputAdapter {
         return true;
     }
     
-    public void update(float delta) {
-        plane.update(delta);
-    }
+
     
 }
