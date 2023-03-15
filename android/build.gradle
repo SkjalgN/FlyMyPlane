@@ -1,3 +1,4 @@
+apply plugin: 'com.google.gms.google-services'
 android {
     buildToolsVersion "33.0.1"
     compileSdkVersion 33
@@ -14,7 +15,9 @@ android {
 
     }
     packagingOptions {
-        exclude 'META-INF/robovm/ios/robovm.xml'
+        resources {
+            excludes += ['META-INF/robovm/ios/robovm.xml']
+        }
     }
     defaultConfig {
         applicationId "com.mygdx.game"
@@ -83,6 +86,10 @@ task run(type: Exec) {
 
     def adb = path + "/platform-tools/adb"
     commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.mygdx.game/com.mygdx.game.AndroidLauncher'
+}
+
+dependencies {
+    implementation 'com.google.firebase:firebase-database:20.0.4'
 }
 
 eclipse.project.name = appName + "-android"
