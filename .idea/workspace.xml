@@ -9,13 +9,19 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a065cd9-4835-40d3-a28a-5e8bfa2a1507" name="Changes" comment="" />
+    <list default="true" id="6a065cd9-4835-40d3-a28a-5e8bfa2a1507" name="Changes" comment="Fixed project">
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[/Users/christian/.android/avd/Pixel_6_Pro_API_30.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -79,7 +85,7 @@
       <recent name="$PROJECT_DIR$/android" />
     </key>
   </component>
-  <component name="RunManager" selected="Android App.android">
+  <component name="RunManager" selected="Application.DesktopLauncher">
     <configuration name="android" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="FlyMyPlane.android.main" />
       <option name="DEPLOY" value="true" />
@@ -149,6 +155,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DesktopLauncher" type="Application" factoryName="Application">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.mygdx.game.DesktopLauncher" />
+      <module name="FlyMyPlane.desktop.main" />
+      <option name="VM_PARAMETERS" value="-XstartOnFirstThread" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="database.Database" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="database.Database" />
       <module name="FlyMyPlane.android.main" />
@@ -162,6 +178,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Android App.android" />
+      <item itemvalue="Application.DesktopLauncher" />
+      <item itemvalue="Application.Database" />
+      <item itemvalue="Application.database.Database" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.database.Database" />
@@ -178,6 +200,13 @@
       <option name="presentableId" value="Default" />
       <updated>1678269527813</updated>
     </task>
+    <task id="LOCAL−00001" summary="Fixed project">
+      <created>1678871332462</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1678871332462</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -190,5 +219,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed project" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed project" />
   </component>
 </project>
