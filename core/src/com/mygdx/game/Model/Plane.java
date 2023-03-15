@@ -7,19 +7,28 @@ public class Plane {
 
     private float xPos,yPos;
     private float speed;
-    private float direction;
+    private float angle;
     private float planeWidth;
     private float planeHeight;
     private TextureRegion planeTextureRegion;
 
-    public Plane(float xPos, float yPos, float speed, float direction, float planeWidth, float planeHeight, TextureRegion planeTextureRegion) {
+    public Plane(float xPos, float yPos, float speed, float angle, float planeWidth, float planeHeight, TextureRegion planeTextureRegion) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.speed = speed;
-        this.direction = direction;
+        this.angle = angle;
         this.planeWidth = planeWidth;
         this.planeHeight = planeHeight;
         this.planeTextureRegion = planeTextureRegion;
+    }
+
+    public void rotate(float angle) {
+        this.angle += angle;
+    }
+
+    public void update(float delta) {
+        xPos += speed * Math.cos(angle);
+        yPos += speed * Math.sin(angle);
     }
 
     public float getxPos() {
@@ -46,12 +55,12 @@ public class Plane {
         this.speed = speed;
     }
 
-    public float getDirection() {
-        return direction;
+    public float getAngle() {
+        return angle;
     }
 
-    public void setDirection(float direction) {
-        this.direction = direction;
+    public void setAngle(float angle) {
+        this.angle = angle;
     }
 
     public float getPlaneWidth() {
@@ -80,7 +89,7 @@ public class Plane {
 
 
     public void draw(Batch batch) {
-        batch.draw(planeTextureRegion, xPos, yPos, planeWidth, planeHeight);
+        batch.draw(planeTextureRegion, xPos, yPos, planeWidth/2, planeHeight/2, planeWidth, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
     }
     
 }

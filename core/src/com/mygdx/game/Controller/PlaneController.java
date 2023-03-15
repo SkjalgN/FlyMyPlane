@@ -19,10 +19,10 @@ public class PlaneController extends InputAdapter {
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.LEFT:
-                plane.setDirection(-1.0f); 
+                plane.setAngle(-1.0f); 
                 break;
             case Input.Keys.RIGHT:
-                plane.setDirection(1.0f); 
+                plane.setAngle(1.0f); 
                 break;
             default:
                 break;
@@ -35,11 +35,11 @@ public class PlaneController extends InputAdapter {
         switch (keycode) {
             case Input.Keys.UP:
             case Input.Keys.DOWN:
-                plane.setDirection(0.0f);
+                plane.setAngle(0.0f);
                 break;
             case Input.Keys.LEFT:
             case Input.Keys.RIGHT:
-                plane.setDirection(0.0f);
+                plane.setAngle(0.0f);
                 break;
             default:
                 break;

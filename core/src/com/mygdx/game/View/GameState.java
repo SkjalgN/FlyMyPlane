@@ -18,13 +18,14 @@ public class GameState extends State{
         background = new Texture("MapChart.png");
         //cam.setToOrtho(false, 3500, 2000);
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
-        cam.zoom = (float)0.2;
-        plane = new Plane(2700,1200,10,0,1000,1000,new TextureRegion(new Texture("plane.png")));
+        cam.zoom = (float)0.05;
+        plane = new Plane(3070,1550,1,1,300,300,new TextureRegion(new Texture("plane.png")));
     }
 
     @Override
     public void update(float dt) {
         cam.update();
+        plane.update(dt);
         handleInput();
     }
 
@@ -47,21 +48,13 @@ public class GameState extends State{
 			gsm.set(new MenuState(gsm));
 		}
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            plane.setxPos(plane.getxPos()-plane.getSpeed());
-            cam.translate(-plane.getSpeed(), 0, 0);
+            plane.rotate(0.02f);
+            
         }
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            plane.setxPos(plane.getxPos()+plane.getSpeed());
-            cam.translate(plane.getSpeed(), 0, 0);
+            plane.rotate(-0.02f);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            plane.setyPos(plane.getyPos()+plane.getSpeed());
-            cam.translate(0, plane.getSpeed(), 0);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            plane.setyPos(plane.getyPos()-plane.getSpeed());
-            cam.translate(0, -plane.getSpeed(), 0);
-        }
+        cam.translate((float) (plane.getSpeed() * Math.cos(plane.getAngle())), (float) (plane.getSpeed() * Math.sin(plane.getAngle())), 0);
 
         // Assume you have an Actor object called "myActor" that you want to rotate
         //float angle = 45; // Replace this with the angle you want to rotate the actor to
