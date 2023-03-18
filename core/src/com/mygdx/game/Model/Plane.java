@@ -1,7 +1,9 @@
 package com.mygdx.game.Model;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.mygdx.game.View.GameState;
 
 public class Plane {
 
@@ -12,7 +14,7 @@ public class Plane {
     private float planeHeight;
     private TextureRegion planeTextureRegion;
 
-    public Plane(float xPos, float yPos, float speed, float angle, float planeWidth, float planeHeight, TextureRegion planeTextureRegion) {
+    public Plane(float xPos, float yPos,float speed, float angle, float planeWidth, float planeHeight, TextureRegion planeTextureRegion) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.speed = speed;
