@@ -40,14 +40,7 @@ public class GameState extends State{
         sb.draw(background,0,0);
         sb.draw(boat1,boatposx,boatposy,200,200);
         plane.draw(sb);
-
         sb.end();
-
-        boatposy += boatspeed;
-
-        if (boatposy >3500 || boatposy <1000){
-            boatspeed = -boatspeed;
-        }
     }
 
     @Override
@@ -72,6 +65,8 @@ public class GameState extends State{
         else{
             plane.setSpeed(3);
         }
+
+
         if (plane.getxPos() > background.getWidth()-200){
             plane.setxPos(200);
             cam.translate(-(background.getWidth()-400),0);
