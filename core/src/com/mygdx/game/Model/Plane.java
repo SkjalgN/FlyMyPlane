@@ -18,6 +18,9 @@ public class Plane {
     private TextureRegion planeTextureRegion;
     private TextureRegion[] airflow;
     private int airflowvar;
+    private TextureRegion flames[];
+    private float elapsedtime = 0;
+    private int currentImage = 0;
 
     public Plane(float xPos, float yPos,float speed, float angle, float planeWidth, float planeHeight, TextureRegion planeTextureRegion) {
         this.xPos = xPos;
@@ -36,6 +39,7 @@ public class Plane {
     public void update(float delta) {
         xPos += speed * Math.cos(angle);
         yPos += speed * Math.sin(angle);
+        elapsedtime += delta;
     }
 
     public float getxPos() {
@@ -104,6 +108,16 @@ public class Plane {
         }
         else {
             airflowvar = 1;
+        }
+        flames = new TextureRegion[2];
+        flames[0] = new TextureRegion(new Texture("Flame1.png"));
+        flames[1] = new TextureRegion(new Texture("Flame2.png"));
+        if (elapsedtime > 0.1f) {
+            elapsedtime -= 0.1f;
+            currentImage = (currentImage + 1) % flames.length;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            batch.draw(flames[currentImage], xPos, yPos, planeWidth/2, planeHeight/2, planeWidth, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
         }
         batch.draw(airflow[airflowvar], xPos, yPos, planeWidth/2, planeHeight/2, planeWidth*4/5, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
         batch.draw(planeTextureRegion, xPos, yPos, planeWidth/2, planeHeight/2, planeWidth, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
