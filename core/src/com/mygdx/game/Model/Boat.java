@@ -2,6 +2,9 @@ package com.mygdx.game.Model;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 
 
 public class Boat {
@@ -12,6 +15,9 @@ public class Boat {
     private float boatWidth;
     private float boatHeight;
     private TextureRegion boatTextureRegion;
+    private TextureRegion[] waveRegions;
+    private float elapsedtime = 0; 
+    private int currentImage = 0;
 
     public Boat(float xPos, float yPos, float speed, float angle, float boatWidth, float boatHeight, TextureRegion boatTextureRegion) {
         this.xPos = xPos;
@@ -30,6 +36,13 @@ public class Boat {
     public void update(float delta) {
         xPos += speed * Math.cos(angle);
         yPos += speed * Math.sin(angle);
+        if(xPos <2600 || xPos > 3400) {
+            angle = (float) Math.PI - angle;
+        }
+        if(yPos < 2400 || yPos > 3000) {
+            angle = -angle;
+        }
+        elapsedtime += delta;
     }
 
     public float getxPos() {
@@ -89,7 +102,17 @@ public class Boat {
     }
 
     public void draw(Batch batch) {
+        waveRegions = new TextureRegion[3];
+        waveRegions[0] = new TextureRegion(new Texture("wave1.png"));
+        waveRegions[1] = new TextureRegion(new Texture("wave2.png"));
+        waveRegions[2] = new TextureRegion(new Texture("wave3.png"));
+        if (elapsedtime > 0.5f) {
+            elapsedtime -= 0.5f;
+            currentImage = (currentImage + 1) % waveRegions.length;
+        }
+        batch.draw(waveRegions[currentImage], xPos, yPos, boatWidth/2, boatHeight/2, boatWidth*2/3, boatHeight*13/14, 1, 1, (float) Math.toDegrees(angle), true);
         batch.draw(boatTextureRegion, xPos, yPos, boatWidth/2, boatHeight/2, boatWidth, boatHeight, 1, 1, (float) Math.toDegrees(angle), true);
+        
     }
 }
 

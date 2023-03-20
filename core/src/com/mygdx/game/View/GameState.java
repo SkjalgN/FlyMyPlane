@@ -3,33 +3,34 @@ package com.mygdx.game.View;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.game.Model.Plane;
+import com.mygdx.game.Model.Boat;
 
 
 public class GameState extends State{
     
     private Texture background;
     private Plane plane;
-    private Texture boat1;
-    private float boatposx= 3500;
-    private float boatposy = 2000;
-    private float boatspeed = 2;
+    private Boat boat;
+
 
     public GameState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("TheMap.jpg");
-        boat1 = new Texture("Boat1.png");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)0.18;
-        plane = new Plane(background.getWidth()/2-100,background.getHeight()/2-100,3,1,200,200,new TextureRegion(new Texture("plane.png")));
+        plane = new Plane(background.getWidth()/2-100,background.getHeight()/2-100,3,1,300,300,new TextureRegion(new Texture("plane.png")));
+        boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("boat1.png")));
     }
 
     @Override
     public void update(float dt) {
         cam.update();
         plane.update(dt);
+        boat.update(dt);
         handleInput();
     }
 
@@ -38,7 +39,7 @@ public class GameState extends State{
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0);
-        sb.draw(boat1,boatposx,boatposy,200,200);
+        boat.draw(sb);
         plane.draw(sb);
         sb.end();
     }
