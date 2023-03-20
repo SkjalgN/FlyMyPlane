@@ -31,19 +31,19 @@ public class Plane {
         yPos += speed * Math.sin(angle);
     }
 
-    public float getxPos() {
+    public float getXPos() {
         return xPos;
     }
 
-    public void setxPos(float x) {
+    public void setXPos(float x) {
         this.xPos = x;
     }
 
-    public float getyPos() {
+    public float getYPos() {
         return yPos;
     }
 
-    public void setyPos(float y) {
+    public void setYPos(float y) {
         this.yPos = y;
     }
 

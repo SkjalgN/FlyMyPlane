@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.mygdx.game.Model.Package;
 import com.mygdx.game.Model.Plane;
 
 
@@ -12,14 +13,23 @@ public class GameState extends State{
     
     private Texture background;
     private Plane plane;
+    private Package pack;
+
+    boolean showTextureRegion=true;
 
     public GameState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("MapChart.png");
         //cam.setToOrtho(false, 3500, 2000);
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
-        cam.zoom = (float)0.05;
-        plane = new Plane(3070,1550,1,1,300,300,new TextureRegion(new Texture("plane.png")));
+        cam.zoom = (float)0.1;
+        plane = new Plane(3070,1550,2,1,300,300,new TextureRegion(new Texture("plane.png")));
+        pack = new Package("Ålesund",2000, 1000, 100, 100, new TextureRegion(new Texture("Pack.png")), true);
+        System.out.print("X-kkordinate: "+ pack.getX());
+        System.out.print("Y-koordinat: " + pack.getY());
+        System.out.print("Bredde : "+ pack.getPackWidth());
+        System.out.print("Høyde: " + pack.getPackHeight());
+
     }
 
     @Override
@@ -35,7 +45,14 @@ public class GameState extends State{
         sb.begin();
         sb.draw(background,0,0);
         plane.draw(sb);
+
+        checkCollision();
+
+        if(showTextureRegion) {
+            pack.draw(sb, pack.getPackWidth(), pack.getPackHeight());
+        }
         sb.end();
+
     }
 
     @Override
@@ -61,4 +78,13 @@ public class GameState extends State{
         //myActor.setRotation(angle);
         
     }
+
+    public void checkCollision() {
+        if (plane.getXPos() < pack.getX() + pack.getPackWidth() / 2 && plane.getXPos() + plane.getPlaneWidth() > pack.getX() &&
+                plane.getYPos() < pack.getY() + pack.getPackHeight() && plane.getYPos() + plane.getplaneHeight() > pack.getY() + 100) {
+            showTextureRegion = false;
+            System.out.println("Collision detected!");
+        }
+    }
 }
+//(plane.getYPos() < ((pack.getY()) + 50)) &&

@@ -8,15 +8,21 @@ public class Package {
     private String city;
     private float xPos;
     private float yPos;
+
+    private int packWidth;
+
+    private int packHeight;
     private TextureRegion packageTextureRegion;
     private boolean active;
 
     //constructor
 
-    public Package(String city, float xPos, float yPos, TextureRegion packageTextureRegion, boolean active) {
+    public Package(String city, float xPos, float yPos, int packWidth, int packHeight, TextureRegion packageTextureRegion, boolean active) {
         this.city = city;
         this.xPos = xPos;
         this.yPos = yPos;
+        this.packWidth = packWidth;
+        this.packHeight = packHeight;
         this.packageTextureRegion = packageTextureRegion;
         this.active = active;
     }
@@ -34,6 +40,14 @@ public class Package {
     public float getY() {
         return yPos;
     }
+    public int getPackWidth() {
+        return packWidth;
+    }
+
+    public int getPackHeight() {
+        return packHeight;
+    }
+
 
     public TextureRegion getPackageTextureRegion() {
         return packageTextureRegion;
@@ -60,8 +74,8 @@ public class Package {
         this.packageTextureRegion = packageTextureRegion;
     }
 
-    public void draw(Batch batch) {
-        batch.draw(packageTextureRegion, xPos, yPos);
+    public void draw(Batch batch, int width, int height) {
+        batch.draw(packageTextureRegion, xPos, yPos, width, height);
     }
 
     public void setActive(boolean active) {
