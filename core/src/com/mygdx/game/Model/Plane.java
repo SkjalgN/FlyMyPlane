@@ -3,7 +3,10 @@ package com.mygdx.game.Model;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Batch;
-
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Input;
 
 public class Plane {
 
@@ -13,6 +16,8 @@ public class Plane {
     private float planeWidth;
     private float planeHeight;
     private TextureRegion planeTextureRegion;
+    private TextureRegion[] airflow;
+    private int airflowvar;
 
     public Plane(float xPos, float yPos,float speed, float angle, float planeWidth, float planeHeight, TextureRegion planeTextureRegion) {
         this.xPos = xPos;
@@ -91,7 +96,18 @@ public class Plane {
 
 
     public void draw(Batch batch) {
+        airflow = new TextureRegion[2];
+        airflow[0] = new TextureRegion(new Texture("airflow.png"));
+        airflow[1] = new TextureRegion(new Texture("empty.png"));
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            airflowvar = 0;
+        }
+        else {
+            airflowvar = 1;
+        }
+        batch.draw(airflow[airflowvar], xPos, yPos, planeWidth/2, planeHeight/2, planeWidth*4/5, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
         batch.draw(planeTextureRegion, xPos, yPos, planeWidth/2, planeHeight/2, planeWidth, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
+        
     }
     
 }

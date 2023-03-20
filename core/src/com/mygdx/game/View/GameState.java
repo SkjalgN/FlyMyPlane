@@ -61,7 +61,7 @@ public class GameState extends State{
             plane.rotate(-0.04f);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            plane.setSpeed(8);
+            plane.setSpeed(12);
         }
         else{
             plane.setSpeed(3);
