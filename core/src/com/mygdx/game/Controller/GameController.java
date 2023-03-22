@@ -4,15 +4,22 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.game.API;
+import com.mygdx.game.Model.Score;
 import com.mygdx.game.View.GameState;
 import com.mygdx.game.View.GameStateManager;
+
+import java.util.ArrayList;
 
 
 public class GameController extends Game {
 	private GameStateManager gsm;
 	private  SpriteBatch batch;
 
-	public GameController() {
+	private API _FBIC;
+
+	public GameController(API FBIC) {
+		_FBIC = FBIC;
     }
 
 	@Override
@@ -20,6 +27,9 @@ public class GameController extends Game {
 		batch = new SpriteBatch();
  		gsm = new GameStateManager();
 		gsm.push(new GameState(gsm));
+		_FBIC.someFunction();
+		_FBIC.FirstFireBaseTest();
+		_FBIC.getHighscores(new ArrayList<Score>());
 	}
 
 	@Override

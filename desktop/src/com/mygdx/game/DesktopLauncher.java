@@ -12,6 +12,6 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("FlyMyPlane");
-		new Lwjgl3Application(new GameController(), config);
+		new Lwjgl3Application(new GameController(new DesktopFireBaseAPI()), config);
 	}
 }
