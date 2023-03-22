@@ -87,8 +87,11 @@ public class GameState extends State{
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
             plane.setSpeed(12);
         }
-        else{
+        if (!Gdx.input.isKeyPressed(Input.Keys.UP)){
             plane.setSpeed(3);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+            gsm.push(new PauseState(gsm));
         }
 
 

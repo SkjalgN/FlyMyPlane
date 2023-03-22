@@ -41,7 +41,7 @@ public class PauseState extends State{
     }
 
     public void handleInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)){
             gsm.pop();
         }
     }
