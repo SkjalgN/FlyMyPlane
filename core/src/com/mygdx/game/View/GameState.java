@@ -28,7 +28,7 @@ public class GameState extends State{
         background = new Texture("TheMap.jpg");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)0.18;
-        plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,1,1,400,400,new TextureRegion(new Texture("dragon.png")));
+        plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,1,1,400,400,new TextureRegion(new Texture("plane.png")));
         boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("boat1.png")));
         font = new BitmapFont();
         font.getData().setScale(3f);
