@@ -13,42 +13,31 @@ import com.mygdx.game.Model.Boat;
 public class GameState extends State{
     
     private Texture background;
+    private Texture background2;
     private Plane plane;
     private Boat boat;
-    private TextureRegion[] clouds;
-    private float cloudx = 0;
-    private float cloudy = 0;
     private int score = 5000;
     private BitmapFont font;
-
-    
+    private float xPos;
+    private float yPos;
+    private float BW;
+    private float BH;
+    private float var1;
  
     public GameState(GameStateManager gsm) {
         super(gsm);
         background = new Texture("TheMap.jpg");
+        background2 = new Texture("Blue.jpg");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
-        cam.zoom = (float)0.18;
+        cam.zoom = (float)0.58;
         plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,1,1,400,400,new TextureRegion(new Texture("dragon.png")));
         boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("boat1.png")));
         font = new BitmapFont();
         font.getData().setScale(3f);
+
     }
 
-    private void renderclouds(SpriteBatch batch){
-        clouds = new TextureRegion[2];
-        for (int i = 0; i < clouds.length; i++) {
-            clouds[i] = new TextureRegion(new Texture("cloud.png"));
-            cloudx = 1000 * i;
-            cloudy = 1000 * i;
-            if (cloudx > background.getWidth()){
-                cloudx = 0;
-            }
-            if (cloudy > background.getHeight()){
-                cloudy = 0;
-            }
-            batch.draw(clouds[i], cloudx, cloudy);
-        }
-    }
+    
 
     @Override
     public void update(float dt) {
@@ -62,6 +51,7 @@ public class GameState extends State{
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
+        sb.draw(background2,-3000,-2000,background.getWidth()+6000,background.getHeight()+4000);
         sb.draw(background,0,0);
         boat.draw(sb);
         plane.draw(sb);
@@ -76,6 +66,7 @@ public class GameState extends State{
         font.dispose();
     }
 
+
     public void handleInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             plane.rotate(0.04f);
@@ -85,7 +76,7 @@ public class GameState extends State{
             plane.rotate(-0.04f);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            plane.setSpeed(12);
+            plane.setSpeed(20);
         }
         if (!Gdx.input.isKeyPressed(Input.Keys.UP)){
             plane.setSpeed(3);
@@ -94,25 +85,27 @@ public class GameState extends State{
             gsm.push(new PauseState(gsm));
         }
 
+        xPos = plane.getxPos()+plane.getPlaneWidth()/2;
+        yPos = plane.getyPos()+plane.getPlaneHeight()/2;
+        BW = background.getWidth();
+        BH = background.getHeight();
+        var1 = 700;
 
-
-
-
-        if (plane.getxPos() > background.getWidth()-200){
-            plane.setxPos(200);
-            cam.translate(-(background.getWidth()-400),0);
+        if (xPos > BW +var1+plane.getPlaneWidth()/2){
+            plane.setxPos(-var1+plane.getPlaneWidth()/2);
+            cam.translate(-(background.getWidth()+var1*2)+plane.getPlaneWidth()/2,0);
         }
-        if(plane.getxPos() < 200){
-            plane.setxPos(background.getWidth()-200);
-            cam.translate(background.getWidth()-400,0);
+        if((xPos)< (-var1)+plane.getPlaneWidth()/2){
+            plane.setxPos(background.getWidth()+var1+(plane.getPlaneWidth()/2));
+            cam.translate(background.getWidth()+var1*2+plane.getPlaneWidth(),0);
         }
-        if (plane.getyPos() > background.getHeight()-400){
-            plane.setyPos(400);
-            cam.translate(0,-(background.getHeight()-800));
+        if ((yPos) > BH+var1+plane.getPlaneHeight()/2){
+            plane.setyPos(-var1+(plane.getPlaneHeight()/2));
+            cam.translate(0,-(background.getHeight()+var1*2)+plane.getPlaneHeight());
         }
-        if(plane.getyPos() < 400){
-            plane.setyPos(background.getHeight()-400);
-            cam.translate(0,background.getHeight()-800);
+        if((yPos) < (-var1)+plane.getPlaneHeight()/2){
+            plane.setyPos(background.getHeight()+var1+(plane.getPlaneHeight()/2));
+            cam.translate(0,background.getHeight()+var1*2+plane.getPlaneHeight());
         }
 
 

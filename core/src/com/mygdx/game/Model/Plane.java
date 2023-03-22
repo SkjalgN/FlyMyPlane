@@ -81,19 +81,19 @@ public class Plane {
         this.planeWidth = width;
     }
 
-    public float getplaneHeight() {
+    public float getPlaneHeight() {
         return planeHeight;
     }
 
-    public void setplaneHeight(float height) {
+    public void setPlaneHeight(float height) {
         this.planeHeight = height;
     }
 
-    public TextureRegion getplaneTextureRegion() {
+    public TextureRegion getPlaneTextureRegion() {
         return planeTextureRegion;
     }
 
-    public void setTexture(TextureRegion texture) {
+    public void setPlaneTextureRegion(TextureRegion texture) {
         this.planeTextureRegion = texture;
     }
 

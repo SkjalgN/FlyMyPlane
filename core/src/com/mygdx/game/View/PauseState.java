@@ -4,21 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.mygdx.game.Model.Plane;
+
 
 public class PauseState extends State{
     
     private Texture background;
-    private Texture pause;
 
     public PauseState(GameStateManager gsm) {
         super(gsm);
-        background = new Texture("MapChart.png");
-        pause = new Texture("pause-symbol.png");
+        background = new Texture("Pause.jpg");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
-        cam.zoom = (float)0.05;
-        cam.translate(gsm.getGameState().cam.position.x-3230, gsm.getGameState().cam.position.y-1701);
-    }
+        }
+
+
 
     @Override
     public void update(float dt) {
@@ -31,7 +29,6 @@ public class PauseState extends State{
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0);
-        sb.draw(pause, gsm.getGameState().cam.position.x-3230, gsm.getGameState().cam.position.y-1701);
         sb.end();
     }
 
