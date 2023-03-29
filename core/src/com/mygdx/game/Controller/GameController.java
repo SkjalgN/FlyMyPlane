@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.View.GameState;
+import com.mygdx.game.View.MenuState;
 import com.mygdx.game.View.GameStateManager;
 
 
@@ -19,7 +20,7 @@ public class GameController extends Game {
 	public void create() {
 		batch = new SpriteBatch();
  		gsm = new GameStateManager();
-		gsm.push(new GameState(gsm));
+		gsm.push(new MenuState(gsm));
 	}
 
 	@Override

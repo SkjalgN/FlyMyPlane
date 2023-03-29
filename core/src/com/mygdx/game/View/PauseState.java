@@ -13,11 +13,11 @@ public class PauseState extends State{
 
     public PauseState(GameStateManager gsm) {
         super(gsm);
-        background = new Texture("MapChart.png");
+        background = new Texture("TheMap.jpg");
         pause = new Texture("pause-symbol.png");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
-        cam.zoom = (float)0.05;
-        cam.translate(gsm.getGameState().cam.position.x-3230, gsm.getGameState().cam.position.y-1701);
+        cam.zoom = (float)0.18;
+        cam.translate(gsm.getGameState().cam.position.x-4096, gsm.getGameState().cam.position.y-2500);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class PauseState extends State{
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0);
-        sb.draw(pause, gsm.getGameState().cam.position.x-3230, gsm.getGameState().cam.position.y-1701);
+        sb.draw(pause, gsm.getGameState().cam.position.x-100, gsm.getGameState().cam.position.y-100);
         sb.end();
     }
 

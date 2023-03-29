@@ -118,10 +118,6 @@ public class GameState extends State{
 
 
         cam.translate((float) (plane.getSpeed() * Math.cos(plane.getAngle())), (float) (plane.getSpeed() * Math.sin(plane.getAngle())));
-
-        // Assume you have an Actor object called "myActor" that you want to rotate
-        //float angle = 45; // Replace this with the angle you want to rotate the actor to
-        //myActor.setRotation(angle);
         
     }
 }

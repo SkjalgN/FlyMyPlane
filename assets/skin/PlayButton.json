@@ -1,0 +1,15 @@
+{
+"com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle": {
+	"default": {
+		"up": "play",
+		"down": "play",
+		"over": "play",
+		"focused": "play",
+		"disabled": "play",
+		"checked": "play",
+		"checkedOver": "play",
+		"checkedDown": "play",
+		"checkedFocused": "play"
+	}
+}
+}
