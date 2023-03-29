@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.API;
 import com.mygdx.game.Model.Score;
 import com.mygdx.game.View.GameState;
+import com.mygdx.game.View.MenuState;
 import com.mygdx.game.View.GameStateManager;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class GameController extends Game {
 	public void create() {
 		batch = new SpriteBatch();
  		gsm = new GameStateManager();
-		gsm.push(new GameState(gsm));
+		gsm.push(new MenuState(gsm));
 		listen = new ArrayList<>();
 		_FBIC.submitHighscore(new Score(3000,"Christian"));
 		_FBIC.getHighscores(listen);
@@ -44,6 +45,7 @@ public class GameController extends Game {
 	}
 
 	public void handleInput() {
-
+		
+		
 	}
 }
