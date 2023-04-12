@@ -1,0 +1,34 @@
+
+startGame.png
+size: 2048, 2048
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+menuBtn1
+  rotate: false
+  xy: 1, 1552
+  size: 912, 273
+  orig: 912, 273
+  offset: 0, 0
+  index: -1
+menuBtn2
+  rotate: false
+  xy: 1, 1277
+  size: 912, 273
+  orig: 912, 273
+  offset: 0, 0
+  index: -1
+menuBtn3
+  rotate: false
+  xy: 915, 1552
+  size: 912, 273
+  orig: 912, 273
+  offset: 0, 0
+  index: -1
+playBtn
+  rotate: false
+  xy: 1, 888
+  size: 645, 387
+  orig: 645, 387
+  offset: 0, 0
+  index: -1
