@@ -6,6 +6,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.Model.Plane;
 import com.mygdx.game.Model.Boat;
 
@@ -17,10 +21,13 @@ public class GameState extends State{
     private Boat boat;
     private int score = 5000;
     private BitmapFont font;
+    private GameStage stage;
+    private Skin pauseBtnSkin;
+    private Button pauseBtn;
 
     
  
-    public GameState(GameStateManager gsm) {
+    public GameState(final GameStateManager gsm) {
         super(gsm);
         background = new Texture("gamescreens/theMap.jpg");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
@@ -29,6 +36,27 @@ public class GameState extends State{
         boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("objects/boat.png")));
         font = new BitmapFont();
         font.getData().setScale(3f);
+
+        stage = new GameStage();
+
+        pauseBtnSkin = new Skin(Gdx.files.internal("buttons/game/pauseBtn/pauseBtn.json"));
+
+        pauseBtn = new Button(pauseBtnSkin);
+
+        pauseBtn.setPosition(0,380);
+        pauseBtn.setSize(100,100);
+        pauseBtn.addListener(new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                gsm.set(new PauseState(gsm));
+                System.out.println("Button Pressed");
+                return true;
+            }
+        });
+
+        stage.addActor(pauseBtn);
+        Gdx.input.setInputProcessor(stage);
+
     }
 
 
@@ -50,12 +78,17 @@ public class GameState extends State{
         font.draw(sb, "Score: " + score, plane.getxPos()-400, plane.getyPos()+ 600);
         score -= 1;
         sb.end();
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
     }
 
     @Override
     public void dispose() {
         background.dispose();
         font.dispose();
+        //plane.dispose();
+        //boat.dispose();
+        pauseBtnSkin.dispose();
     }
 
     public void handleInput() {
