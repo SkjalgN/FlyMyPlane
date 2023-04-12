@@ -22,7 +22,7 @@ public class MenuState extends State{
 
     public MenuState(final GameStateManager gsm) {
         super(gsm);
-        background = new Texture("gamescreens/mapClean.jpg");
+        background = new Texture("gamescreens/startPage.jpg");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
     
         // Create a stage
@@ -40,7 +40,6 @@ public class MenuState extends State{
         tutorialButton = new Button(tutorialSkin);
         scoreboardButton = new Button(scoreboardSkin);
     
-
         // Set the button's position and size
         startGameButton.setPosition(180, 250);
         startGameButton.setSize(304, 91);
