@@ -8,13 +8,16 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class MenuState extends State{
     
     private Texture background;
-    private Button playButton;
-    private Skin skin;
+    private Skin startGameButtonSkin;
+    private Skin tutorialSkin;
+    private Skin scoreboardSkin;
+    private Button startGameButton;
+    private Button tutorialButton;
+    private Button scoreboardButton;
     private GameStage stage;
 
     public MenuState(final GameStateManager gsm) {
@@ -26,15 +29,20 @@ public class MenuState extends State{
         stage = new GameStage();
     
         // Load a skin from a JSON file
-        skin = new Skin(Gdx.files.internal("skin/PlayButton.json"));
-    
+        startGameButtonSkin = new Skin(Gdx.files.internal("buttons/menu/startGame/startGame.json"));
+        tutorialSkin = new Skin(Gdx.files.internal("buttons/menu/tutorial/tutorial.json"));
+        scoreboardSkin = new Skin(Gdx.files.internal("buttons/menu/scoreboard/scoreboard.json"));
+        
+        
         // Create a text button with a label
-        playButton = new Button(skin);
+        startGameButton = new Button(startGameButtonSkin);
+        tutorialButton = new Button(tutorialSkin);
+        scoreboardButton = new Button(scoreboardSkin);
     
         // Set the button's position and size
-        playButton.setPosition(200, 150);
-        playButton.setSize(200, 200);
-        playButton.addListener(new InputListener(){
+        startGameButton.setPosition(180, 250);
+        startGameButton.setSize(304, 91);
+        startGameButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 gsm.set(new GameState(gsm));
@@ -42,9 +50,33 @@ public class MenuState extends State{
                 return true;
             }
         });
+
+        tutorialButton.setPosition(180, 150);
+        tutorialButton.setSize(304, 91);
+        tutorialButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                gsm.set(new TutorialState(gsm));
+                System.out.println("Button Pressed");
+                return true;
+            }
+        });
+
+        scoreboardButton.setPosition(180, 50);
+        scoreboardButton.setSize(304, 91);
+        scoreboardButton.addListener(new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                gsm.set(new ScoreboardState(gsm));
+                System.out.println("Button Pressed");
+                return true;
+            }
+        });
     
         // Add the button to the stage
-        stage.addActor(playButton);
+        stage.addActor(startGameButton);
+        stage.addActor(tutorialButton);
+        stage.addActor(scoreboardButton);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -68,7 +100,9 @@ public class MenuState extends State{
     public void dispose() {
         background.dispose();
         stage.dispose();
-        skin.dispose();
+        startGameButtonSkin.dispose();
+        tutorialSkin.dispose();
+        scoreboardSkin.dispose();
     }
 
     public void handleInput() {
