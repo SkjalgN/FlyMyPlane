@@ -19,7 +19,7 @@ public class MenuState extends State{
 
     public MenuState(final GameStateManager gsm) {
         super(gsm);
-        background = new Texture("gamescreens/mapClean.jpg");
+        background = new Texture("gamescreens/startPage.jpg");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
     
         // Create a stage
@@ -32,8 +32,8 @@ public class MenuState extends State{
         playButton = new Button(skin);
     
         // Set the button's position and size
-        playButton.setPosition(200, 150);
-        playButton.setSize(200, 200);
+        playButton.setPosition(260, 100);
+        playButton.setSize(100, 100);
         playButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
