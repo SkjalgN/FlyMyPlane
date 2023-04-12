@@ -23,7 +23,13 @@ public class GameState extends State{
     private BitmapFont font;
     private GameStage stage;
     private Skin pauseBtnSkin;
+    private Skin leftBtnSkin;
+    private Skin rightBtnSkin;
+    private Skin boostBtnSkin;
     private Button pauseBtn;
+    private Button leftBtn;
+    private Button rightBtn;
+    private Button boostBtn;
 
     
  
@@ -40,8 +46,14 @@ public class GameState extends State{
         stage = new GameStage();
 
         pauseBtnSkin = new Skin(Gdx.files.internal("buttons/game/pauseBtn/pauseBtn.json"));
+        leftBtnSkin = new Skin(Gdx.files.internal("buttons/game/leftBtn/leftBtn.json"));
+        rightBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
+        boostBtnSkin = new Skin(Gdx.files.internal("buttons/game/boostBtn/boostBtn.json"));
 
         pauseBtn = new Button(pauseBtnSkin);
+        leftBtn = new Button(leftBtnSkin);
+        rightBtn = new Button(rightBtnSkin);
+        boostBtn = new Button(boostBtnSkin);
 
         pauseBtn.setPosition(0,380);
         pauseBtn.setSize(100,100);
@@ -54,7 +66,59 @@ public class GameState extends State{
             }
         });
 
+        leftBtn.setPosition(0,0);
+        leftBtn.setSize(100,100);
+        leftBtn.addListener(new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                plane.rotateLeft();
+                System.out.println("Turn Left");
+                return true;
+            }
+
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                plane.stopRotateLeft();
+            }
+        });
+
+        rightBtn.setPosition(100,0);
+        rightBtn.setSize(100,100);
+        rightBtn.addListener(new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                plane.rotateRight();
+                System.out.println("Turn Right");
+                return true;
+            }
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                plane.stopRotateRight();
+            }
+        });
+
+        boostBtn.setPosition(530,0);
+        boostBtn.setSize(100,100);
+        boostBtn.addListener(new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                plane.setSpeed(12);
+                plane.setAirflowvar(0);
+                System.out.println("Button Pressed");
+                return true;
+            }
+
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                plane.setSpeed(3);
+                plane.setAirflowvar(1);
+            }
+        });
+
         stage.addActor(pauseBtn);
+        stage.addActor(leftBtn);
+        stage.addActor(rightBtn);
+        stage.addActor(boostBtn);
         Gdx.input.setInputProcessor(stage);
 
     }
@@ -92,27 +156,6 @@ public class GameState extends State{
     }
 
     public void handleInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            plane.rotate(0.04f);
-            
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            plane.rotate(-0.04f);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            plane.setSpeed(12);
-        }
-        if (!Gdx.input.isKeyPressed(Input.Keys.UP)){
-            plane.setSpeed(3);
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
-            gsm.push(new PauseState(gsm));
-        }
-
-
-
-
-
         if (plane.getxPos() > background.getWidth()-200){
             plane.setxPos(200);
             cam.translate(-(background.getWidth()-400),0);
