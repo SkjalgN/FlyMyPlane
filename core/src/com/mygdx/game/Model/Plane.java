@@ -100,8 +100,8 @@ public class Plane {
 
     public void draw(Batch batch) {
         airflow = new TextureRegion[2];
-        airflow[0] = new TextureRegion(new Texture("airflow.png"));
-        airflow[1] = new TextureRegion(new Texture("empty.png"));
+        airflow[0] = new TextureRegion(new Texture("effects/airflow.png"));
+        airflow[1] = new TextureRegion(new Texture("effects/empty.png"));
         if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
             airflowvar = 0;
         }
@@ -109,8 +109,8 @@ public class Plane {
             airflowvar = 1;
         }
         flames = new TextureRegion[2];
-        flames[0] = new TextureRegion(new Texture("Flame1.png"));
-        flames[1] = new TextureRegion(new Texture("Flame2.png"));
+        flames[0] = new TextureRegion(new Texture("effects/flame1.png"));
+        flames[1] = new TextureRegion(new Texture("effects/flame2.png"));
         if (elapsedtime > 0.1f) {
             elapsedtime -= 0.1f;
             currentImage = (currentImage + 1) % flames.length;

@@ -13,8 +13,8 @@ public class PauseState extends State{
 
     public PauseState(GameStateManager gsm) {
         super(gsm);
-        background = new Texture("TheMap.jpg");
-        pause = new Texture("pause-symbol.png");
+        background = new Texture("gamescreens/theMap.jpg");
+        pause = new Texture("planeTextures/plane.png");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)0.18;
         cam.translate(gsm.getGameState().cam.position.x-4096, gsm.getGameState().cam.position.y-2500);

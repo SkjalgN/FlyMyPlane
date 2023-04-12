@@ -15,9 +15,6 @@ public class GameState extends State{
     private Texture background;
     private Plane plane;
     private Boat boat;
-    private TextureRegion[] clouds;
-    private float cloudx = 0;
-    private float cloudy = 0;
     private int score = 5000;
     private BitmapFont font;
 
@@ -25,30 +22,15 @@ public class GameState extends State{
  
     public GameState(GameStateManager gsm) {
         super(gsm);
-        background = new Texture("TheMap.jpg");
+        background = new Texture("gamescreens/theMap.jpg");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)0.18;
-        plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,1,1,400,400,new TextureRegion(new Texture("dragon.png")));
-        boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("boat1.png")));
+        plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,1,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
+        boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("objects/boat.png")));
         font = new BitmapFont();
         font.getData().setScale(3f);
     }
 
-    private void renderclouds(SpriteBatch batch){
-        clouds = new TextureRegion[2];
-        for (int i = 0; i < clouds.length; i++) {
-            clouds[i] = new TextureRegion(new Texture("cloud.png"));
-            cloudx = 1000 * i;
-            cloudy = 1000 * i;
-            if (cloudx > background.getWidth()){
-                cloudx = 0;
-            }
-            if (cloudy > background.getHeight()){
-                cloudy = 0;
-            }
-            batch.draw(clouds[i], cloudx, cloudy);
-        }
-    }
 
     @Override
     public void update(float dt) {
