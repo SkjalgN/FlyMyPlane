@@ -18,11 +18,11 @@ public class AndroidFireBaseAPI implements API{
 
     public AndroidFireBaseAPI() {
         database = FirebaseDatabase.getInstance("https://flymyplane-6119e-default-rtdb.europe-west1.firebasedatabase.app");
-        myRef = database.getReference("message");
+        myRef = database.getReference("Scoreboard");
     }
     @Override
     public void submitHighscore(Score score) {
-
+        System.out.println("Submitting highscore");
         myRef.push().setValue(score);
     }
 

@@ -21,15 +21,18 @@ public class GameController extends Game {
 	public GameController(API FBIC) {
 		_FBIC = FBIC;
     }
-
+	public ArrayList<Score> listen;
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
  		gsm = new GameStateManager();
 		gsm.push(new GameState(gsm));
-		_FBIC.someFunction();
-		_FBIC.FirstFireBaseTest();
-		_FBIC.getHighscores(new ArrayList<Score>());
+		listen = new ArrayList<>();
+		_FBIC.submitHighscore(new Score(3000,"Christian"));
+		_FBIC.getHighscores(listen);
+
+
+
 	}
 
 	@Override
@@ -41,7 +44,6 @@ public class GameController extends Game {
 	}
 
 	public void handleInput() {
-		
-		
+
 	}
 }
