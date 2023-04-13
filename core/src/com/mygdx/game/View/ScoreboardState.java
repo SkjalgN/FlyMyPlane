@@ -28,7 +28,7 @@ public class ScoreboardState extends State{
     public void render(SpriteBatch sb) {
         BitmapFont font = new BitmapFont();
         font.setColor(Color.WHITE);
-
+        sb.begin();
         // iterate over the scoreboard list and draw each score
         int y = Gdx.graphics.getHeight() - 50; // start drawing scores from the top of the screen
         for (Score score : scoreboardList) {
@@ -36,7 +36,8 @@ public class ScoreboardState extends State{
             font.draw(sb, scoreText, 50, y);
             y -= 20; // space out the scores vertically
         }
-
+        sb.end();
+        font.dispose();
     }
 
     @Override

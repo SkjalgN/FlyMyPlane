@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.game.API;
 
 public class MenuState extends State{
     
@@ -19,9 +20,11 @@ public class MenuState extends State{
     private Button tutorialButton;
     private Button scoreboardButton;
     private GameStage stage;
+    private API database;
 
-    public MenuState(final GameStateManager gsm) {
+    public MenuState(final GameStateManager gsm, API Database) {
         super(gsm);
+        database = Database;
         background = new Texture("gamescreens/mapClean.jpg");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
     
@@ -68,7 +71,7 @@ public class MenuState extends State{
         scoreboardButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new ScoreboardState(gsm));
+                gsm.set(new ScoreboardState(gsm, database));
                 System.out.println("Button Pressed");
                 return true;
             }
