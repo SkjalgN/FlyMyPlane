@@ -29,7 +29,7 @@ public class GameController extends Game {
  		gsm = new GameStateManager();
 		gsm.push(new MenuState(gsm, _FBIC));
 		listen = new ArrayList<>();
-		_FBIC.submitHighscore(new Score(3000,"Christian"));
+		_FBIC.submitHighscore(new Score(3490,"Skjalg"));
 		_FBIC.getHighscores(listen);
 
 
