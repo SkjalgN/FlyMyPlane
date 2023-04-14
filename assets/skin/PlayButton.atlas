@@ -1,0 +1,20 @@
+
+PlayButton.png
+size: 1024, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+check
+  rotate: false
+  xy: 1, 402
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 1, 1
+  size: 400, 399
+  orig: 400, 399
+  offset: 0, 0
+  index: -1

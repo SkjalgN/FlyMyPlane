@@ -16,10 +16,12 @@ public class Plane {
     private float planeHeight;
     private TextureRegion planeTextureRegion;
     private TextureRegion[] airflow;
-    private int airflowvar;
+    private int airflowvar = 1;
     private TextureRegion flames[];
     private float elapsedtime = 0;
     private int currentImage = 0;
+    private boolean rotateLeft = false;
+    private boolean rotateRight = false;
 
     public Plane(float xPos, float yPos,float speed, float angle, float planeWidth, float planeHeight, TextureRegion planeTextureRegion) {
         this.xPos = xPos;
@@ -35,10 +37,27 @@ public class Plane {
         this.angle += angle;
     }
 
+    public void rotateLeft() {
+        rotateLeft = true;
+    }
+
+    public void rotateRight() {
+        rotateRight = true;
+    }
+
+    public void stopRotateLeft() {
+        rotateLeft = false;
+    }
+
+    public void stopRotateRight() {
+        rotateRight = false;
+    }
+
     public void update(float delta) {
         xPos += speed * Math.cos(angle);
         yPos += speed * Math.sin(angle);
         elapsedtime += delta;
+        updateRotation();
     }
 
     public float getxPos() {
@@ -97,20 +116,29 @@ public class Plane {
         this.planeTextureRegion = texture;
     }
 
+    public void setAirflowvar(int airflowvar) {
+        this.airflowvar = airflowvar;
+    }
+
+    public void updateRotation() {
+        if(rotateLeft) {
+            rotate(0.03f);
+        }
+        if(rotateRight) {
+            rotate(-0.03f);
+        }
+    }
+
 
     public void draw(Batch batch) {
+
         airflow = new TextureRegion[2];
-        airflow[0] = new TextureRegion(new Texture("airflow.png"));
-        airflow[1] = new TextureRegion(new Texture("empty.png"));
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            airflowvar = 0;
-        }
-        else {
-            airflowvar = 1;
-        }
+        airflow[0] = new TextureRegion(new Texture("effects/airflow.png"));
+        airflow[1] = new TextureRegion(new Texture("effects/empty.png"));
+
         flames = new TextureRegion[2];
-        flames[0] = new TextureRegion(new Texture("Flame1.png"));
-        flames[1] = new TextureRegion(new Texture("Flame2.png"));
+        flames[0] = new TextureRegion(new Texture("effects/flame1.png"));
+        flames[1] = new TextureRegion(new Texture("effects/flame2.png"));
         if (elapsedtime > 0.1f) {
             elapsedtime -= 0.1f;
             currentImage = (currentImage + 1) % flames.length;

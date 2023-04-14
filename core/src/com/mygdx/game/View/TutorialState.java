@@ -26,7 +26,7 @@ public class TutorialState extends State{
         System.out.println(HEIGHT);
         cam.setToOrtho(false, WIDTH * 4, HEIGHT * 4);
         
-        background = new Texture("MapClean.jpg");
+        background = new Texture("gamescreens/mapClean.jpg");
     }
 
     @Override

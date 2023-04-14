@@ -10,14 +10,18 @@ public class PauseState extends State{
     
     private Texture background;
     private Texture pause;
+    private Texture tutorial;
+    private Texture exit;
 
     public PauseState(GameStateManager gsm) {
         super(gsm);
-        background = new Texture("MapChart.png");
-        pause = new Texture("pause-symbol.png");
+        background = new Texture("gamescreens/pauseMenu.jpg");
+        pause = new Texture("buttons/pauseBtn1.png");
+        tutorial = new Texture("buttons/pauseBtn2.png");
+        exit = new Texture("buttons/pauseBtn3.png");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
-        cam.zoom = (float)0.05;
-        cam.translate(gsm.getGameState().cam.position.x-3230, gsm.getGameState().cam.position.y-1701);
+        cam.zoom = (float)1.0;
+        cam.translate(0, 0);
     }
 
     @Override
@@ -31,7 +35,9 @@ public class PauseState extends State{
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0);
-        sb.draw(pause, gsm.getGameState().cam.position.x-3230, gsm.getGameState().cam.position.y-1701);
+        sb.draw(pause, background.getWidth()/2-pause.getWidth()/2, background.getHeight()/2-pause.getHeight()/2);
+        sb.draw(tutorial, 400, 200);
+        sb.draw(exit, 1200, 220);
         sb.end();
     }
 

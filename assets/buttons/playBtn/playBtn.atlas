@@ -1,0 +1,13 @@
+
+playBtn.png
+size: 1024, 1024
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+playBtn
+  rotate: false
+  xy: 1, 257
+  size: 645, 387
+  orig: 645, 387
+  offset: 0, 0
+  index: -1
