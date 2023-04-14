@@ -44,19 +44,20 @@ public class MenuState extends State{
         scoreboardButton = new Button(scoreboardSkin);
     
         // Set the button's position and size
-        startGameButton.setPosition(180, 250);
-        startGameButton.setSize(304, 91);
+        startGameButton.setSize(width/4f, height/7f);
+        startGameButton.setPosition(width/2f-startGameButton.getWidth()/2f, height*6f/10f);
+        
         startGameButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new GameState(gsm));
+                gsm.set(new SelectionState(gsm, database));
                 System.out.println("Button Pressed");
                 return true;
             }
         });
 
-        tutorialButton.setPosition(180, 150);
-        tutorialButton.setSize(304, 91);
+        tutorialButton.setSize(width/4f, height/7f);
+        tutorialButton.setPosition(width/2f-tutorialButton.getWidth()/2f, height*4f/10f);
         tutorialButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -66,8 +67,8 @@ public class MenuState extends State{
             }
         });
 
-        scoreboardButton.setPosition(180, 50);
-        scoreboardButton.setSize(304, 91);
+        scoreboardButton.setSize(width/4f, height/7f);
+        scoreboardButton.setPosition(width/2f-scoreboardButton.getWidth()/2f, height*2f/10f);
         scoreboardButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -92,9 +93,8 @@ public class MenuState extends State{
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(background,0,0);
+        sb.draw(background,0,0,width,height);
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -111,7 +111,7 @@ public class MenuState extends State{
 
     public void handleInput() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            gsm.set(new GameState(gsm));
+            gsm.set(new GameState(gsm, database));
         }
     }
 }

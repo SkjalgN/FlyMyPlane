@@ -40,7 +40,7 @@ public class ScoreboardState extends State{
 
         //Set button position, size and function
         backButton.setPosition(0, 0);
-        backButton.setSize(200, 200);
+        backButton.setSize(width/8f, width/8f);
         backButton.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -67,27 +67,29 @@ public class ScoreboardState extends State{
         font.setColor(Color.WHITE);
         font.getData().setScale(6);
         sb.begin();
-        sb.draw(background,0,0);
+        sb.draw(background,0,0,width,height);
         GlyphLayout layout = new GlyphLayout();
         layout.setText(font, "-----------------------------------");
-        float centerX = (Gdx.graphics.getWidth() - layout.width) / 2f;
+        float centerX = (width - layout.width) / 2f;
 
         // iterate over the scoreboard list and draw each score
-        float y = Gdx.graphics.getHeight() - 150; // start drawing scores from the top of the screen
+        float y = height - height/4f; // start drawing scores from the top of the screen
         int index = 0;
         for (Score score : scoreboardList) {
-            String scoreText = score.getName() + ": " + score.getScore();
+            String scoreText = score.getName() + ": ";
+            String scoreInt = Integer.toString((score.getScore()));
             font.draw(sb, scoreText, centerX, y);
-            y -= 140; // space out the scores vertically
+            font.draw(sb, scoreInt, centerX + width/4f , y);
+            y -= height/12f; // space out the scores vertically
             index++;
-            if (index > 7){
+            if (index > 6){
                 break;
             }
         }
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
-        font.dispose();
+
     }
 
     @Override
