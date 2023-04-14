@@ -29,6 +29,11 @@ public class GameController extends Game {
  		gsm = new GameStateManager();
 		gsm.push(new MenuState(gsm, _FBIC));
 		listen = new ArrayList<>();
+		/*
+		* _FBIC.submitHighscore(new Score(3490,"Skjalg"));
+		* THIS METHOD IS USED TO SAVE SCORES TO DB IN THIS FORMAT!
+		* CREATE A NEW SCORE WITH SCORE FIRST, THEN USERNAME
+		* */
 		_FBIC.submitHighscore(new Score(3490,"Skjalg"));
 		_FBIC.getHighscores(listen);
 
