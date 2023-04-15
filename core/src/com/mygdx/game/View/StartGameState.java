@@ -25,7 +25,7 @@ public class StartGameState extends State {
         stage = new GameStage();
 
         //Load a skin from a JSON file
-        startSkin = new Skin(Gdx.files.internal("buttons/playBtn/playBtn.json"));
+        startSkin = new Skin(Gdx.files.internal("buttons/startscreen/playBtn/playBtn.json"));
 
         //Create a button
         startButton = new Button(startSkin);
