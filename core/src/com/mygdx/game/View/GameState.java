@@ -45,7 +45,7 @@ public class GameState extends State{
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/theMap.jpg");
-        pack = new Package("stock", 2000, 1000, 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
+        pack = new Package("stock", 3000, 2000, 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)0.5;
         plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,1,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
