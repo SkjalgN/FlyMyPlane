@@ -11,9 +11,14 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
+import com.mygdx.game.Model.Location;
 import com.mygdx.game.Model.Package;
 import com.mygdx.game.Model.Plane;
 import com.mygdx.game.Model.Boat;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class GameState extends State{
@@ -38,14 +43,39 @@ public class GameState extends State{
     private Button flameBtn;
     private API database;
 
+    private Location[] locations = new Location[5];
+
+
+
+
+
+    //Function to initialize locations
+    public void initializeLocations() {
+        Location Oslo = new Location("Oslo", 3700, 3500);
+        Location Istanbul = new Location("Istanbul", 4500, 2500);
+        Location Lagos = new Location("Lagos", 3300, 1500);
+        Location Manila = new Location("Manila", 7000, 2600);
+        Location NewYork = new Location("NewYork", 1000, 3500);
+        locations[0] = Oslo;
+        locations[1] = Istanbul;
+        locations[2] = Lagos;
+        locations[3] = Manila;
+        locations[4] = NewYork;
+    }
+
+
     private boolean showTextureRegion = true;
 
 
     public GameState(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
+        initializeLocations();
         background = new Texture("gamescreens/theMap.jpg");
-        pack = new Package("stock", 3000, 2000, 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
+
+        int randomNum = (int) Math.floor(Math.random() * locations.length);
+
+        pack = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(), locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)0.5;
         plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,1,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
