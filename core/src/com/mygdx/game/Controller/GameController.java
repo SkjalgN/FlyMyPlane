@@ -9,6 +9,7 @@ import com.mygdx.game.Model.Score;
 import com.mygdx.game.View.GameState;
 import com.mygdx.game.View.MenuState;
 import com.mygdx.game.View.GameStateManager;
+import com.mygdx.game.View.StartGameState;
 
 import java.util.ArrayList;
 
@@ -27,8 +28,13 @@ public class GameController extends Game {
 	public void create() {
 		batch = new SpriteBatch();
  		gsm = new GameStateManager();
-		gsm.push(new MenuState(gsm, _FBIC));
+		gsm.push(new StartGameState(gsm, _FBIC));
 		listen = new ArrayList<>();
+		/*
+		* _FBIC.submitHighscore(new Score(3490,"Skjalg"));
+		* THIS METHOD IS USED TO SAVE SCORES TO DB IN THIS FORMAT!
+		* CREATE A NEW SCORE WITH SCORE FIRST, THEN USERNAME
+		* */
 		_FBIC.submitHighscore(new Score(3490,"Skjalg"));
 		_FBIC.getHighscores(listen);
 
