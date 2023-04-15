@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
+import com.badlogic.gdx.audio.Music;
 
 public class StartGameState extends State {
 
@@ -21,6 +22,11 @@ public class StartGameState extends State {
         super(gsm);
         this.database = Database;
         background = new Texture("gamescreens/startPage.jpg");
+
+        //start music
+        manager.get("Audio/background.ogg",Music.class).setLooping(true);
+        manager.get("Audio/background.ogg",Music.class).play();
+
         // Create a stage
         stage = new GameStage();
 
