@@ -45,7 +45,7 @@ public class GameState extends State{
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/theMap.jpg");
-        pack = new Package("stock", 1000, 1000, 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
+        pack = new Package("stock", 2000, 1000, 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)0.5;
         plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,1,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
@@ -153,14 +153,13 @@ public class GameState extends State{
         stage.addActor(flameBtn);
         Gdx.input.setInputProcessor(stage);
 
-        public void checkCollision() {
-            if (plane.getxPos() < pack.getX() + pack.getWidth() / 2 && plane.getxPos() + plane.getPlaneWidth() > pack.getX() &&
-                    plane.getyPos() < pack.getY() + pack.getHeight() && plane.getyPos() + plane.getplaneHeight() > pack.getY() + 100) {
-                showTextureRegion = false;
-                System.out.println("Collision detected!");
-            }
+    }
+    public void checkCollision() {
+        if (plane.getxPos() < pack.getX() + pack.getWidth() / 2 && plane.getxPos() + plane.getPlaneWidth() > pack.getX() &&
+                plane.getyPos() < pack.getY() + pack.getHeight() && plane.getyPos() + plane.getplaneHeight() > pack.getY() + 100) {
+            showTextureRegion = false;
+            System.out.println("Collision detected!");
         }
-
     }
 
 
@@ -179,6 +178,7 @@ public class GameState extends State{
         sb.draw(background,0,0);
         boat.draw(sb);
         plane.draw(sb);
+        checkCollision();
 
         if(showTextureRegion) {
             pack.draw(sb);
