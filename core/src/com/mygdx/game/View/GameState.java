@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
+import com.mygdx.game.Model.Package;
 import com.mygdx.game.Model.Plane;
 import com.mygdx.game.Model.Boat;
 
@@ -20,6 +21,8 @@ public class GameState extends State{
     private Texture background;
     private Plane plane;
     private Boat boat;
+
+    private Package pack;
     private int score = 5000;
     private BitmapFont font;
     private GameStage stage;
@@ -35,14 +38,16 @@ public class GameState extends State{
     private Button flameBtn;
     private API database;
 
-    
- 
+    private boolean showTextureRegion = true;
+
+
     public GameState(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/theMap.jpg");
+        pack = new Package("stock", 1000, 1000, 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
-        cam.zoom = (float)0.18;
+        cam.zoom = (float)0.5;
         plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,1,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
         boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("objects/boat.png")));
         font = new BitmapFont();
@@ -148,6 +153,14 @@ public class GameState extends State{
         stage.addActor(flameBtn);
         Gdx.input.setInputProcessor(stage);
 
+        public void checkCollision() {
+            if (plane.getxPos() < pack.getX() + pack.getWidth() / 2 && plane.getxPos() + plane.getPlaneWidth() > pack.getX() &&
+                    plane.getyPos() < pack.getY() + pack.getHeight() && plane.getyPos() + plane.getplaneHeight() > pack.getY() + 100) {
+                showTextureRegion = false;
+                System.out.println("Collision detected!");
+            }
+        }
+
     }
 
 
@@ -166,6 +179,11 @@ public class GameState extends State{
         sb.draw(background,0,0);
         boat.draw(sb);
         plane.draw(sb);
+
+        if(showTextureRegion) {
+            pack.draw(sb);
+        }
+
         font.draw(sb, "Score: " + score, width-width/4f, height-height/8f);
         score -= 1;
         sb.end();
