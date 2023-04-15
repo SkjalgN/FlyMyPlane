@@ -20,8 +20,10 @@ public class PauseState extends State{
     private Skin continueBtnSkin;
     private Skin tutorialBtnSkin;
     private Skin exitBtnSkin;
+    private Skin backBtnSkin;
     private Button continueBtn;
     private Button tutorialBtn;
+    private Button backBtn;
     private Button exitBtn;
     private GameStage stage;
     private API database;
@@ -44,14 +46,16 @@ public class PauseState extends State{
         stage = new GameStage();
 
         // Load a skin from a JSON file
-        continueBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
-        tutorialBtnSkin = new Skin(Gdx.files.internal("buttons/menu/tutorial/tutorial.json"));
-        exitBtnSkin = new Skin(Gdx.files.internal("buttons/menu/tutorial/tutorial.json"));
+        continueBtnSkin = new Skin(Gdx.files.internal("buttons/pause/next/next.json"));
+        tutorialBtnSkin = new Skin(Gdx.files.internal("buttons/pause/tutorial/tutorial.json"));
+        exitBtnSkin = new Skin(Gdx.files.internal("buttons/pause/exit/exit.json"));
+        backBtnSkin = new Skin(Gdx.files.internal("buttons/pause/back/back.json"));
 
         // Create a button with the skin
         continueBtn = new Button(continueBtnSkin);
         tutorialBtn = new Button(tutorialBtnSkin);
         exitBtn = new Button(exitBtnSkin);
+        backBtn = new Button(backBtnSkin);
 
         // Set the properties of the button
         continueBtn.setSize(width/5f, width/5f);
@@ -85,12 +89,24 @@ public class PauseState extends State{
             }
         });
 
+        backBtn.setSize(width/4f, width/7f);
+        backBtn.setPosition(width/2f-backBtn.getWidth()*1.2f+100, height/2f-backBtn.getHeight()*1.2f+100);
+        backBtn.addListener(new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                gsm.pop();
+                System.out.println("Button Pressed");
+                return true;
+            }
+        });
+
 
 
         // Add the button to the stage
         stage.addActor(continueBtn);
         stage.addActor(tutorialBtn);
         stage.addActor(exitBtn);
+        stage.addActor(backBtn);
 
 
 
