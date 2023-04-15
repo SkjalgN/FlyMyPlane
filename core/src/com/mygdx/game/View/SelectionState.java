@@ -12,7 +12,9 @@ import com.mygdx.game.API;
 public class SelectionState extends State{
     private Texture background;
     private Button nextBtn;
+    private Button box1;
     private Skin nextBtnSkin;
+    private Skin box1Skin;
     private GameStage stage;
     private API database;
     protected SelectionState(final GameStateManager gsm, final API database) {
@@ -25,9 +27,11 @@ public class SelectionState extends State{
 
         //Load a skin from JSON file
         nextBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
+        box1Skin = new Skin(Gdx.files.internal("buttons/selection/box/box.json"));
 
         //Create a button
         nextBtn = new Button(nextBtnSkin);
+        box1 = new Button(box1Skin);
 
         //Set button position, size and function
         nextBtn.setSize(width/8f, width/8f);
@@ -43,7 +47,18 @@ public class SelectionState extends State{
 
         });
 
+        box1.setSize(width/4f, width/4f);
+        box1.setPosition(width/2f-(box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
+        box1.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Box Pressed");
+                return true;
+            }
+        });
+
         stage.addActor(nextBtn);
+        stage.addActor(box1);
         Gdx.input.setInputProcessor(stage);
     }
 
