@@ -73,7 +73,7 @@ public class PauseState extends State{
         tutorialBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new TutorialState(gsm));
+                gsm.set(new TutorialState(gsm, database));
                 System.out.println("Button Pressed");
                 return true;
             }

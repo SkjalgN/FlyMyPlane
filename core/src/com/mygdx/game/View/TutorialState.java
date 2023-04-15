@@ -2,13 +2,8 @@ package com.mygdx.game.View;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -26,7 +21,7 @@ public class TutorialState extends State{
     TextButton.TextButtonStyle textButtonStyle;
     
 
-    public TutorialState(GameStateManager gsm) {
+    public TutorialState(final GameStateManager gsm, final API database) {
         super(gsm);
         batch = new SpriteBatch();
         background = new Texture("gamescreens/tutorial1.jpg");
@@ -69,7 +64,8 @@ public class TutorialState extends State{
         sb.begin();
         sb.draw(background, 0,0,width,height);
         sb.end();
-
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
     }
 
     @Override
