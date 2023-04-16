@@ -2,6 +2,7 @@ package com.mygdx.game.View;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,6 +16,8 @@ import com.mygdx.game.Model.Location;
 import com.mygdx.game.Model.Package;
 import com.mygdx.game.Model.Plane;
 import com.mygdx.game.Model.Boat;
+
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,8 @@ public class GameState extends State{
     private Package pack;
     private int score = 5000;
     private BitmapFont font;
+
+    private BitmapFont packageFont;
     private GameStage stage;
     private Skin pauseBtnSkin;
     private Skin leftBtnSkin;
@@ -78,10 +83,13 @@ public class GameState extends State{
         pack = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(), locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)0.5;
-        plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,1,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
+        plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,2,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
         boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("objects/boat.png")));
         font = new BitmapFont();
         font.getData().setScale(3f);
+        packageFont = new BitmapFont();
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("myfont.ttf"));
+
 
         stage = new GameStage();
 
@@ -215,6 +223,9 @@ public class GameState extends State{
         }
 
         font.draw(sb, "Score: " + score, width-width/4f, height-height/8f);
+        packageFont.getData().setScale(10);
+        packageFont.setColor(Color.RED);
+        packageFont.draw(sb, "Pick up package from: " + pack.getCity(), Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
         score -= 1;
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());

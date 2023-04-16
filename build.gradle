@@ -11,6 +11,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.4.1'
         classpath 'com.google.gms:google-services:4.3.14'
+        implementation "com.badlogicgames.gdx:gdx-freetype:1.11.0"
+
 
 
     }
