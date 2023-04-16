@@ -2,6 +2,7 @@ package com.mygdx.game.View;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,7 +11,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.API;
 import com.mygdx.game.Model.Location;
 import com.mygdx.game.Model.Package;
@@ -46,6 +50,10 @@ public class GameState extends State{
     private Button rightBtn;
     private Button boostBtn;
     private Button flameBtn;
+
+    private Table table;
+    private Label scoreLabel;
+
     private API database;
 
     private Location[] locations = new Location[5];
@@ -81,6 +89,7 @@ public class GameState extends State{
         int randomNum = (int) Math.floor(Math.random() * locations.length);
 
         pack = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(), locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
+
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)0.5;
         plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,2,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
@@ -88,7 +97,8 @@ public class GameState extends State{
         font = new BitmapFont();
         font.getData().setScale(3f);
         packageFont = new BitmapFont();
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("myfont.ttf"));
+        //FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("myfont.ttf"));
+
 
 
         stage = new GameStage();
@@ -105,6 +115,18 @@ public class GameState extends State{
         rightBtn = new Button(rightBtnSkin);
         boostBtn = new Button(boostBtnSkin);
         flameBtn = new Button(flameBtnSkin);
+
+        //Scorelabel er feil, det er teksten som viser hvor du skal hente pakke. Må endre navn
+        //Mangler også den andre skrifttypen
+        packageFont = new BitmapFont();;
+        scoreLabel = new Label("Get the package in: " + pack.getCity(), new Label.LabelStyle(packageFont, Color.WHITE));
+        scoreLabel.setFontScale(2f);
+        table = new Table(flameBtnSkin);
+        table.add(scoreLabel).expandX().padTop(10);
+        table.setPosition(stage.getWidth()/2, stage.getHeight()-table.getHeight() - 10);
+        table.row();
+
+
 
         pauseBtn.setSize(width/8f,width/8f);  
         pauseBtn.setPosition(0,height-pauseBtn.getHeight());
@@ -184,11 +206,15 @@ public class GameState extends State{
             }
         });
 
+
         stage.addActor(pauseBtn);
         stage.addActor(leftBtn);
         stage.addActor(rightBtn);
         stage.addActor(boostBtn);
         stage.addActor(flameBtn);
+        stage.addActor(table);
+
+
         Gdx.input.setInputProcessor(stage);
 
     }
