@@ -65,8 +65,8 @@ public class GameState extends State{
         generatePackage();
 
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
-        cam.zoom = (float)1.18;
-        plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,2,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
+        cam.zoom = (float)0.3;
+        plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,7,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
         boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("objects/boat.png")));
         font = new BitmapFont();
         font.getData().setScale(3f);
@@ -149,7 +149,7 @@ public class GameState extends State{
         boostBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                plane.setSpeed(12);
+                plane.setSpeed(15);
                 plane.setAirflowvar(0);
                 System.out.println("Button Pressed");
                 return true;
@@ -268,21 +268,21 @@ public class GameState extends State{
     }
 
     public void handleInput() {
-        if (plane.getxPos() > background.getWidth()-200){
-            plane.setxPos(200);
-            cam.translate(-(background.getWidth()-400),0);
+        if (plane.getxPos() > background.getWidth()+300){
+            plane.setxPos(-500);
+            cam.translate(-(background.getWidth()+800),0);
         }
-        if(plane.getxPos() < 200){
-            plane.setxPos(background.getWidth()-200);
-            cam.translate(background.getWidth()-400,0);
+        if(plane.getxPos() < -500){
+            plane.setxPos(background.getWidth()+300);
+            cam.translate(background.getWidth()+800,0);
         }
-        if (plane.getyPos() > background.getHeight()-400){
-            plane.setyPos(400);
-            cam.translate(0,-(background.getHeight()-800));
+        if (plane.getyPos() > background.getHeight()+200){
+            plane.setyPos(-400);
+            cam.translate(0,-(background.getHeight()+600));
         }
-        if(plane.getyPos() < 400){
-            plane.setyPos(background.getHeight()-400);
-            cam.translate(0,background.getHeight()-800);
+        if(plane.getyPos() < -400){
+            plane.setyPos(background.getHeight()+200);
+            cam.translate(0,background.getHeight()+600);
         }
 
 
