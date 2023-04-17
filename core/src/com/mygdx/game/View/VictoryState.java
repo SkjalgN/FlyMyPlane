@@ -1,3 +1,4 @@
+
 package com.mygdx.game.View;
 
 import com.badlogic.gdx.Gdx;
@@ -8,59 +9,54 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
-import com.badlogic.gdx.audio.Music;
 
-public class StartGameState extends State {
-
-    private API database;
-    private Skin startSkin;
-    private Button startButton;
-    private GameStage stage;
+public class VictoryState extends State {
     private Texture background;
+    private Button nextBtn;
+    private Skin nextBtnSkin;
+    private GameStage stage;
+    private API database;
 
-    public StartGameState(final GameStateManager gsm, API Database){
+    public VictoryState(final GameStateManager gsm, final API database) {
         super(gsm);
-        this.database = Database;
-        background = new Texture("gamescreens/startPage.jpg");
-
-        //start music
-        manager.get("Audio/background.ogg",Music.class).setLooping(true);
-        manager.get("Audio/background.ogg",Music.class).play();
+        this.database = database;
+        background = new Texture("gamescreens/victoryScreen.jpg");
 
         // Create a stage
         stage = new GameStage();
 
-        //Load a skin from a JSON file
-        startSkin = new Skin(Gdx.files.internal("buttons/startscreen/playBtn/playBtn.json"));
+        // Load a skin from JSON file
+        nextBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
 
-        //Create a button
-        startButton = new Button(startSkin);
+        // Create a button
+        nextBtn = new Button(nextBtnSkin);
 
-        //Set button position, size and function
-        startButton.setSize(width/4f, height/4f);
-        startButton.setPosition(width/2f-startButton.getWidth()/2f,height/2.5f-startButton.getHeight()/2f);
-        
-        startButton.addListener(new InputListener() {
+        // Set button position, size and function
+        nextBtn.setSize(width / 8f, width / 8f);
+        nextBtn.setPosition(width - nextBtn.getWidth() * 1.2f, height / 2f - (nextBtn.getHeight() / 2f));
+        nextBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 gsm.set(new MenuState(gsm, database));
                 System.out.println("Button Pressed");
                 return true;
             }
+
         });
-        stage.addActor(startButton);
+
+        stage.addActor(nextBtn);
         Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void update(float dt) {
-        
+
     }
 
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background,0,0, width, height);
+        sb.draw(background, 0, 0, width, height);
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -68,7 +64,8 @@ public class StartGameState extends State {
 
     @Override
     public void dispose() {
+        background.dispose();
+        nextBtnSkin.dispose();
         stage.dispose();
-        startSkin.dispose();
     }
 }
