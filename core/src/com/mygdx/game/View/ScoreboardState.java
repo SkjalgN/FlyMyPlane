@@ -72,10 +72,12 @@ public class ScoreboardState extends State{
         layout.setText(font, "-----------------------------------");
         float centerX = (width - layout.width) / 2f;
 
+        ArrayList<Score> safeList = new ArrayList<>(scoreboardList);
+
         // iterate over the scoreboard list and draw each score
         float y = height - height/4f; // start drawing scores from the top of the screen
         int index = 0;
-        for (Score score : scoreboardList) {
+        for (Score score : safeList) {
             String scoreText = score.getName() + ": ";
             String scoreInt = Integer.toString((score.getScore()));
             font.draw(sb, scoreText, centerX, y);
