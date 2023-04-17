@@ -76,6 +76,7 @@ public class GameState extends State {
     public GameState(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
+        initializeLocations();
         background = new Texture("gamescreens/theMap.jpg");
         backgroundWater = new Texture("gamescreens/water.jpg");
         int randomNum = (int) Math.floor(Math.random() * locations.length);
