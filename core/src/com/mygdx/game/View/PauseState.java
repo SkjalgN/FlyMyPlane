@@ -51,14 +51,13 @@ public class PauseState extends State{
         continueBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.pop();
                 System.out.println("Button Pressed");
                 return true;
             }
         });
 
         exitBtn.setSize(width/4f, width/9f);
-        exitBtn.setPosition(width/2f, height/5f);
+        exitBtn.setPosition(width/2f - exitBtn.getWidth()/2f, height/5f);
         exitBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

@@ -30,6 +30,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GameState extends State{
     
     private Texture background;
+    private Texture backgroundWater;
     private Plane plane;
     private Boat boat;
 
@@ -84,13 +85,14 @@ public class GameState extends State{
         this.database = database;
         initializeLocations();
         background = new Texture("gamescreens/theMap.jpg");
+        backgroundWater = new Texture("gamescreens/water.jpg");
 
         int randomNum = (int) Math.floor(Math.random() * locations.length);
 
         pack = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(), locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
 
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
-        cam.zoom = (float)0.18;
+        cam.zoom = (float)1.18;
         plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,2,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
         boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("objects/boat.png")));
         font = new BitmapFont();
@@ -238,6 +240,7 @@ public class GameState extends State{
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
+        sb.draw(backgroundWater,-4000,-1000,16000,8000);
         sb.draw(background,0,0);
         boat.draw(sb);
         plane.draw(sb);
@@ -261,8 +264,6 @@ public class GameState extends State{
     public void dispose() {
         background.dispose();
         font.dispose();
-        //plane.dispose();
-        //boat.dispose();
         pauseBtnSkin.dispose();
     }
 
