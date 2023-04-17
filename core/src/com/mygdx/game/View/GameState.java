@@ -90,7 +90,7 @@ public class GameState extends State{
         pack = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(), locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
 
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
-        cam.zoom = (float)0.5;
+        cam.zoom = (float)0.18;
         plane = new Plane(background.getWidth()/2-200,background.getHeight()/2-200,2,1,400,400,new TextureRegion(new Texture("planeTextures/dragon.png")));
         boat = new Boat(2700,2700,1,1,300,300,new TextureRegion(new Texture("objects/boat.png")));
         font = new BitmapFont();
