@@ -18,6 +18,7 @@ public class StartGameState extends State {
     private Texture background;
 
     public StartGameState(final GameStateManager gsm, API Database){
+
         super(gsm);
         this.database = Database;
         background = new Texture("gamescreens/startPage.jpg");
@@ -44,6 +45,7 @@ public class StartGameState extends State {
         });
         stage.addActor(startButton);
         Gdx.input.setInputProcessor(stage);
+
     }
 
     @Override

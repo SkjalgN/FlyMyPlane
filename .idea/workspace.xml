@@ -10,16 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a065cd9-4835-40d3-a28a-5e8bfa2a1507" name="Changes" comment="Fixed project">
-      <change afterPath="$PROJECT_DIR$/assets/Amatic_SC/AmaticSC-Regular.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/checksums/checksums.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Amatic_SC/30e7d3fec26044b78693f6d23760e4e8-18.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/Amatic_SC/Amatic.fnt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/objects/Target2.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/objects/Target.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/View/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/View/GameState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/View/StartGameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/View/StartGameState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,11 +101,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/objects" />
+      <recent name="$PROJECT_DIR$/assets/Amatic_SC" />
       <recent name="C:\Users\User\Documents\FlyMyPlane\assets\Amatic_SC" />
       <recent name="$PROJECT_DIR$/assets/Fonts" />
-      <recent name="$PROJECT_DIR$/assets/objects" />
       <recent name="$PROJECT_DIR$/core/bin/main/com/mygdx" />
-      <recent name="$PROJECT_DIR$/android" />
     </key>
   </component>
   <component name="RunManager" selected="Application.DesktopLauncher">
@@ -240,9 +241,8 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.mygdx.game.DesktopLauncher" />
       <module name="FlyMyPlane.desktop.main" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
+      <option name="VM_PARAMETERS" value="-XstartOnFirstThread" />
+      <method v="2" />
     </configuration>
     <configuration name="com.mygdx.game.AndroidFireBaseAPI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.mygdx.game.AndroidFireBaseAPI" />
@@ -332,6 +332,11 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="463c804b-024c-48b1-a438-99a850b282eb">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
@@ -349,6 +354,11 @@
             </State>
           </value>
         </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="463c804b-024c-48b1-a438-99a850b282eb" value="TOOL_WINDOW" />
       </map>
     </option>
   </component>
