@@ -23,8 +23,10 @@ public class SelectionState extends State{
     private Button nextBtn;
 
     private Button box1;
+    private Button dragon1;
     private Skin nextBtnSkin;
     private Skin box1Skin;
+    private Skin dragon1Skin;
     private GameStage stage;
 
     private TextFieldStyle textFieldStyle;
@@ -55,10 +57,12 @@ public class SelectionState extends State{
         //Load a skin from JSON file
         nextBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
         box1Skin = new Skin(Gdx.files.internal("buttons/selection/box/box.json"));
+        dragon1Skin = new Skin(Gdx.files.internal("buttons/selection/box/box.json"));
 
         //Create a button
         nextBtn = new Button(nextBtnSkin);
         box1 = new Button(box1Skin);
+        dragon1 = new Button(dragon1Skin);
 
         //Set button position, size and function
         nextBtn.setSize(width/8f, width/8f);
@@ -88,6 +92,17 @@ public class SelectionState extends State{
                 return true;
             }
         });
+
+        dragon1.setSize(width/4f, width/4f);
+        dragon1.setPosition(width/2f-(dragon1.getWidth()/2f), height/2f-(dragon1.getHeight()/2f));
+        dragon1.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Dragon Pressed");
+                return true;
+            }
+        });
+
         textFieldStyle = new TextFieldStyle();
         textFieldStyle.font = nextBtnSkin.getFont("font"); // You can use the same font from the nextBtnSkin or create a new one.
         textFieldStyle.fontColor = Color.BLACK; // Set the font color.
@@ -111,6 +126,7 @@ public class SelectionState extends State{
 
         stage.addActor(nextBtn);
         stage.addActor(box1);
+        stage.addActor(dragon1);
         stage.addActor(inputField);
         Gdx.input.setInputProcessor(stage);
     }

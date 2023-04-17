@@ -42,7 +42,6 @@ public class PauseState extends State{
 
         // Create a button with the skin
         continueBtn = new Button(continueBtnSkin);
-
         exitBtn = new Button(exitBtnSkin);
 
         // Set the properties of the button
@@ -51,6 +50,7 @@ public class PauseState extends State{
         continueBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                gsm.pop();
                 System.out.println("Button Pressed");
                 return true;
             }
