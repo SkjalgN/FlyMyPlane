@@ -101,10 +101,9 @@ public class Boat {
     }
 
     public void draw(Batch batch) {
-        waveRegions = new TextureRegion[3];
-        waveRegions[0] = new TextureRegion(new Texture("wave1.png"));
-        waveRegions[1] = new TextureRegion(new Texture("wave2.png"));
-        waveRegions[2] = new TextureRegion(new Texture("wave3.png"));
+        waveRegions = new TextureRegion[2];
+        waveRegions[0] = new TextureRegion(new Texture("effects/wave1.png"));
+        waveRegions[1] = new TextureRegion(new Texture("effects/wave2.png"));
         if (elapsedtime > 0.5f) {
             elapsedtime -= 0.5f;
             currentImage = (currentImage + 1) % waveRegions.length;

@@ -11,24 +11,25 @@ import com.mygdx.game.Model.Score;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class AndroidAPI implements API{
+public class AndroidFireBaseAPI implements API{
 
     private FirebaseDatabase database;
-    private DatabaseReference highscores;
+    private DatabaseReference myRef; /*highscores*/
 
-    public AndroidAPI() {
-        database = FirebaseDatabase.getInstance();
-        highscores = database.getReference("highscores");
+    public AndroidFireBaseAPI() {
+        database = FirebaseDatabase.getInstance("https://flymyplane-6119e-default-rtdb.europe-west1.firebasedatabase.app");
+        myRef = database.getReference("Scoreboard");
     }
     @Override
     public void submitHighscore(Score score) {
-        highscores.push().setValue(score);
+        System.out.println("Submitting highscore");
+        myRef.push().setValue(score);
     }
 
-    @Override
+   @Override
     public void getHighscores(ArrayList<Score> dataHolder) {
         System.out.println("Getting highscores");
-        highscores.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+        myRef.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 System.out.println("Got highscores");
@@ -41,10 +42,20 @@ public class AndroidAPI implements API{
         });
     }
 
-    public static void main(String[] args) {
-        AndroidAPI api = new AndroidAPI();
-        Score score = new Score(300,"Chris");
-        api.submitHighscore(score);
+    @Override
+    public void someFunction() {
+        System.out.println("Just someFunction from Anroid");
     }
+
+    @Override
+    public void FirstFireBaseTest() {
+        if (myRef != null){
+            myRef.setValue("Hello, World!");
+        }else {
+            System.out.println("Database reference could not be set -> could not write to DB");
+        }
+    }
+
+
 }
 
