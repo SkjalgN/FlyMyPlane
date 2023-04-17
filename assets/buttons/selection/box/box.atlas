@@ -1,9 +1,16 @@
 
-startGame.png
+box.png
 size: 2048, 2048
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
+selectionSquare
+  rotate: false
+  xy: 710, 144
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
 menuBtn1
   rotate: false
   xy: 1, 1390

@@ -20,8 +20,10 @@ public class PauseState extends State{
     private Skin continueBtnSkin;
     private Skin tutorialBtnSkin;
     private Skin exitBtnSkin;
+    private Skin backBtnSkin;
     private Button continueBtn;
     private Button tutorialBtn;
+    private Button backBtn;
     private Button exitBtn;
     private GameStage stage;
     private API database;
@@ -44,17 +46,19 @@ public class PauseState extends State{
         stage = new GameStage();
 
         // Load a skin from a JSON file
-        continueBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
-        tutorialBtnSkin = new Skin(Gdx.files.internal("buttons/menu/tutorial/tutorial.json"));
-        exitBtnSkin = new Skin(Gdx.files.internal("buttons/menu/tutorial/tutorial.json"));
+        continueBtnSkin = new Skin(Gdx.files.internal("buttons/pause/next/next.json"));
+        tutorialBtnSkin = new Skin(Gdx.files.internal("buttons/pause/tutorial/tutorial.json"));
+        exitBtnSkin = new Skin(Gdx.files.internal("buttons/pause/exit/exit.json"));
+        backBtnSkin = new Skin(Gdx.files.internal("buttons/pause/back/back.json"));
 
         // Create a button with the skin
         continueBtn = new Button(continueBtnSkin);
         tutorialBtn = new Button(tutorialBtnSkin);
         exitBtn = new Button(exitBtnSkin);
+        backBtn = new Button(backBtnSkin);
 
         // Set the properties of the button
-        continueBtn.setSize(width/5f, width/5f);
+        continueBtn.setSize(width/4f, width/7f);
         continueBtn.setPosition(width/2f-(continueBtn.getWidth()/2f), height/2f-(continueBtn.getHeight()/2f));
         continueBtn.addListener(new InputListener(){
             @Override
@@ -65,21 +69,32 @@ public class PauseState extends State{
             }
         });
         tutorialBtn.setSize(width/4f, height/7f);
-        tutorialBtn.setPosition(width/2f-tutorialBtn.getWidth()*1.2f, height/2f-tutorialBtn.getHeight()*1.2f);
+        tutorialBtn.setPosition(width/2f-tutorialBtn.getWidth()/2f, height/2f-tutorialBtn.getHeight()*1.2f-300);
         tutorialBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new TutorialState(gsm));
+                gsm.set(new TutorialState(gsm, database));
                 System.out.println("Button Pressed");
                 return true;
             }
         });
         exitBtn.setSize(width/4f, width/7f);
-        exitBtn.setPosition(width/2f+exitBtn.getWidth()*1.2f, height/2f-exitBtn.getHeight()*1.2f);
+        exitBtn.setPosition(width/2f-exitBtn.getWidth()/2f, height/2f-exitBtn.getHeight()*1.2f-140);
         exitBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 gsm.set(new MenuState(gsm, database));
+                System.out.println("Button Pressed");
+                return true;
+            }
+        });
+
+        backBtn.setSize(width/4f, width/7f);
+        backBtn.setPosition(width/2f-backBtn.getWidth()/2f, height/2f-backBtn.getHeight()*1.2f+140);
+        backBtn.addListener(new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                gsm.pop();
                 System.out.println("Button Pressed");
                 return true;
             }
@@ -91,6 +106,7 @@ public class PauseState extends State{
         stage.addActor(continueBtn);
         stage.addActor(tutorialBtn);
         stage.addActor(exitBtn);
+        stage.addActor(backBtn);
 
 
 
