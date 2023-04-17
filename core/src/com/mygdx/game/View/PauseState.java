@@ -58,7 +58,7 @@ public class PauseState extends State{
         backBtn = new Button(backBtnSkin);
 
         // Set the properties of the button
-        continueBtn.setSize(width/5f, width/5f);
+        continueBtn.setSize(width/4f, width/7f);
         continueBtn.setPosition(width/2f-(continueBtn.getWidth()/2f), height/2f-(continueBtn.getHeight()/2f));
         continueBtn.addListener(new InputListener(){
             @Override
@@ -69,7 +69,7 @@ public class PauseState extends State{
             }
         });
         tutorialBtn.setSize(width/4f, height/7f);
-        tutorialBtn.setPosition(width/2f-tutorialBtn.getWidth()*1.2f, height/2f-tutorialBtn.getHeight()*1.2f);
+        tutorialBtn.setPosition(width/2f-tutorialBtn.getWidth()/2f, height/2f-tutorialBtn.getHeight()*1.2f-300);
         tutorialBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -79,7 +79,7 @@ public class PauseState extends State{
             }
         });
         exitBtn.setSize(width/4f, width/7f);
-        exitBtn.setPosition(width/2f+exitBtn.getWidth()*1.2f, height/2f-exitBtn.getHeight()*1.2f);
+        exitBtn.setPosition(width/2f-exitBtn.getWidth()/2f, height/2f-exitBtn.getHeight()*1.2f-140);
         exitBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -90,7 +90,7 @@ public class PauseState extends State{
         });
 
         backBtn.setSize(width/4f, width/7f);
-        backBtn.setPosition(width/2f-backBtn.getWidth()*1.2f+100, height/2f-backBtn.getHeight()*1.2f+100);
+        backBtn.setPosition(width/2f-backBtn.getWidth()/2f, height/2f-backBtn.getHeight()*1.2f+140);
         backBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {

@@ -44,8 +44,8 @@ public class MenuState extends State{
         scoreboardButton = new Button(scoreboardSkin);
     
         // Set the button's position and size
-        startGameButton.setSize(width/4f, height/7f);
-        startGameButton.setPosition(width/2f-startGameButton.getWidth()/2f, height*6f/10f);
+        startGameButton.setSize(width/2f, height/3.5f);
+        startGameButton.setPosition(width/2f-startGameButton.getWidth()/2f, height*6f/10f+20);
         
         startGameButton.addListener(new InputListener(){
             @Override
@@ -56,7 +56,7 @@ public class MenuState extends State{
             }
         });
 
-        tutorialButton.setSize(width/4f, height/7f);
+        tutorialButton.setSize(width/2f, height/3.5f);
         tutorialButton.setPosition(width/2f-tutorialButton.getWidth()/2f, height*4f/10f);
         tutorialButton.addListener(new InputListener(){
             @Override
@@ -67,8 +67,8 @@ public class MenuState extends State{
             }
         });
 
-        scoreboardButton.setSize(width/4f, height/7f);
-        scoreboardButton.setPosition(width/2f-scoreboardButton.getWidth()/2f, height*2f/10f);
+        scoreboardButton.setSize(width/2f, height/3.5f);
+        scoreboardButton.setPosition(width/2f-scoreboardButton.getWidth()/2f, height*2f/10f-20);
         scoreboardButton.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
