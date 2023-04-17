@@ -1,6 +1,7 @@
 package com.mygdx.game.View;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -8,6 +9,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+
+
 
 public class SelectionState extends State{
     private Texture background;
@@ -16,6 +23,11 @@ public class SelectionState extends State{
     private Skin nextBtnSkin;
     private Skin box1Skin;
     private GameStage stage;
+
+    private TextFieldStyle textFieldStyle;
+    private TextField inputField;
+    private String userInput;
+
     private API database;
     protected SelectionState(final GameStateManager gsm, final API database) {
         super(gsm);
@@ -46,6 +58,12 @@ public class SelectionState extends State{
 
 
         });
+        nextBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
+
+        // Create a new BitmapFont and add it to the Skin
+        BitmapFont font = new BitmapFont();
+        nextBtnSkin.add("font", font, BitmapFont.class);
+
 
         box1.setSize(width/4f, width/4f);
         box1.setPosition(width/2f-(box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
@@ -56,9 +74,30 @@ public class SelectionState extends State{
                 return true;
             }
         });
+        textFieldStyle = new TextFieldStyle();
+        textFieldStyle.font = nextBtnSkin.getFont("font"); // You can use the same font from the nextBtnSkin or create a new one.
+        textFieldStyle.fontColor = Color.BLACK; // Set the font color.
+/*
+        textFieldStyle.background = box1Skin.getDrawable("background"); // Use the box1Skin background as the TextField background.
+*/
+        font.getData().setScale(5f);
+        inputField = new TextField("", textFieldStyle);
+        inputField.setSize(width / 4f, width / 4f);
+        inputField.setPosition(width / 2f + (width / 20f) - (inputField.getWidth() / 2f), height*0.70f - (inputField.getHeight() / 2f));
+        inputField.setTextFieldListener(new TextField.TextFieldListener() {
+            @Override
+            public void keyTyped(TextField textField, char c) {
+                userInput = textField.getText();
+                System.out.println("User input: " + userInput);
+            }
+        });
+
+
+
 
         stage.addActor(nextBtn);
         stage.addActor(box1);
+        stage.addActor(inputField);
         Gdx.input.setInputProcessor(stage);
     }
 
