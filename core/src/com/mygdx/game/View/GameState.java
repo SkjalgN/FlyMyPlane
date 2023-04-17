@@ -1,20 +1,20 @@
 package com.mygdx.game.View;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.API;
 import com.mygdx.game.Model.Location;
 import com.mygdx.game.Model.Package;
@@ -38,11 +38,13 @@ public class GameState extends State {
     private BitmapFont font;
     private BitmapFont packageFont;
     private GameStage stage;
+
     private Skin pauseBtnSkin;
     private Skin leftBtnSkin;
     private Skin rightBtnSkin;
     private Skin boostBtnSkin;
     private Skin flameBtnSkin;
+
     private Button pauseBtn;
     private Button leftBtn;
     private Button rightBtn;
@@ -70,10 +72,10 @@ public class GameState extends State {
 
     private boolean showTextureRegion = true;
 
+
     public GameState(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
-        initializeLocations();
         background = new Texture("gamescreens/theMap.jpg");
         backgroundWater = new Texture("gamescreens/water.jpg");
         int randomNum = (int) Math.floor(Math.random() * locations.length);
@@ -222,6 +224,7 @@ public class GameState extends State {
         plane.update(dt);
         boat.update(dt);
         handleInput();
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -233,6 +236,11 @@ public class GameState extends State {
         boat.draw(sb);
         plane.draw(sb);
         checkCollision();
+
+        if(Gdx.input.isKeyPressed(Input.Keys.P)) {
+            gsm.push(new PauseState(gsm, database));
+        }
+
 
         if (showTextureRegion) {
             pack.draw(sb);
@@ -276,4 +284,25 @@ public class GameState extends State {
                 (float) (plane.getSpeed() * Math.sin(plane.getAngle())));
 
     }
+
+    private int generateRandomNumber(){
+        return (int) Math.floor(Math.random() * locations.length);
+    }
+
+    private void generatePackage(){
+        initializeLocations();
+        int randomNum = (int) Math.floor(Math.random() * locations.length);
+        pack = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(), locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
+    }
+
+    private void addButton(String path, float x, float y, float width, float height){
+        Skin skin = new Skin(Gdx.files.internal(path));
+        Button button = new Button(skin);
+        button.setSize(width, height);
+        button.setPosition(x, y);
+        
+        stage.addActor(button);
+    }
+
+    
 }
