@@ -5,15 +5,16 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class State {
-    protected int width = Gdx.graphics.getWidth();
-    protected int height = Gdx.graphics.getHeight();
+    protected int width;
+    protected int height;
     protected GameStateManager gsm;
     protected OrthographicCamera cam;
 
     protected State(GameStateManager gsm){
         this.gsm = gsm;
         cam = new OrthographicCamera();
-
+        this.width = Gdx.graphics.getWidth();
+        this.height = Gdx.graphics.getHeight();
     }
 
     public abstract void update(float dt);

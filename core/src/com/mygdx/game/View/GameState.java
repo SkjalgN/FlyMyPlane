@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.mygdx.game.API;
 import com.mygdx.game.Model.Plane;
 import com.mygdx.game.Model.Boat;
 
@@ -26,15 +27,19 @@ public class GameState extends State{
     private Skin leftBtnSkin;
     private Skin rightBtnSkin;
     private Skin boostBtnSkin;
+    private Skin flameBtnSkin;
     private Button pauseBtn;
     private Button leftBtn;
     private Button rightBtn;
     private Button boostBtn;
+    private Button flameBtn;
+    private API database;
 
     
  
-    public GameState(final GameStateManager gsm) {
+    public GameState(final GameStateManager gsm, final API database) {
         super(gsm);
+        this.database = database;
         background = new Texture("gamescreens/theMap.jpg");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)0.18;
@@ -49,25 +54,29 @@ public class GameState extends State{
         leftBtnSkin = new Skin(Gdx.files.internal("buttons/game/leftBtn/leftBtn.json"));
         rightBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
         boostBtnSkin = new Skin(Gdx.files.internal("buttons/game/boostBtn/boostBtn.json"));
+        flameBtnSkin = new Skin(Gdx.files.internal("buttons/game/boostBtn/boostBtn.json"));
+        //flameBtnSkin = new Skin(Gdx.files.internal("buttons/game/flameBtn/flameBtn.json"));
 
         pauseBtn = new Button(pauseBtnSkin);
         leftBtn = new Button(leftBtnSkin);
         rightBtn = new Button(rightBtnSkin);
         boostBtn = new Button(boostBtnSkin);
+        flameBtn = new Button(flameBtnSkin);
 
-        pauseBtn.setPosition(0,380);
-        pauseBtn.setSize(100,100);
+        pauseBtn.setSize(width/8f,width/8f);  
+        pauseBtn.setPosition(0,height-pauseBtn.getHeight());
+        
         pauseBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new PauseState(gsm));
+                gsm.set(new PauseState(gsm, database));
                 System.out.println("Button Pressed");
                 return true;
             }
         });
 
+        leftBtn.setSize(width/8f,width/8f);
         leftBtn.setPosition(0,0);
-        leftBtn.setSize(100,100);
         leftBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -82,8 +91,8 @@ public class GameState extends State{
             }
         });
 
-        rightBtn.setPosition(100,0);
-        rightBtn.setSize(100,100);
+        rightBtn.setSize(width/8f,width/8f);
+        rightBtn.setPosition(leftBtn.getWidth()*1.2f,0);
         rightBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -97,8 +106,8 @@ public class GameState extends State{
             }
         });
 
-        boostBtn.setPosition(530,0);
-        boostBtn.setSize(100,100);
+        boostBtn.setSize(width/8f,width/8f);
+        boostBtn.setPosition(width-boostBtn.getWidth(),0);
         boostBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -114,11 +123,29 @@ public class GameState extends State{
                 plane.setAirflowvar(1);
             }
         });
+        
+        flameBtn.setSize(width/8f,width/8f);
+        flameBtn.setPosition(width-flameBtn.getWidth(),boostBtn.getWidth());
+        flameBtn.addListener(new InputListener(){
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                plane.setFlamevar(1);
+                System.out.println("Button Pressed");
+                return true;
+            }
+
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                plane.setFlamevar(0);
+                System.out.println("DSADASDSA Pressed");
+            }
+        });
 
         stage.addActor(pauseBtn);
         stage.addActor(leftBtn);
         stage.addActor(rightBtn);
         stage.addActor(boostBtn);
+        stage.addActor(flameBtn);
         Gdx.input.setInputProcessor(stage);
 
     }
@@ -139,7 +166,7 @@ public class GameState extends State{
         sb.draw(background,0,0);
         boat.draw(sb);
         plane.draw(sb);
-        font.draw(sb, "Score: " + score, plane.getxPos()-400, plane.getyPos()+ 600);
+        font.draw(sb, "Score: " + score, width-width/4f, height-height/8f);
         score -= 1;
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
