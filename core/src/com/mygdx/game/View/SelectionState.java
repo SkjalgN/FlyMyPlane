@@ -18,7 +18,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class SelectionState extends State{
     private Texture background;
+    private Texture loading;
+    private Texture loadingbackground;
     private Button nextBtn;
+
     private Button box1;
     private Skin nextBtnSkin;
     private Skin box1Skin;
@@ -29,10 +32,22 @@ public class SelectionState extends State{
     private String userInput;
 
     private API database;
+    private SelectionStateStatus selectionStateStatus = SelectionStateStatus.NORMAL;
+
+
+    private enum SelectionStateStatus {
+        NORMAL,
+        LOADING,
+        SWITCHING
+    }
+
     protected SelectionState(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/selection.jpg");
+        loadingbackground = new Texture("gamescreens/mapClean.jpg");
+        loading = new Texture("gamescreens/loadingtexture.png");
+
 
         //Create a stage
         stage = new GameStage();
@@ -51,8 +66,7 @@ public class SelectionState extends State{
         nextBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new GameState(gsm, database));
-                System.out.println("Button Pressed");
+                selectionStateStatus = SelectionStateStatus.LOADING;
                 return true;
             }
 
@@ -110,15 +124,29 @@ public class SelectionState extends State{
     @Override
     public void render(SpriteBatch sb) {
         sb.begin();
-        sb.draw(background,0,0,width,height);
+        sb.draw(background, 0, 0, width, height);
+
+        if (selectionStateStatus == SelectionStateStatus.SWITCHING) {
+            gsm.set(new GameState(gsm, database));
+        }
+
+        if (selectionStateStatus == SelectionStateStatus.LOADING) {
+            sb.draw(loadingbackground, 0, 0, width, height);
+            sb.draw(loading, width/2f-loading.getWidth()/2f, height/2f-loading.getHeight()/2f, width/4f, height/4f);
+            stage.clear();
+            selectionStateStatus = SelectionStateStatus.SWITCHING;
+        }
+
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+
     }
 
     @Override
     public void dispose() {
         background.dispose();
+        box1Skin.dispose();
         nextBtnSkin.dispose();
         stage.dispose();
     }
