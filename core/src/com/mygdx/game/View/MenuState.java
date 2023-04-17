@@ -26,7 +26,7 @@ public class MenuState extends State{
         super(gsm);
         database = Database;
         background = new Texture("gamescreens/mapClean.jpg");
-        cam.setToOrtho(false, background.getWidth(),background.getHeight());
+        cam.setToOrtho(false, this.background.getWidth(),this.background.getHeight());
     
         // Create a stage
         stage = new GameStage();

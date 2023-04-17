@@ -18,7 +18,6 @@ public class PauseState extends State{
     private Skin tutorialBtnSkin;
     private Skin exitBtnSkin;
     private Button continueBtn;
-    private Button tutorialBtn;
     private Button exitBtn;
     private GameStage stage;
     private API database;
@@ -30,9 +29,6 @@ public class PauseState extends State{
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/pauseMenu.jpg");
-        // pause = new Texture("buttons/pauseBtn1.png");
-        // tutorial = new Texture("buttons/pauseBtn2.png");
-        // exit = new Texture("buttons/pauseBtn3.png");
         cam.setToOrtho(false, background.getWidth(),background.getHeight());
         cam.zoom = (float)1.0;
         cam.translate(0, 0);
@@ -42,37 +38,27 @@ public class PauseState extends State{
 
         // Load a skin from a JSON file
         continueBtnSkin = new Skin(Gdx.files.internal("buttons/pause/continue/continue.json"));
-        tutorialBtnSkin = new Skin(Gdx.files.internal("buttons/pause/tutorial/tutorial.json"));
         exitBtnSkin = new Skin(Gdx.files.internal("buttons/pause/exit/exit.json"));
 
         // Create a button with the skin
         continueBtn = new Button(continueBtnSkin);
-        tutorialBtn = new Button(tutorialBtnSkin);
+
         exitBtn = new Button(exitBtnSkin);
 
         // Set the properties of the button
-        continueBtn.setSize(width/4f, width/7f);
+        continueBtn.setSize(width/4f, width/4f);
         continueBtn.setPosition(width/2f-(continueBtn.getWidth()/2f), height/2f-(continueBtn.getHeight()/2f));
         continueBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new GameState(gsm, database));
+                gsm.pop();
                 System.out.println("Button Pressed");
                 return true;
             }
         });
-        tutorialBtn.setSize(width/4f, height/7f);
-        tutorialBtn.setPosition(width/2f-tutorialBtn.getWidth()/2f, height/2f-tutorialBtn.getHeight()*1.2f-300);
-        tutorialBtn.addListener(new InputListener(){
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new TutorialState(gsm, database));
-                System.out.println("Button Pressed");
-                return true;
-            }
-        });
-        exitBtn.setSize(width/4f, width/7f);
-        exitBtn.setPosition(width/2f-exitBtn.getWidth()/2f, height/2f-exitBtn.getHeight()*1.2f-140);
+
+        exitBtn.setSize(width/4f, width/9f);
+        exitBtn.setPosition(width/2f, height/5f);
         exitBtn.addListener(new InputListener(){
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -82,22 +68,15 @@ public class PauseState extends State{
             }
         });
 
-
-
-
         // Add the button to the stage
         stage.addActor(continueBtn);
-        stage.addActor(tutorialBtn);
         stage.addActor(exitBtn);
-
-
-
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
     public void update(float dt) {
         cam.update();
-        handleInput();
     }
 
     @Override
@@ -105,9 +84,7 @@ public class PauseState extends State{
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0);
-        /*sb.draw(pause, background.getWidth()/2-pause.getWidth()/2, background.getHeight()/2-pause.getHeight()/2);
-        sb.draw(tutorial, 400, 200);
-        sb.draw(exit, 1200, 220);*/
+
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
@@ -118,14 +95,7 @@ public class PauseState extends State{
         background.dispose();
         stage.dispose();
         continueBtnSkin.dispose();
-        tutorialBtnSkin.dispose();
         exitBtnSkin.dispose();
 
-    }
-
-    public void handleInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.P)){
-            gsm.pop();
-        }
     }
 }
