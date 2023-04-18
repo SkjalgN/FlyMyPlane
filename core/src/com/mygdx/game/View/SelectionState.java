@@ -208,7 +208,7 @@ public class SelectionState extends State{
 /*
         textFieldStyle.background = box1Skin.getDrawable("background"); // Use the box1Skin background as the TextField background.
 */
-        font.getData().setScale(5f);
+        font.getData().setScale(1f);
         inputField = new TextField("", textFieldStyle);
         inputField.setSize(width / 4f, width / 4f);
         inputField.setPosition(width / 2f + (width / 20f) - (inputField.getWidth() / 2f), height*0.70f - (inputField.getHeight() / 2f));
