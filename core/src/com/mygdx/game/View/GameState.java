@@ -33,9 +33,11 @@ public class GameState extends State {
     private Plane plane;
     private Boat boat;
     private Package pack;
+    private Package pack2;
     private long startTime;
     private long elapsedTime;
     private BitmapFont font;
+    private BitmapFont font2;
     private BitmapFont packageFont;
     private GameStage stage;
 
@@ -56,6 +58,10 @@ public class GameState extends State {
     private Location[] locations = new Location[5];
     private Batch batch;
 
+    private int packageIndex;
+    private Label packageLabel;
+    private int destinationIndex;
+
     // Function to initialize locations
     public void initializeLocations() {
         Location Oslo = new Location("Oslo", 3700, 3500);
@@ -69,26 +75,88 @@ public class GameState extends State {
         locations[3] = Manila;
         locations[4] = NewYork;
     }
+    //Function to generate random number
+    private int generateRandomNumber(){
+        return (int) Math.floor(Math.random() * locations.length);
+    }
 
-    private boolean showTextureRegion = true;
+    //Booleans to show and hide packages and locations
+    private boolean showPackage = true;
+    private boolean showDestination = false;
+
+    //Function to check for collision. When the plane hits the package, the render function stops drawing the first package, and the delivery location starts being drawn.
+    public void checkCollision(Package pack) {
+        if (plane.getxPos() < pack.getX() + pack.getWidth() / 2 && plane.getxPos() + plane.getPlaneWidth() > pack.getX() &&
+                plane.getyPos() < pack.getY() + pack.getHeight() && plane.getyPos() + plane.getplaneHeight() > pack.getY() + 100) {
+            showPackage = false;
+            showDestination = false;
+            if (pack == pack2){
+                gsm.push(new VictoryState(gsm, database));
+            }
+            //packageLabel.setText("You have delivered the package to " + pack2.getCity());
+        }
+
+    }
+
+    //Function to initialize the package
+    public Package initializePackage(Package newPackage, int randomNum, String texture){
+        randomNum = generateRandomNumber();
+        newPackage = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
+                locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture(texture)), true);
+        return newPackage;
+    }
+
+
+    //Function to handle logic around packages and locations
+    public void packageLogic(SpriteBatch sb){
+
+        //This is true by default, and the first package is drawn (pick up point)
+        if (showPackage) {
+            pack.draw(sb);
+            checkCollision(pack);
+        }
+        //This is false by default but is made true, when the plane hits the pick up point
+        else if (showDestination) {
+            pack2.draw(sb);
+            checkCollision(pack2);
+        }
+        //When the plane hits the package, the first statement is made false, the second is false, and so this "else" sentence is activated.
+        else {
+            //Creates a random location for delivery
+            destinationIndex = generateRandomNumber();
+            //If the pick up point is the same as the delivery point, it creates a new random number
+            while (destinationIndex == packageIndex) {
+                destinationIndex = generateRandomNumber();
+            }
+            //The delivery point is instantiated, and the "showTextureRegion2" is made true. The next time the render function is called,
+            //the delivery point will be drawn.
+            this.pack2 = initializePackage(pack2, destinationIndex, "assets/objects/Target1.png");
+            //packageLabel.setText("Deliver the package to " + pack2.getCity());
+            showDestination = true;
+
+        }
+    }
+
+
 
 
     public GameState(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
         initializeLocations();
+        this.pack = initializePackage(pack, packageIndex, "assets/objects/packs.png");
         background = new Texture("gamescreens/theMap.jpg");
         backgroundWater = new Texture("gamescreens/water.jpg");
-        int randomNum = (int) Math.floor(Math.random() * locations.length);
         cam.setToOrtho(false, background.getWidth(), background.getHeight());
         cam.zoom = (float) 0.18;
         plane = new Plane(background.getWidth() / 2 - 200, background.getHeight() / 2 - 200, 7, 1, 400, 400,
                 new TextureRegion(new Texture("planeTextures/dragon.png")));
         boat = new Boat(2700, 2700, 1, 1, 300, 300, new TextureRegion(new Texture("objects/boat.png")));
-        pack = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
-                locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture("objects/packs.png")), true);
+
         font = new BitmapFont();
         font.getData().setScale(3f);
+        font2 = new BitmapFont();
+        font2.getData().setScale(3f);
         packageFont = new BitmapFont();
         // FreeTypeFontGenerator generator = new
         // FreeTypeFontGenerator(Gdx.files.internal("myfont.ttf"));
@@ -112,8 +180,8 @@ public class GameState extends State {
         startTime = TimeUtils.millis();
         packageFont = new BitmapFont();
         ;
-        scoreLabel = new Label("Get the package in: " + pack.getCity(), new Label.LabelStyle(packageFont, Color.WHITE));
-        scoreLabel.setFontScale(2f);
+        //scoreLabel = new Label("Get the package in: " + pack.getCity(), new Label.LabelStyle(packageFont, Color.WHITE));
+        //scoreLabel.setFontScale(2f);
         table = new Table(flameBtnSkin);
         table.add(scoreLabel).expandX().padTop(10);
         table.setPosition(stage.getWidth() / 2, stage.getHeight() - table.getHeight() - 10);
@@ -209,15 +277,7 @@ public class GameState extends State {
         Gdx.input.setInputProcessor(stage);
     }
 
-    public void checkCollision() {
-        if (plane.getxPos() < pack.getX() + pack.getWidth() / 2 && plane.getxPos() + plane.getPlaneWidth() > pack.getX()
-                &&
-                plane.getyPos() < pack.getY() + pack.getHeight()
-                && plane.getyPos() + plane.getplaneHeight() > pack.getY() + 100) {
-            showTextureRegion = false;
-            System.out.println("Collision detected!");
-        }
-    }
+
 
     @Override
     public void update(float dt) {
@@ -236,20 +296,30 @@ public class GameState extends State {
         sb.draw(background, 0, 0);
         boat.draw(sb);
         plane.draw(sb);
-        checkCollision();
 
         if(Gdx.input.isKeyPressed(Input.Keys.P)) {
             gsm.push(new PauseState(gsm, database));
         }
 
+        packageLogic(sb);
 
-        if (showTextureRegion) {
-            pack.draw(sb);
-        }
         long elapsedTime = TimeUtils.timeSinceMillis(startTime);
         int seconds = (int) (elapsedTime / 1000);
         font.draw(sb, "Tid: " + Integer.toString(seconds), plane.getxPos() + width * 1.2f, plane.getyPos() + height * 1.3f);
         font.getData().setScale(3f);
+
+        if (showPackage) {
+            font2.draw(sb, "Find the package in " + pack.getCity(), plane.getxPos(), plane.getyPos() + height * 1.3f);
+            font2.getData().setScale(3f);
+        }
+        else if (showDestination){
+            font2.draw(sb, "Deliver the package to " + pack2.getCity(), plane.getxPos(), plane.getyPos() + height * 1.3f);
+            font2.getData().setScale(3f);
+        }
+
+
+
+
         packageFont.draw(sb, Integer.toString(seconds), plane.getxPos() + width, plane.getyPos() + height);
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
@@ -286,15 +356,6 @@ public class GameState extends State {
 
     }
 
-    private int generateRandomNumber(){
-        return (int) Math.floor(Math.random() * locations.length);
-    }
-
-    private void generatePackage(){
-        initializeLocations();
-        int randomNum = (int) Math.floor(Math.random() * locations.length);
-        pack = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(), locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture("objects/packs.png")),true);
-    }
 
     private void addButton(String path, float x, float y, float width, float height){
         Skin skin = new Skin(Gdx.files.internal(path));
