@@ -52,6 +52,8 @@ public class TutorialState extends State {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Button Pressed");
+                nextBtn.setVisible(false);
+                backBtn.setVisible(true);
                 backgroundVar = 1;
                 return true;
             }
@@ -69,12 +71,15 @@ public class TutorialState extends State {
 
         });
 
+        backBtn.setVisible(false);
         backBtn.setSize(width / 7f, height / 11f);
         backBtn.setPosition(width * 3.8f / 8f, height * 1f / 8f);
         backBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 backgroundVar = 0;
+                nextBtn.setVisible(true);
+                backBtn.setVisible(false);
                 return true;
             }
 
