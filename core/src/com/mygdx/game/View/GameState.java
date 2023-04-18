@@ -68,7 +68,7 @@ public class GameState extends State {
         super(gsm);
         this.database = database;
         initializeLocations();
-        this.pack = initializePackage(pack, packageIndex, "assets/objects/packs.png");
+        this.pack = initializePackage(pack, 0, "assets/objects/packs.png");
         background = new Texture("gamescreens/theMap.jpg");
         backgroundWater = new Texture("gamescreens/water.jpg");
         cam.setToOrtho(false, background.getWidth(), background.getHeight());
@@ -427,10 +427,20 @@ public class GameState extends State {
     }
 
     //Function to initialize the package
-    public Package initializePackage(Package newPackage, int randomNum, String texture){
-        randomNum = generateRandomNumber();
+    //Function to initialize the package
+    public Package initializePackage(Package newPackage, int packNum, String texture){
+
+        int randomNum = generateRandomNumber();
         newPackage = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
                 locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture(texture)), true);
+
+        if(packNum == 0) {
+            packageIndex = randomNum;
+        }
+        else {
+            destinationIndex = randomNum;
+        }
+
         return newPackage;
     }
 
@@ -458,7 +468,7 @@ public class GameState extends State {
             }
             //The delivery point is instantiated, and the "showTextureRegion2" is made true. The next time the render function is called,
             //the delivery point will be drawn.
-            this.pack2 = initializePackage(pack2, destinationIndex, "assets/objects/Target1.png");
+            this.pack2 = initializePackage(pack2, 1, "assets/objects/Target1.png");
             //packageLabel.setText("Deliver the package to " + pack2.getCity());
             showDestination = true;
 

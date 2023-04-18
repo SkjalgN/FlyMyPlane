@@ -60,6 +60,8 @@ public class SelectionState extends State{
         cam.translate(0, 0);
 
 
+
+
         //Create a stage
         stage = new GameStage();
 
