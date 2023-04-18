@@ -29,7 +29,7 @@ public class PauseState extends State{
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/pauseMenu.jpg");
-        cam.setToOrtho(false, background.getWidth(),background.getHeight());
+        cam.setToOrtho(false, width,height);
         cam.zoom = (float)1.0;
         cam.translate(0, 0);
 
@@ -84,7 +84,7 @@ public class PauseState extends State{
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
-        sb.draw(background,0,0);
+        sb.draw(background,0,0,width,height);
 
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());

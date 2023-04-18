@@ -49,6 +49,9 @@ public class SelectionState extends State{
         background = new Texture("gamescreens/selection1.jpg");
         loadingbackground = new Texture("gamescreens/mapClean.jpg");
         loading = new Texture("gamescreens/loadingtexture.png");
+        cam.setToOrtho(false, width,height);
+        cam.zoom = (float)1.0;
+        cam.translate(0, 0);
 
 
         //Create a stage
@@ -134,11 +137,12 @@ public class SelectionState extends State{
 
     @Override
     public void update(float dt) {
-
+        cam.update();
     }
 
     @Override
     public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0, 0, width, height);
 
