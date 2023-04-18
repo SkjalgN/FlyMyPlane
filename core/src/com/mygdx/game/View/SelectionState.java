@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
@@ -23,10 +25,13 @@ public class SelectionState extends State{
     private Button nextBtn;
 
     private Button box1;
-    private Button dragon1;
+    private Button box2;
+    private Button box3;
+    private Button box4;
+    private Button box5;
+    private Button box6;
     private Skin nextBtnSkin;
-    private Skin box1Skin;
-    private Skin dragon1Skin;
+    private Skin boxSkin;
     private GameStage stage;
 
     private TextFieldStyle textFieldStyle;
@@ -59,13 +64,16 @@ public class SelectionState extends State{
 
         //Load a skin from JSON file
         nextBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
-        box1Skin = new Skin(Gdx.files.internal("buttons/selection/box/box.json"));
-        dragon1Skin = new Skin(Gdx.files.internal("buttons/selection/box/box.json"));
+        boxSkin = new Skin(Gdx.files.internal("buttons/selection/box/box.json"));
 
         //Create a button
         nextBtn = new Button(nextBtnSkin);
-        box1 = new Button(box1Skin);
-        dragon1 = new Button(dragon1Skin);
+        box1 = new Button(boxSkin);
+        box2 = new Button(boxSkin);
+        box3 = new Button(boxSkin);
+        box4 = new Button(boxSkin);
+        box5 = new Button(boxSkin);
+        box6 = new Button(boxSkin);
 
         //Set button position, size and function
         nextBtn.setSize(width/8f, width/8f);
@@ -85,23 +93,104 @@ public class SelectionState extends State{
         BitmapFont font = new BitmapFont();
         nextBtnSkin.add("font", font, BitmapFont.class);
 
-
-        box1.setSize(width/4f, width/4f);
-        box1.setPosition(width/2f-(box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
+        box1.setSize(width/5f, width/5f);
+        box1.setPosition(width/2f-(box1.getWidth()/2f+115), height/2f-(box1.getHeight()/2f));
+        box1.setColor(1,1,1,0);
         box1.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Box Pressed");
+                box1.setColor(1,1,1,1);
+                box2.setColor(1,1,1,0);
+                box3.setColor(1,1,1,0);
+                box4.setColor(1,1,1,0);
+                box5.setColor(1,1,1,0);
+                box6.setColor(1,1,1,0);
                 return true;
             }
         });
 
-        dragon1.setSize(width/4f, width/4f);
-        dragon1.setPosition(width/2f-(dragon1.getWidth()/2f), height/2f-(dragon1.getHeight()/2f));
-        dragon1.addListener(new InputListener() {
+        box2.setSize(width/5f, width/5f);
+        box2.setPosition(width/2f-(box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
+        box2.setColor(1,1,1,0);
+        box2.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Dragon Pressed");
+                System.out.println("Box Pressed");
+                box1.setColor(1,1,1,0);
+                box2.setColor(1,1,1,1);
+                box3.setColor(1,1,1,0);
+                box4.setColor(1,1,1,0);
+                box5.setColor(1,1,1,0);
+                box6.setColor(1,1,1,0);
+                return true;
+            }
+        });
+
+        box3.setSize(width/5f, width/5f);
+        box3.setPosition(width/2f-(box1.getWidth()/2f-115), height/2f-(box1.getHeight()/2f));
+        box3.setColor(1,1,1,0);
+        box3.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Box Pressed");
+                box1.setColor(1,1,1,0);
+                box2.setColor(1,1,1,0);
+                box3.setColor(1,1,1,1);
+                box4.setColor(1,1,1,0);
+                box5.setColor(1,1,1,0);
+                box6.setColor(1,1,1,0);
+                return true;
+            }
+        });
+
+        box4.setSize(width/5f, width/5f);
+        box4.setPosition(width/2f-(box1.getWidth()/2f+115), height/2f-(box1.getHeight()/2f+120));
+        box4.setColor(1,1,1,0);
+        box4.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Box Pressed");
+                box1.setColor(1,1,1,0);
+                box2.setColor(1,1,1,0);
+                box3.setColor(1,1,1,0);
+                box4.setColor(1,1,1,1);
+                box5.setColor(1,1,1,0);
+                box6.setColor(1,1,1,0);
+                return true;
+            }
+        });
+
+        box5.setSize(width/5f, width/5f);
+        box5.setPosition(width/2f-(box1.getWidth()/2f), height/2f-(box1.getHeight()/2f+120));
+        box5.setColor(1,1,1,0);
+        box5.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Box Pressed");
+                box1.setColor(1,1,1,0);
+                box2.setColor(1,1,1,0);
+                box3.setColor(1,1,1,0);
+                box4.setColor(1,1,1,0);
+                box5.setColor(1,1,1,1);
+                box6.setColor(1,1,1,0);
+                return true;
+            }
+        });
+        
+        box6.setSize(width/5f, width/5f);
+        box6.setPosition(width/2f-(box1.getWidth()/2f-115), height/2f-(box1.getHeight()/2f+120));
+        box6.setColor(1,1,1,0);
+        box6.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Box Pressed");
+                box1.setColor(1,1,1,0);
+                box2.setColor(1,1,1,0);
+                box3.setColor(1,1,1,0);
+                box4.setColor(1,1,1,0);
+                box5.setColor(1,1,1,0);
+                box6.setColor(1,1,1,1);
                 return true;
             }
         });
@@ -121,6 +210,7 @@ public class SelectionState extends State{
             public void keyTyped(TextField textField, char c) {
                 userInput = textField.getText();
                 System.out.println("User input: " + userInput);
+                
             }
         });
 
@@ -129,7 +219,11 @@ public class SelectionState extends State{
 
         stage.addActor(nextBtn);
         stage.addActor(box1);
-        stage.addActor(dragon1);
+        stage.addActor(box2);
+        stage.addActor(box3);
+        stage.addActor(box4);
+        stage.addActor(box5);
+        stage.addActor(box6);
         stage.addActor(inputField);
         Gdx.input.setInputProcessor(stage);
     }
@@ -166,7 +260,7 @@ public class SelectionState extends State{
     @Override
     public void dispose() {
         background.dispose();
-        box1Skin.dispose();
+        boxSkin.dispose();
         nextBtnSkin.dispose();
         stage.dispose();
     }
