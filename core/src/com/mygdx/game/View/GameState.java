@@ -62,84 +62,6 @@ public class GameState extends State {
     private Label packageLabel;
     private int destinationIndex;
 
-    // Function to initialize locations
-    public void initializeLocations() {
-        Location Oslo = new Location("Oslo", 3700, 3500);
-        Location Istanbul = new Location("Istanbul", 4500, 2500);
-        Location Lagos = new Location("Lagos", 3300, 1500);
-        Location Manila = new Location("Manila", 7000, 2600);
-        Location NewYork = new Location("NewYork", 1000, 3500);
-        locations[0] = Oslo;
-        locations[1] = Istanbul;
-        locations[2] = Lagos;
-        locations[3] = Manila;
-        locations[4] = NewYork;
-    }
-    //Function to generate random number
-    private int generateRandomNumber(){
-        return (int) Math.floor(Math.random() * locations.length);
-    }
-
-    //Booleans to show and hide packages and locations
-    private boolean showPackage = true;
-    private boolean showDestination = false;
-
-    //Function to check for collision. When the plane hits the package, the render function stops drawing the first package, and the delivery location starts being drawn.
-    public void checkCollision(Package pack) {
-        if (plane.getxPos() < pack.getX() + pack.getWidth() / 2 && plane.getxPos() + plane.getPlaneWidth() > pack.getX() &&
-                plane.getyPos() < pack.getY() + pack.getHeight() && plane.getyPos() + plane.getplaneHeight() > pack.getY() + 100) {
-            showPackage = false;
-            showDestination = false;
-            if (pack == pack2){
-                gsm.push(new VictoryState(gsm, database));
-            }
-            //packageLabel.setText("You have delivered the package to " + pack2.getCity());
-        }
-
-    }
-
-    //Function to initialize the package
-    public Package initializePackage(Package newPackage, int randomNum, String texture){
-        randomNum = generateRandomNumber();
-        newPackage = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
-                locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture(texture)), true);
-        return newPackage;
-    }
-
-
-    //Function to handle logic around packages and locations
-    public void packageLogic(SpriteBatch sb){
-
-        //This is true by default, and the first package is drawn (pick up point)
-        if (showPackage) {
-            pack.draw(sb);
-            checkCollision(pack);
-        }
-        //This is false by default but is made true, when the plane hits the pick up point
-        else if (showDestination) {
-            pack2.draw(sb);
-            checkCollision(pack2);
-        }
-        //When the plane hits the package, the first statement is made false, the second is false, and so this "else" sentence is activated.
-        else {
-            //Creates a random location for delivery
-            destinationIndex = generateRandomNumber();
-            //If the pick up point is the same as the delivery point, it creates a new random number
-            while (destinationIndex == packageIndex) {
-                destinationIndex = generateRandomNumber();
-            }
-            //The delivery point is instantiated, and the "showTextureRegion2" is made true. The next time the render function is called,
-            //the delivery point will be drawn.
-            this.pack2 = initializePackage(pack2, destinationIndex, "assets/objects/Target1.png");
-            //packageLabel.setText("Deliver the package to " + pack2.getCity());
-            showDestination = true;
-
-        }
-    }
-
-
-
-
     public GameState(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
@@ -450,6 +372,81 @@ public class GameState extends State {
             }
         });
         stage.addActor(flameBtn);
+    }
+
+     // Function to initialize locations
+     public void initializeLocations() {
+        Location Oslo = new Location("Oslo", 3700, 3500);
+        Location Istanbul = new Location("Istanbul", 4500, 2500);
+        Location Lagos = new Location("Lagos", 3300, 1500);
+        Location Manila = new Location("Manila", 7000, 2600);
+        Location NewYork = new Location("NewYork", 1000, 3500);
+        locations[0] = Oslo;
+        locations[1] = Istanbul;
+        locations[2] = Lagos;
+        locations[3] = Manila;
+        locations[4] = NewYork;
+    }
+    //Function to generate random number
+    private int generateRandomNumber(){
+        return (int) Math.floor(Math.random() * locations.length);
+    }
+
+    //Booleans to show and hide packages and locations
+    private boolean showPackage = true;
+    private boolean showDestination = false;
+
+    //Function to check for collision. When the plane hits the package, the render function stops drawing the first package, and the delivery location starts being drawn.
+    public void checkCollision(Package pack) {
+        if (plane.getxPos() < pack.getX() + pack.getWidth() / 2 && plane.getxPos() + plane.getPlaneWidth() > pack.getX() &&
+                plane.getyPos() < pack.getY() + pack.getHeight() && plane.getyPos() + plane.getplaneHeight() > pack.getY() + 100) {
+            showPackage = false;
+            showDestination = false;
+            if (pack == pack2){
+                gsm.push(new VictoryState(gsm, database));
+            }
+            //packageLabel.setText("You have delivered the package to " + pack2.getCity());
+        }
+
+    }
+
+    //Function to initialize the package
+    public Package initializePackage(Package newPackage, int randomNum, String texture){
+        randomNum = generateRandomNumber();
+        newPackage = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
+                locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture(texture)), true);
+        return newPackage;
+    }
+
+
+    //Function to handle logic around packages and locations
+    public void packageLogic(SpriteBatch sb){
+
+        //This is true by default, and the first package is drawn (pick up point)
+        if (showPackage) {
+            pack.draw(sb);
+            checkCollision(pack);
+        }
+        //This is false by default but is made true, when the plane hits the pick up point
+        else if (showDestination) {
+            pack2.draw(sb);
+            checkCollision(pack2);
+        }
+        //When the plane hits the package, the first statement is made false, the second is false, and so this "else" sentence is activated.
+        else {
+            //Creates a random location for delivery
+            destinationIndex = generateRandomNumber();
+            //If the pick up point is the same as the delivery point, it creates a new random number
+            while (destinationIndex == packageIndex) {
+                destinationIndex = generateRandomNumber();
+            }
+            //The delivery point is instantiated, and the "showTextureRegion2" is made true. The next time the render function is called,
+            //the delivery point will be drawn.
+            this.pack2 = initializePackage(pack2, destinationIndex, "assets/objects/Target1.png");
+            //packageLabel.setText("Deliver the package to " + pack2.getCity());
+            showDestination = true;
+
+        }
     }
 
     
