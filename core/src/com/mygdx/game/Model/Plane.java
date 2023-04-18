@@ -110,7 +110,7 @@ public class Plane {
         this.planeWidth = width;
     }
 
-    public float getplaneHeight() {
+    public float getPlaneHeight() {
         return planeHeight;
     }
 

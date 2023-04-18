@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -55,7 +58,7 @@ public class GameState extends State {
     private Table table;
     private Label scoreLabel;
     private API database;
-    private Location[] locations = new Location[5];
+    private Location[] locations = new Location[6];
     private Batch batch;
     private int buttonWidth;
     private int buttonHeight;
@@ -63,6 +66,10 @@ public class GameState extends State {
     private int packageIndex;
     private Label packageLabel;
     private int destinationIndex;
+
+    //Booleans to show and hide packages and locations
+    private boolean showPackage = true;
+    private boolean showDestination = false;
 
     public GameState(final GameStateManager gsm, final API database,int skinVar) {
         super(gsm);
@@ -73,7 +80,7 @@ public class GameState extends State {
         backgroundWater = new Texture("gamescreens/water.jpg");
         cam.setToOrtho(false, background.getWidth(), background.getHeight());
         cam.zoom = (float) 0.18;
-        plane = new Plane(background.getWidth() / 2 - 200, background.getHeight() / 2 - 200, 7, 1, 400, 400,
+        plane = new Plane(background.getWidth() / 2 - 200, background.getHeight() / 2 - 200, 7, 1, 200, 200,
                 skinVar);
         
         boat = new Boat(2700, 2700, 1, 1, 300, 300, new TextureRegion(new Texture("objects/boat.png")));
@@ -392,38 +399,47 @@ public class GameState extends State {
 
      // Function to initialize locations
      public void initializeLocations() {
-        Location Oslo = new Location("Oslo", 3700, 3500);
-        Location Istanbul = new Location("Istanbul", 4500, 2500);
-        Location Lagos = new Location("Lagos", 3300, 1500);
-        Location Manila = new Location("Manila", 7000, 2600);
-        Location NewYork = new Location("NewYork", 1000, 3500);
+        Location Oslo = new Location("Oslo", 4200, 3550);
+        Location Istanbul = new Location("Istanbul", 4600, 2950);
+        Location Lagos = new Location("Lagos", 4100, 2200);
+        Location Manila = new Location("Manila", 6700, 2330);
+        Location NewYork = new Location("New York", 2300, 3000);
+        Location SaoPaulo = new Location("Sao Paulo", 3000, 1500);
         locations[0] = Oslo;
         locations[1] = Istanbul;
         locations[2] = Lagos;
         locations[3] = Manila;
         locations[4] = NewYork;
-    }
+        locations[5] = SaoPaulo;
+
+     }
     //Function to generate random number
     private int generateRandomNumber(){
         return (int) Math.floor(Math.random() * locations.length);
     }
 
-    //Booleans to show and hide packages and locations
-    private boolean showPackage = true;
-    private boolean showDestination = false;
-
     //Function to check for collision. When the plane hits the package, the render function stops drawing the first package, and the delivery location starts being drawn.
-    public void checkCollision(Package pack) {
-        if (plane.getxPos() < pack.getX() + pack.getWidth() / 2 && plane.getxPos() + plane.getPlaneWidth() > pack.getX() &&
-                plane.getyPos() < pack.getY() + pack.getHeight() && plane.getyPos() + plane.getplaneHeight() > pack.getY() + 100) {
-            showPackage = false;
-            showDestination = false;
-            if (pack == pack2){
-                gsm.push(new VictoryState(gsm, database));
+
+    public void checkPackageCollision(Plane plane, Package package2) {
+
+        if (package2 == pack) {
+            Rectangle rect1 = new Rectangle(plane.getxPos(), plane.getyPos(), plane.getPlaneWidth()/3, plane.getPlaneHeight()/3);
+            Rectangle rect2 = new Rectangle(package2.getX(), package2.getY(), package2.getWidth(), package2.getHeight());
+            if (Intersector.overlaps(rect1, rect2)) {
+                showPackage = false;
+                showDestination = false;
             }
-            //packageLabel.setText("You have delivered the package to " + pack2.getCity());
         }
 
+        else if (package2 == pack2) {
+            Rectangle rect1 = new Rectangle(plane.getxPos(), plane.getyPos(), plane.getPlaneWidth()/3, plane.getPlaneHeight()/3);
+            Circle circle = new Circle(package2.getX() + package2.getWidth() / 3f, package2.getY() + package2.getHeight() / 3f, package2.getWidth() / 3f);
+            if (Intersector.overlaps(circle, rect1)) {
+                showPackage = false;
+                showDestination = false;
+                gsm.push(new VictoryState(gsm, database));
+            }
+        }
     }
 
     //Function to initialize the package
@@ -432,12 +448,15 @@ public class GameState extends State {
 
         int randomNum = generateRandomNumber();
         newPackage = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
-                locations[randomNum].getY(), 1000, 1000, new TextureRegion(new Texture(texture)), true);
+                locations[randomNum].getY(), 200, 200, new TextureRegion(new Texture(texture)), true);
 
         if(packNum == 0) {
             packageIndex = randomNum;
         }
         else {
+            if(randomNum == packageIndex) {
+                randomNum = generateRandomNumber();
+            }
             destinationIndex = randomNum;
         }
 
@@ -451,12 +470,13 @@ public class GameState extends State {
         //This is true by default, and the first package is drawn (pick up point)
         if (showPackage) {
             pack.draw(sb);
-            checkCollision(pack);
+            checkPackageCollision(plane,pack);
         }
         //This is false by default but is made true, when the plane hits the pick up point
         else if (showDestination) {
             pack2.draw(sb);
-            checkCollision(pack2);
+            checkPackageCollision(plane,pack2);
+
         }
         //When the plane hits the package, the first statement is made false, the second is false, and so this "else" sentence is activated.
         else {
