@@ -15,6 +15,8 @@ public class Plane {
     private float planeWidth;
     private float planeHeight;
     private TextureRegion planeTextureRegion;
+    private TextureRegion planeTextureRegionList[];
+    private int planeTextureRegionvar = 0;
     private TextureRegion[] airflow;
     private int airflowvar = 1;
     private TextureRegion flames[];
@@ -133,9 +135,23 @@ public class Plane {
         }
     }
 
+    public int getPlaneTextureRegionvar() {
+        return planeTextureRegionvar;
+    }
 
+    public void setPlaneTextureRegionvar(int planeTextureRegionvar) {
+        this.planeTextureRegionvar = planeTextureRegionvar;
+    }
 
     public void draw(Batch batch) {
+
+        planeTextureRegionList = new TextureRegion[6];
+        planeTextureRegionList[0] = new TextureRegion(new Texture("planeTextures/plane1.png"));
+        planeTextureRegionList[1] = new TextureRegion(new Texture("planeTextures/plane2.png"));
+        planeTextureRegionList[2] = new TextureRegion(new Texture("planeTextures/plane3.png"));
+        planeTextureRegionList[3] = new TextureRegion(new Texture("planeTextures/seagull.png"));
+        planeTextureRegionList[4] = new TextureRegion(new Texture("planeTextures/dragon1.png"));
+        planeTextureRegionList[5] = new TextureRegion(new Texture("planeTextures/dragon2.png"));
 
         airflow = new TextureRegion[2];
         airflow[0] = new TextureRegion(new Texture("effects/airflow.png"));
@@ -158,7 +174,7 @@ public class Plane {
         
         batch.draw(flames[currentImage], xPos, yPos, planeWidth/2, planeHeight/2, planeWidth, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
         batch.draw(airflow[airflowvar], xPos, yPos, planeWidth/2, planeHeight/2, planeWidth*4/5, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
-        batch.draw(planeTextureRegion, xPos, yPos, planeWidth/2, planeHeight/2, planeWidth, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
+        batch.draw(planeTextureRegionList[planeTextureRegionvar], xPos, yPos, planeWidth/2, planeHeight/2, planeWidth, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
         
     }
     
