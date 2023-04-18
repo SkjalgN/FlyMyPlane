@@ -189,8 +189,8 @@ public class GameState extends State {
 
         // BUTTONS!!!!
 
-        pauseBtn.setSize(width / 8f, width / 8f);
-        pauseBtn.setPosition(0, height - pauseBtn.getHeight());
+        pauseBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
+        pauseBtn.setPosition(0, SCREEN_HEIGHT - pauseBtn.getHeight());
         pauseBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -200,7 +200,7 @@ public class GameState extends State {
             }
         });
 
-        leftBtn.setSize(width / 8f, width / 8f);
+        leftBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
         leftBtn.setPosition(0, 0);
         leftBtn.addListener(new InputListener() {
             @Override
@@ -216,7 +216,7 @@ public class GameState extends State {
             }
         });
 
-        rightBtn.setSize(width / 8f, width / 8f);
+        rightBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
         rightBtn.setPosition(leftBtn.getWidth() * 1.2f, 0);
         rightBtn.addListener(new InputListener() {
             @Override
@@ -232,8 +232,8 @@ public class GameState extends State {
             }
         });
 
-        boostBtn.setSize(width / 8f, width / 8f);
-        boostBtn.setPosition(width - boostBtn.getWidth(), 0);
+        boostBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
+        boostBtn.setPosition(SCREEN_WIDTH - boostBtn.getWidth(), 0);
         boostBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -250,8 +250,8 @@ public class GameState extends State {
             }
         });
 
-        flameBtn.setSize(width / 8f, width / 8f);
-        flameBtn.setPosition(width - flameBtn.getWidth(), boostBtn.getWidth());
+        flameBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
+        flameBtn.setPosition(SCREEN_WIDTH - flameBtn.getWidth(), boostBtn.getWidth());
         flameBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -305,22 +305,22 @@ public class GameState extends State {
 
         long elapsedTime = TimeUtils.timeSinceMillis(startTime);
         int seconds = (int) (elapsedTime / 1000);
-        font.draw(sb, "Tid: " + Integer.toString(seconds), plane.getxPos() + width * 1.2f, plane.getyPos() + height * 1.3f);
+        font.draw(sb, "Tid: " + Integer.toString(seconds), plane.getxPos() + SCREEN_WIDTH * 1.2f, plane.getyPos() + SCREEN_HEIGHT * 1.3f);
         font.getData().setScale(3f);
 
         if (showPackage) {
-            font2.draw(sb, "Find the package in " + pack.getCity(), plane.getxPos(), plane.getyPos() + height * 1.3f);
+            font2.draw(sb, "Find the package in " + pack.getCity(), plane.getxPos(), plane.getyPos() + SCREEN_HEIGHT * 1.3f);
             font2.getData().setScale(3f);
         }
         else if (showDestination){
-            font2.draw(sb, "Deliver the package to " + pack2.getCity(), plane.getxPos(), plane.getyPos() + height * 1.3f);
+            font2.draw(sb, "Deliver the package to " + pack2.getCity(), plane.getxPos(), plane.getyPos() + SCREEN_HEIGHT * 1.3f);
             font2.getData().setScale(3f);
         }
 
 
 
 
-        packageFont.draw(sb, Integer.toString(seconds), plane.getxPos() + width, plane.getyPos() + height);
+        packageFont.draw(sb, Integer.toString(seconds), plane.getxPos() + SCREEN_WIDTH, plane.getyPos() + SCREEN_HEIGHT);
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
