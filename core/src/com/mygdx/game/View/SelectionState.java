@@ -46,7 +46,7 @@ public class SelectionState extends State{
     protected SelectionState(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
-        background = new Texture("gamescreens/selection.jpg");
+        background = new Texture("gamescreens/selection1.jpg");
         loadingbackground = new Texture("gamescreens/mapClean.jpg");
         loading = new Texture("gamescreens/loadingtexture.png");
 

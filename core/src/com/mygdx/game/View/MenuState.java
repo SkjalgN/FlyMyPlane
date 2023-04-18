@@ -25,9 +25,10 @@ public class MenuState extends State{
     public MenuState(final GameStateManager gsm, API Database) {
         super(gsm);
         database = Database;
+        cam.setToOrtho(false, width,height);
+        cam.zoom = (float)1;
+        cam.translate(0, 0);
         background = new Texture("gamescreens/mapClean.jpg");
-        cam.setToOrtho(false, this.background.getWidth(),this.background.getHeight());
-    
         // Create a stage
         stage = new GameStage();
     
@@ -93,6 +94,7 @@ public class MenuState extends State{
 
     @Override
     public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0,width,height);
         sb.end();
