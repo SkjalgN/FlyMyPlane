@@ -57,6 +57,8 @@ public class GameState extends State {
     private API database;
     private Location[] locations = new Location[5];
     private Batch batch;
+    private int buttonWidth;
+    private int buttonHeight;
 
     private int packageIndex;
     private Label packageLabel;
@@ -95,6 +97,14 @@ public class GameState extends State {
         rightBtn = new Button(rightBtnSkin);
         boostBtn = new Button(boostBtnSkin);
         flameBtn = new Button(flameBtnSkin);
+        
+        buttonWidth = SCREEN_WIDTH/8;
+        buttonHeight = SCREEN_WIDTH/8;
+        //createBoostButton("buttons/game/boostBtn/boostBtn.json", SCREEN_WIDTH - buttonWidth, 0, buttonWidth, buttonHeight);
+        //createFlameButton("buttons/game/flameBtn/flameBtn.json", SCREEN_WIDTH - buttonWidth, buttonHeight, buttonWidth, buttonHeight);
+        //createLeftButton("buttons/game/leftBtn/leftBtn.json", 0, 0, buttonWidth, buttonHeight);
+        //createRightButton("buttons/game/rightBtn/rightBtn.json", buttonWidth * 1.2f, 0, buttonWidth, buttonHeight);
+        //createPauseButton("buttons/game/pauseBtn/pauseBtn.json", 0, SCREEN_HEIGHT - buttonHeight, buttonWidth, buttonHeight);
 
         // Scorelabel er feil, det er teksten som viser hvor du skal hente pakke. Må
         // endre navn
@@ -112,7 +122,7 @@ public class GameState extends State {
         // BUTTONS!!!!
 
         pauseBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
-        pauseBtn.setPosition(0, SCREEN_HEIGHT - pauseBtn.getHeight());
+        pauseBtn.setPosition(0, SCREEN_HEIGHT - buttonHeight);
         pauseBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -139,7 +149,7 @@ public class GameState extends State {
         });
 
         rightBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
-        rightBtn.setPosition(leftBtn.getWidth() * 1.2f, 0);
+        rightBtn.setPosition(buttonWidth * 1.2f, 0);
         rightBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -155,7 +165,7 @@ public class GameState extends State {
         });
 
         boostBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
-        boostBtn.setPosition(SCREEN_WIDTH - boostBtn.getWidth(), 0);
+        boostBtn.setPosition(SCREEN_WIDTH - buttonWidth, 0);
         boostBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -173,7 +183,7 @@ public class GameState extends State {
         });
 
         flameBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
-        flameBtn.setPosition(SCREEN_WIDTH - flameBtn.getWidth(), boostBtn.getWidth());
+        flameBtn.setPosition(SCREEN_WIDTH - buttonWidth, buttonHeight);
         flameBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -253,6 +263,11 @@ public class GameState extends State {
         background.dispose();
         font.dispose();
         pauseBtnSkin.dispose();
+        leftBtnSkin.dispose();
+        rightBtnSkin.dispose();
+        boostBtnSkin.dispose();
+        flameBtnSkin.dispose();
+        stage.dispose();
     }
 
     public void handleInput() {
@@ -288,7 +303,7 @@ public class GameState extends State {
     }
 
     private void createPauseButton(String path, float x, float y, float width, float height){
-        pauseBtn = createButton(null, height, startTime, width, height);
+        pauseBtn = createButton(path, height, startTime, width, height);
         pauseBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -300,7 +315,7 @@ public class GameState extends State {
     }
 
     private void createLeftButton(String path, float x, float y, float width, float height){
-        leftBtn = createButton(null, height, startTime, width, height);
+        leftBtn = createButton(path, height, startTime, width, height);
         leftBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -318,7 +333,7 @@ public class GameState extends State {
     }
 
     private void createRightButton(String path, float x, float y, float width, float height){
-        rightBtn = createButton(null, height, startTime, width, height);
+        rightBtn = createButton(path, height, startTime, width, height);
         rightBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -336,7 +351,7 @@ public class GameState extends State {
     }
 
     private void createBoostButton(String path, float x, float y, float width, float height){
-        boostBtn = createButton(null, height, startTime, width, height);
+        boostBtn = createButton(path, height, startTime, width, height);
         boostBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -356,7 +371,7 @@ public class GameState extends State {
     }
 
     private void createFlameButton(String path, float x, float y, float width, float height){
-        flameBtn = createButton(null, height, startTime, width, height);
+        flameBtn = createButton(path, height, startTime, width, height);
         flameBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
