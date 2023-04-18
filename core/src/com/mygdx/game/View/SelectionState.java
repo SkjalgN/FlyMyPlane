@@ -79,6 +79,7 @@ public class SelectionState extends State{
         //Set button position, size and function
         nextBtn.setSize(width/8f, width/8f);
         nextBtn.setPosition(width-nextBtn.getWidth()*1.2f, height/2f-(nextBtn.getHeight()/2f));
+        nextBtn.setVisible(false);
         nextBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -108,6 +109,7 @@ public class SelectionState extends State{
                 box5.setColor(1,1,1,0);
                 box6.setColor(1,1,1,0);
                 skinVar = 0;
+                nextBtn.setVisible(true);
                 return true;
             }
         });
@@ -126,6 +128,7 @@ public class SelectionState extends State{
                 box5.setColor(1,1,1,0);
                 box6.setColor(1,1,1,0);
                 skinVar = 1;
+                nextBtn.setVisible(true);
                 return true;
             }
         });
@@ -144,6 +147,7 @@ public class SelectionState extends State{
                 box5.setColor(1,1,1,0);
                 box6.setColor(1,1,1,0);
                 skinVar = 2;
+                nextBtn.setVisible(true);
                 return true;
             }
         });
@@ -162,6 +166,7 @@ public class SelectionState extends State{
                 box5.setColor(1,1,1,0);
                 box6.setColor(1,1,1,0);
                 skinVar = 3;
+                nextBtn.setVisible(true);
                 return true;
             }
         });
@@ -180,6 +185,7 @@ public class SelectionState extends State{
                 box5.setColor(1,1,1,1);
                 box6.setColor(1,1,1,0);
                 skinVar = 4;
+                nextBtn.setVisible(true);
                 return true;
             }
         });
@@ -198,6 +204,7 @@ public class SelectionState extends State{
                 box5.setColor(1,1,1,0);
                 box6.setColor(1,1,1,1);
                 skinVar = 5;
+                nextBtn.setVisible(true);
                 return true;
             }
         });
