@@ -37,6 +37,7 @@ public class SelectionState extends State{
     private TextFieldStyle textFieldStyle;
     private TextField inputField;
     private String userInput;
+    private int skinVar;
 
     private API database;
     private SelectionStateStatus selectionStateStatus = SelectionStateStatus.NORMAL;
@@ -106,6 +107,7 @@ public class SelectionState extends State{
                 box4.setColor(1,1,1,0);
                 box5.setColor(1,1,1,0);
                 box6.setColor(1,1,1,0);
+                skinVar = 0;
                 return true;
             }
         });
@@ -123,6 +125,7 @@ public class SelectionState extends State{
                 box4.setColor(1,1,1,0);
                 box5.setColor(1,1,1,0);
                 box6.setColor(1,1,1,0);
+                skinVar = 1;
                 return true;
             }
         });
@@ -140,6 +143,7 @@ public class SelectionState extends State{
                 box4.setColor(1,1,1,0);
                 box5.setColor(1,1,1,0);
                 box6.setColor(1,1,1,0);
+                skinVar = 2;
                 return true;
             }
         });
@@ -157,6 +161,7 @@ public class SelectionState extends State{
                 box4.setColor(1,1,1,1);
                 box5.setColor(1,1,1,0);
                 box6.setColor(1,1,1,0);
+                skinVar = 3;
                 return true;
             }
         });
@@ -174,6 +179,7 @@ public class SelectionState extends State{
                 box4.setColor(1,1,1,0);
                 box5.setColor(1,1,1,1);
                 box6.setColor(1,1,1,0);
+                skinVar = 4;
                 return true;
             }
         });
@@ -191,6 +197,7 @@ public class SelectionState extends State{
                 box4.setColor(1,1,1,0);
                 box5.setColor(1,1,1,0);
                 box6.setColor(1,1,1,1);
+                skinVar = 5;
                 return true;
             }
         });
@@ -241,7 +248,7 @@ public class SelectionState extends State{
         sb.draw(background, 0, 0, width, height);
 
         if (selectionStateStatus == SelectionStateStatus.SWITCHING) {
-            gsm.set(new GameState(gsm, database));
+            gsm.set(new GameState(gsm, database,skinVar));
         }
 
         if (selectionStateStatus == SelectionStateStatus.LOADING) {

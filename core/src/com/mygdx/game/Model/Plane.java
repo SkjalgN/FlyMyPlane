@@ -26,14 +26,21 @@ public class Plane {
     private boolean rotateLeft = false;
     private boolean rotateRight = false;
 
-    public Plane(float xPos, float yPos,float speed, float angle, float planeWidth, float planeHeight, TextureRegion planeTextureRegion) {
+    public Plane(float xPos, float yPos,float speed, float angle, float planeWidth, float planeHeight, int skinVar) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.speed = speed;
         this.angle = angle;
         this.planeWidth = planeWidth;
         this.planeHeight = planeHeight;
-        this.planeTextureRegion = planeTextureRegion;
+        planeTextureRegionList = new TextureRegion[6];
+        planeTextureRegionList[0] = new TextureRegion(new Texture("planeTextures/plane1.png"));
+        planeTextureRegionList[1] = new TextureRegion(new Texture("planeTextures/plane2.png"));
+        planeTextureRegionList[2] = new TextureRegion(new Texture("planeTextures/plane3.png"));
+        planeTextureRegionList[3] = new TextureRegion(new Texture("planeTextures/seagull.png"));
+        planeTextureRegionList[4] = new TextureRegion(new Texture("planeTextures/dragon1.png"));
+        planeTextureRegionList[5] = new TextureRegion(new Texture("planeTextures/dragon2.png"));
+        this.planeTextureRegion = planeTextureRegionList[skinVar];
     }
 
     public void rotate(float angle) {
@@ -143,15 +150,11 @@ public class Plane {
         this.planeTextureRegionvar = planeTextureRegionvar;
     }
 
+    
+
     public void draw(Batch batch) {
 
-        planeTextureRegionList = new TextureRegion[6];
-        planeTextureRegionList[0] = new TextureRegion(new Texture("planeTextures/plane1.png"));
-        planeTextureRegionList[1] = new TextureRegion(new Texture("planeTextures/plane2.png"));
-        planeTextureRegionList[2] = new TextureRegion(new Texture("planeTextures/plane3.png"));
-        planeTextureRegionList[3] = new TextureRegion(new Texture("planeTextures/seagull.png"));
-        planeTextureRegionList[4] = new TextureRegion(new Texture("planeTextures/dragon1.png"));
-        planeTextureRegionList[5] = new TextureRegion(new Texture("planeTextures/dragon2.png"));
+
 
         airflow = new TextureRegion[2];
         airflow[0] = new TextureRegion(new Texture("effects/airflow.png"));
@@ -174,7 +177,7 @@ public class Plane {
         
         batch.draw(flames[currentImage], xPos, yPos, planeWidth/2, planeHeight/2, planeWidth, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
         batch.draw(airflow[airflowvar], xPos, yPos, planeWidth/2, planeHeight/2, planeWidth*4/5, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
-        batch.draw(planeTextureRegionList[planeTextureRegionvar], xPos, yPos, planeWidth/2, planeHeight/2, planeWidth, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
+        batch.draw(planeTextureRegion, xPos, yPos, planeWidth/2, planeHeight/2, planeWidth, planeHeight, 1, 1, (float) Math.toDegrees(angle), true);
         
     }
     

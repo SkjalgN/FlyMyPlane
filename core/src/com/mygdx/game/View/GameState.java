@@ -64,7 +64,7 @@ public class GameState extends State {
     private Label packageLabel;
     private int destinationIndex;
 
-    public GameState(final GameStateManager gsm, final API database) {
+    public GameState(final GameStateManager gsm, final API database,int skinVar) {
         super(gsm);
         this.database = database;
         initializeLocations();
@@ -74,7 +74,8 @@ public class GameState extends State {
         cam.setToOrtho(false, background.getWidth(), background.getHeight());
         cam.zoom = (float) 0.18;
         plane = new Plane(background.getWidth() / 2 - 200, background.getHeight() / 2 - 200, 7, 1, 400, 400,
-                new TextureRegion(new Texture("planeTextures/dragon.png")));
+                skinVar);
+        
         boat = new Boat(2700, 2700, 1, 1, 300, 300, new TextureRegion(new Texture("objects/boat.png")));
 
         font = new BitmapFont();

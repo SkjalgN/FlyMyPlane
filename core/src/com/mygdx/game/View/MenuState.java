@@ -112,8 +112,5 @@ public class MenuState extends State{
     }
 
     public void handleInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)){
-            gsm.set(new GameState(gsm, database));
-        }
     }
 }
