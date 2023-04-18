@@ -260,7 +260,6 @@ public class GameState extends State {
 
 
 
-        packageFont.draw(sb, Integer.toString(seconds), plane.getxPos() + SCREEN_WIDTH, plane.getyPos() + SCREEN_HEIGHT);
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
