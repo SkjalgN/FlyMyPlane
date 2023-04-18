@@ -10,7 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6a065cd9-4835-40d3-a28a-5e8bfa2a1507" name="Changes" comment="Added text to inform player where the package is located">
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/checksums/checksums.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/objects/Target1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
@@ -99,9 +99,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/objects" />
       <recent name="C:\Users\User\Documents\FlyMyPlane\assets\Amatic_SC" />
       <recent name="$PROJECT_DIR$/assets/Fonts" />
-      <recent name="$PROJECT_DIR$/assets/objects" />
       <recent name="$PROJECT_DIR$/core/bin/main/com/mygdx" />
       <recent name="$PROJECT_DIR$/android" />
     </key>
@@ -239,6 +239,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.mygdx.game.DesktopLauncher" />
       <module name="FlyMyPlane.desktop.main" />
+      <option name="VM_PARAMETERS" value="-XstartOnFirstThread" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -338,6 +339,11 @@
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="463c804b-024c-48b1-a438-99a850b282eb">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
