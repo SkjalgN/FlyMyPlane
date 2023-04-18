@@ -357,13 +357,99 @@ public class GameState extends State {
     }
 
 
-    private void addButton(String path, float x, float y, float width, float height){
+    private Button createButton(String path, float x, float y, float width, float height){
         Skin skin = new Skin(Gdx.files.internal(path));
         Button button = new Button(skin);
         button.setSize(width, height);
         button.setPosition(x, y);
-        
-        stage.addActor(button);
+        return button;
+    }
+
+    private void createPauseButton(String path, float x, float y, float width, float height){
+        pauseBtn = createButton(null, height, startTime, width, height);
+        pauseBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                gsm.push(new PauseState(gsm, database));
+                return true;
+            }
+        });
+        stage.addActor(pauseBtn);
+    }
+
+    private void createLeftButton(String path, float x, float y, float width, float height){
+        leftBtn = createButton(null, height, startTime, width, height);
+        leftBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                plane.rotateLeft();
+                System.out.println("Turn Left");
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                plane.stopRotateLeft();
+            }
+        });
+        stage.addActor(leftBtn);
+    }
+
+    private void createRightButton(String path, float x, float y, float width, float height){
+        rightBtn = createButton(null, height, startTime, width, height);
+        rightBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                plane.rotateRight();
+                System.out.println("Turn Right");
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                plane.stopRotateRight();
+            }
+        });
+        stage.addActor(rightBtn);
+    }
+
+    private void createBoostButton(String path, float x, float y, float width, float height){
+        boostBtn = createButton(null, height, startTime, width, height);
+        boostBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                plane.setSpeed(15);
+                plane.setAirflowvar(0);
+                System.out.println("Button Pressed");
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                plane.setSpeed(3);
+                plane.setAirflowvar(1);
+            }
+        });
+        stage.addActor(boostBtn);
+    }
+
+    private void createFlameButton(String path, float x, float y, float width, float height){
+        flameBtn = createButton(null, height, startTime, width, height);
+        flameBtn.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                plane.setFlamevar(1);
+                System.out.println("Button Pressed");
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                plane.setFlamevar(0);
+                System.out.println("DSADASDSA Pressed");
+            }
+        });
+        stage.addActor(flameBtn);
     }
 
     
