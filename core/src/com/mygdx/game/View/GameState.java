@@ -40,7 +40,7 @@ public class GameState extends State {
     private long startTime;
     private long elapsedTime;
     private BitmapFont font;
-    private BitmapFont font2;
+
     private BitmapFont packageFont;
     private GameStage stage;
 
@@ -55,16 +55,17 @@ public class GameState extends State {
     private Button rightBtn;
     private Button boostBtn;
     private Button flameBtn;
-    private Table table;
-    private Label scoreLabel;
+    private Table packageTable;
     private API database;
     private Location[] locations = new Location[6];
     private Batch batch;
     private int buttonWidth;
     private int buttonHeight;
 
-    private int packageIndex;
     private Label packageLabel;
+    private Label timeLabel;
+
+    private int packageIndex;
     private int destinationIndex;
 
     //Booleans to show and hide packages and locations
@@ -85,13 +86,8 @@ public class GameState extends State {
         
         boat = new Boat(2700, 2700, 1, 1, 300, 300, new TextureRegion(new Texture("objects/boat.png")));
 
-        font = new BitmapFont();
-        font.getData().setScale(3f);
-        font2 = new BitmapFont();
-        font2.getData().setScale(3f);
-        packageFont = new BitmapFont();
-        // FreeTypeFontGenerator generator = new
-        // FreeTypeFontGenerator(Gdx.files.internal("myfont.ttf"));
+
+
 
         stage = new GameStage();
 
@@ -114,18 +110,23 @@ public class GameState extends State {
         //createRightButton("buttons/game/rightBtn/rightBtn.json", buttonWidth * 1.2f, 0, buttonWidth, buttonHeight);
         //createPauseButton("buttons/game/pauseBtn/pauseBtn.json", 0, SCREEN_HEIGHT - buttonHeight, buttonWidth, buttonHeight);
 
-        // Scorelabel er feil, det er teksten som viser hvor du skal hente pakke. Må
-        // endre navn
-        // Mangler også den andre skrifttypen
+
         startTime = TimeUtils.millis();
         packageFont = new BitmapFont();
-        ;
-        //scoreLabel = new Label("Get the package in: " + pack.getCity(), new Label.LabelStyle(packageFont, Color.WHITE));
-        //scoreLabel.setFontScale(2f);
-        table = new Table(flameBtnSkin);
-        table.add(scoreLabel).expandX().padTop(10);
-        table.setPosition(stage.getWidth() / 2, stage.getHeight() - table.getHeight() - 10);
-        table.row();
+        font = new BitmapFont();
+
+
+        //Table til å legge til packageLabel på
+        packageTable = new Table();
+        packageFont = new BitmapFont();
+        timeLabel = new Label("Time: " + elapsedTime, new Label.LabelStyle(packageFont, Color.WHITE));
+        timeLabel.setFontScale(SCREEN_HEIGHT * 0.0005f);
+        packageLabel = new Label("Get the package in: " + pack.getCity(), new Label.LabelStyle(packageFont, Color.WHITE));
+        packageLabel.setFontScale(SCREEN_HEIGHT/200);
+        packageTable.add(packageLabel).expandX().padTop(10);
+        packageTable.setPosition(SCREEN_WIDTH/ 2f, SCREEN_HEIGHT-(SCREEN_HEIGHT*0.05f));
+        packageTable.row();
+
 
         // BUTTONS!!!!
 
@@ -212,7 +213,8 @@ public class GameState extends State {
         stage.addActor(rightBtn);
         stage.addActor(boostBtn);
         stage.addActor(flameBtn);
-        stage.addActor(table);
+        stage.addActor(packageTable);
+        //stage.addActor(timeTable);
 
         Gdx.input.setInputProcessor(stage);
     }
@@ -245,18 +247,10 @@ public class GameState extends State {
 
         long elapsedTime = TimeUtils.timeSinceMillis(startTime);
         int seconds = (int) (elapsedTime / 1000);
-        font.draw(sb, "Tid: " + Integer.toString(seconds), plane.getxPos() + SCREEN_WIDTH * 1.2f, plane.getyPos() + SCREEN_HEIGHT * 1.3f);
-        font.getData().setScale(3f);
 
-        if (showPackage) {
-            font2.draw(sb, "Find the package in " + pack.getCity(), plane.getxPos(), plane.getyPos() + SCREEN_HEIGHT * 1.3f);
-            font2.getData().setScale(3f);
-        }
-        else if (showDestination){
-            font2.draw(sb, "Deliver the package to " + pack2.getCity(), plane.getxPos(), plane.getyPos() + SCREEN_HEIGHT * 1.3f);
-            font2.getData().setScale(3f);
-        }
 
+       font.draw(sb, "Tid: " + Integer.toString(seconds), plane.getxPos() + SCREEN_WIDTH * 1.2f, plane.getyPos() + SCREEN_HEIGHT * 1.3f);
+       font.getData().setScale(3f);
 
 
 
@@ -268,7 +262,6 @@ public class GameState extends State {
     @Override
     public void dispose() {
         background.dispose();
-        font.dispose();
         pauseBtnSkin.dispose();
         leftBtnSkin.dispose();
         rightBtnSkin.dispose();
@@ -488,7 +481,7 @@ public class GameState extends State {
             //The delivery point is instantiated, and the "showTextureRegion2" is made true. The next time the render function is called,
             //the delivery point will be drawn.
             this.pack2 = initializePackage(pack2, 1, "objects/Target1.png");
-            //packageLabel.setText("Deliver the package to " + pack2.getCity());
+            packageLabel.setText("Deliver the package to " + pack2.getCity());
             showDestination = true;
 
         }
