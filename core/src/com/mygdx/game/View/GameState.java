@@ -32,8 +32,7 @@ public class GameState extends State {
     private Boat boat;
     private Package pack;
     private Package pack2;
-    private long startTime;
-    private long elapsedTime;
+
 
     private BitmapFont packageFont;
     private GameStage stage;
@@ -58,6 +57,11 @@ public class GameState extends State {
 
     private Label packageLabel;
     private Label timeLabel;
+
+    private long startTime;
+    private long elapsedTime;
+
+    private int seconds;
 
     private int packageIndex;
     private int destinationIndex;
@@ -425,6 +429,7 @@ public class GameState extends State {
                 showPackage = false;
                 showDestination = false;
                 gsm.push(new VictoryState(gsm, database));
+                elapsedTime = seconds;
             }
         }
     }
