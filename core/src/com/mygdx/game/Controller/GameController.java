@@ -33,7 +33,6 @@ public class GameController extends Game {
 		//batch = new SpriteBatch();
 		tutorialScreen = new TutorialScreen(this);
 		setScreen(tutorialScreen);
-		tutorialScreen.show();
  		//gsm = new GameStateManager();
 		//gsm.push(new StartGameState(gsm, _FBIC));
 		//listen = new ArrayList<>();
