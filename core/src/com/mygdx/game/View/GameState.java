@@ -75,7 +75,7 @@ public class GameState extends State {
         super(gsm);
         this.database = database;
         initializeLocations();
-        this.pack = initializePackage(pack, 0, "assets/objects/packs.png");
+        this.pack = initializePackage(pack, 0, "objects/packs.png");
         background = new Texture("gamescreens/theMap.jpg");
         backgroundWater = new Texture("gamescreens/water.jpg");
         cam.setToOrtho(false, background.getWidth(), background.getHeight());
@@ -224,7 +224,7 @@ public class GameState extends State {
         cam.update();
         plane.update(dt);
         boat.update(dt);
-        handleInput();
+        handlePlaneOutsideScreen();
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -277,7 +277,7 @@ public class GameState extends State {
         stage.dispose();
     }
 
-    public void handleInput() {
+    public void handlePlaneOutsideScreen() {
         if (plane.getxPos() > background.getWidth() + 300) {
             plane.setxPos(-500);
             cam.translate(-(background.getWidth() + 800), 0);
@@ -487,7 +487,7 @@ public class GameState extends State {
             }
             //The delivery point is instantiated, and the "showTextureRegion2" is made true. The next time the render function is called,
             //the delivery point will be drawn.
-            this.pack2 = initializePackage(pack2, 1, "assets/objects/Target1.png");
+            this.pack2 = initializePackage(pack2, 1, "objects/Target1.png");
             //packageLabel.setText("Deliver the package to " + pack2.getCity());
             showDestination = true;
 
