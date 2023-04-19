@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+//import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -28,11 +28,11 @@ public class ScoreboardState extends State{
 
     protected ScoreboardState(final GameStateManager gsm, API Database) {
         super(gsm);
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Fonts/AmaticSC-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 24*6; // Set the font size here
-        customFont = generator.generateFont(parameter);
-        generator.dispose();
+        //FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Fonts/AmaticSC-Regular.ttf"));
+        //FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        //parameter.size = 24*6; // Set the font size here
+        //customFont = generator.generateFont(parameter);
+        //generator.dispose();
         this.database = Database;
         background = new Texture("gamescreens/scoreboard.jpg");
         cam.setToOrtho(false, width,height);
