@@ -390,12 +390,12 @@ public class GameState extends State {
 
      // Function to initialize locations
      public void initializeLocations() {
-        Location Oslo = new Location("Oslo", 4200, 3550);
-        Location Istanbul = new Location("Istanbul", 4600, 2950);
-        Location Lagos = new Location("Lagos", 4100, 2200);
-        Location Manila = new Location("Manila", 6700, 2330);
-        Location NewYork = new Location("New York", 2300, 3000);
-        Location SaoPaulo = new Location("Sao Paulo", 3000, 1500);
+         Location Oslo = new Location("Oslo", 1512, 1278);
+         Location Istanbul = new Location("Istanbul", 1656, 1062);
+         Location Lagos = new Location("Lagos", 1476, 792);
+         Location Manila = new Location("Manila", 2412, 839);
+         Location NewYork = new Location("New York", 828, 1080);
+         Location SaoPaulo = new Location("Sao Paulo", 1080, 540);
         locations[0] = Oslo;
         locations[1] = Istanbul;
         locations[2] = Lagos;
