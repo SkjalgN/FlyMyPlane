@@ -46,8 +46,8 @@ public class TutorialState extends State {
         backBtn = new Button(backBtnSkin);
 
         // Set button position, size and function
-        nextBtn.setSize(width / 7f, height / 11f);
-        nextBtn.setPosition(width * 5f / 8f, height * 1f / 8f);
+        nextBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
+        nextBtn.setPosition(SCREEN_WIDTH * 5f / 8f, SCREEN_HEIGHT * 1f / 8f);
         nextBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -59,8 +59,8 @@ public class TutorialState extends State {
             }
         });
 
-        exitBtn.setSize(width / 7f, height / 11f);
-        exitBtn.setPosition(width * 1.8f / 8f, height * 1f / 8f);
+        exitBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
+        exitBtn.setPosition(SCREEN_WIDTH * 1.8f / 8f, SCREEN_HEIGHT * 1f / 8f);
         exitBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -72,8 +72,8 @@ public class TutorialState extends State {
         });
 
         backBtn.setVisible(false);
-        backBtn.setSize(width / 7f, height / 11f);
-        backBtn.setPosition(width * 3.8f / 8f, height * 1f / 8f);
+        backBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
+        backBtn.setPosition(SCREEN_WIDTH * 3.8f / 8f, SCREEN_HEIGHT * 1f / 8f);
         backBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -100,7 +100,7 @@ public class TutorialState extends State {
     public void render(SpriteBatch sb) {
 
         sb.begin();
-        sb.draw(background[backgroundVar], 0, 0, width, height);
+        sb.draw(background[backgroundVar], 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
