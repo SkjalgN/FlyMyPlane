@@ -41,7 +41,7 @@ public class VictoryState extends State {
         nextBtn.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new MenuState(gsm, database));
+                gsm.set(new MenuView(gsm, database));
                 System.out.println("Button Pressed");
                 return true;
             }

@@ -63,7 +63,7 @@ public class PauseState extends State{
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 gsm.pop();
                 gsm.pop();
-                gsm.push(new MenuState(gsm, database));
+                gsm.push(new MenuView(gsm, database));
                 System.out.println("Button Pressed");
                 return true;
             }

@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
 
-public class MenuState extends State{
+public class MenuView extends State{
     
     private Texture background;
     private Skin startGameButtonSkin;
@@ -22,7 +22,7 @@ public class MenuState extends State{
     private GameStage stage;
     private API database;
 
-    public MenuState(final GameStateManager gsm, API Database) {
+    public MenuView(final GameStateManager gsm, API Database) {
         super(gsm);
         database = Database;
         cam.setToOrtho(false, width,height);

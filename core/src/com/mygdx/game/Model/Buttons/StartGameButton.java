@@ -8,7 +8,7 @@ import com.mygdx.game.View.GameStage;
 public class StartGameButton extends Button {
     private Button startButton;
     private Skin startSkin;
-    private GameStage stage;
+
 
     public StartGameButton() {
         System.out.println(Gdx.graphics.getWidth() + "HER SKAL DET VÆRE NOE");
@@ -19,9 +19,7 @@ public class StartGameButton extends Button {
                 Gdx.graphics.getHeight() / 2.5f - startButton.getHeight() / 2f);
     }
 
-    public GameStage getStage() {
-        return this.stage;
-    }
+
 
     public Button getButton() {
         return startButton;
@@ -31,10 +29,5 @@ public class StartGameButton extends Button {
         startSkin.dispose();
     }
 
-    public void showButton() {
-        stage = new GameStage();
-        stage.addActor(startButton);
-        Gdx.input.setInputProcessor(stage);
-
-    }
+    
 }

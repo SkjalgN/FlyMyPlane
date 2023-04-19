@@ -6,10 +6,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.mygdx.game.API;
 import com.mygdx.game.Model.Score;
 import com.mygdx.game.View.GameState;
-import com.mygdx.game.View.MenuState;
+import com.mygdx.game.View.MenuView;
 import com.mygdx.game.View.GameStateManager;
 import com.mygdx.game.View.StartGameView;
 import com.mygdx.game.View.VictoryState;
@@ -26,7 +27,7 @@ public class GameController extends Game {
 
 	// ALL THE STATES ARE CREATED HERE
 	private StartGameView StartGameView;
-	private MenuState MenuView;
+	private MenuView MenuView;
 	
 
 
@@ -58,12 +59,12 @@ public class GameController extends Game {
 
 	public void StartGameView(){
 		this.StartGameView = new StartGameView(gsm, Database);
-		startGameButton();
+		changeStateButton(this.StartGameView.getStartGameButton());
 	}
 
 	// StartGameButton
-	public void startGameButton(){
-		this.StartGameView.getStartGameButton().addListener(new InputListener() {
+	public void changeStateButton(Button button){
+		button.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 MenuView();
@@ -73,7 +74,7 @@ public class GameController extends Game {
         });
 	}
 	public void MenuView(){
-		this.MenuView = new MenuState(gsm, Database);
+		this.MenuView = new MenuView(gsm, Database);
 		gsm.set(this.MenuView);
 	}
 	//

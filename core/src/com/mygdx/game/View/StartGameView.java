@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.utils.Null;
 import com.mygdx.game.API;
 import com.mygdx.game.Model.Buttons.StartGameButton;
 import com.badlogic.gdx.audio.Music;
@@ -18,6 +19,7 @@ public class StartGameView extends State {
     private Texture background;
     private BitmapFont customFont;
     private StartGameButton startGameButton;
+    private GameStage stage;
 
     public StartGameView(final GameStateManager gsm, API Database) {
 
@@ -25,9 +27,10 @@ public class StartGameView extends State {
         this.database = Database;
 
         background = new Texture("gamescreens/startPage.jpg");
-
-        this.startGameButton = new StartGameButton();
-        this.startGameButton.showButton();
+        startGameButton = new StartGameButton();
+        stage = new GameStage();
+        stage.addActor(startGameButton.getButton());
+        Gdx.input.setInputProcessor(stage);
 
         // Load a custom font KAN SIKKERET FJERNES
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
@@ -58,13 +61,16 @@ public class StartGameView extends State {
         sb.draw(background, 0, 0, width, height);
         sb.end();
 
-        this.startGameButton.getStage().act(Gdx.graphics.getDeltaTime());
-        this.startGameButton.getStage().draw();
+        if (stage != null) {
+            stage.act(Gdx.graphics.getDeltaTime());
+            stage.draw();
+
+        }
     }
 
     @Override
     public void dispose() {
-        this.startGameButton.getStage().dispose();
         this.startGameButton.dispose();
+        this.stage.dispose();
     }
 }
