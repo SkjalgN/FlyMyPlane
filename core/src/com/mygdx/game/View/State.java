@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public abstract class State {
     protected int width;
     protected int height;
+    protected static final int SCREEN_WIDTH = Gdx.graphics.getWidth();
+    protected static final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
     protected GameStateManager gsm;
     protected OrthographicCamera cam;
     protected AssetManager manager;

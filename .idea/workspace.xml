@@ -9,16 +9,15 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6a065cd9-4835-40d3-a28a-5e8bfa2a1507" name="Changes" comment="Fixed project">
-      <change afterPath="$PROJECT_DIR$/assets/Amatic_SC/AmaticSC-Regular.bmp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/checksums/checksums.lock" afterDir="false" />
+    <list default="true" id="6a065cd9-4835-40d3-a28a-5e8bfa2a1507" name="Changes" comment="Added text to inform player where the package is located">
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.5.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Model/Location.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Model/Location.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Model/Package.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Model/Package.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/Model/Plane.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/Model/Plane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/src/com/mygdx/game/View/GameState.java" beforeDir="false" afterPath="$PROJECT_DIR$/core/src/com/mygdx/game/View/GameState.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +63,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="resizeCompatibility" />
+        <entry key="$PROJECT_DIR$" value="packageHandle" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -100,9 +99,9 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/objects" />
       <recent name="C:\Users\User\Documents\FlyMyPlane\assets\Amatic_SC" />
       <recent name="$PROJECT_DIR$/assets/Fonts" />
-      <recent name="$PROJECT_DIR$/assets/objects" />
       <recent name="$PROJECT_DIR$/core/bin/main/com/mygdx" />
       <recent name="$PROJECT_DIR$/android" />
     </key>
@@ -240,6 +239,7 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.mygdx.game.DesktopLauncher" />
       <module name="FlyMyPlane.desktop.main" />
+      <option name="VM_PARAMETERS" value="-XstartOnFirstThread" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -280,10 +280,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Android App.AndroidLauncher" />
-        <item itemvalue="Application.com.mygdx.game.AndroidFireBaseAPI" />
         <item itemvalue="Application.database.Database" />
         <item itemvalue="Application.Database" />
+        <item itemvalue="Application.com.mygdx.game.AndroidFireBaseAPI" />
+        <item itemvalue="Android App.AndroidLauncher" />
+        <item itemvalue="Android App.AndroidLauncher" />
       </list>
     </recent_temporary>
   </component>
@@ -326,12 +327,23 @@
       <option name="presentableId" value="LOCAL−00005" />
       <updated>1681393634739</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL−00006" summary="Added text to inform player where the package is located">
+      <created>1681665111086</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1681665111086</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
+        <entry key="463c804b-024c-48b1-a438-99a850b282eb">
+          <value>
+            <State />
+          </value>
+        </entry>
         <entry key="MAIN">
           <value>
             <State>
@@ -356,6 +368,7 @@
     <MESSAGE value="Fixed project" />
     <MESSAGE value="update project" />
     <MESSAGE value="merged scoreboard to menu" />
-    <option name="LAST_COMMIT_MESSAGE" value="merged scoreboard to menu" />
+    <MESSAGE value="Added text to inform player where the package is located" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added text to inform player where the package is located" />
   </component>
 </project>

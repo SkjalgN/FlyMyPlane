@@ -26,6 +26,9 @@ public class ScoreboardState extends State{
         super(gsm);
         this.database = Database;
         background = new Texture("gamescreens/scoreboard.jpg");
+        cam.setToOrtho(false, width,height);
+        cam.zoom = (float)1.0;
+        cam.translate(0, 0);
         scoreboardList = new ArrayList<>();
         database.getHighscores(scoreboardList);
 
@@ -58,7 +61,7 @@ public class ScoreboardState extends State{
 
     @Override
     public void update(float dt) {
-
+        cam.update();
     }
 
     @Override
@@ -66,6 +69,7 @@ public class ScoreboardState extends State{
         BitmapFont font = new BitmapFont();
         font.setColor(Color.WHITE);
         font.getData().setScale(6);
+        sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0,width,height);
         GlyphLayout layout = new GlyphLayout();

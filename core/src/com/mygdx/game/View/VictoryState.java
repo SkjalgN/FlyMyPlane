@@ -21,6 +21,10 @@ public class VictoryState extends State {
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/victoryScreen.jpg");
+        cam.setToOrtho(false, width,height);
+        cam.zoom = (float)1.0;
+        cam.translate(0, 0);
+
 
         // Create a stage
         stage = new GameStage();
@@ -50,11 +54,12 @@ public class VictoryState extends State {
 
     @Override
     public void update(float dt) {
-
+        cam.update();
     }
 
     @Override
     public void render(SpriteBatch sb) {
+        sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0, 0, width, height);
         sb.end();

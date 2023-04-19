@@ -1,61 +1,82 @@
 
-back.png
+dragon1.png
 size: 2048, 2048
 format: RGBA8888
 filter: Linear, Linear
 repeat: none
+selectionSquare
+  rotate: false
+  xy: 710, 416
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+dragon
+  rotate: false
+  xy: 1486, 1160
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+flameBtn
+  rotate: false
+  xy: 1212, 416
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
 menuBtn1
   rotate: false
-  xy: 1, 1390
+  xy: 1, 1662
   size: 774, 322
   orig: 774, 322
   offset: 0, 0
   index: -1
 menuBtn2
   rotate: false
-  xy: 1, 1066
+  xy: 1, 1338
   size: 774, 322
   orig: 774, 322
   offset: 0, 0
   index: -1
 menuBtn3
   rotate: false
-  xy: 777, 1390
+  xy: 777, 1662
   size: 774, 322
   orig: 774, 322
   offset: 0, 0
   index: -1
 pauseBtn1-removebg-preview
   rotate: false
-  xy: 777, 1035
+  xy: 777, 1307
   size: 707, 353
   orig: 707, 353
   offset: 0, 0
   index: -1
 pauseBtn1_2-removebg-preview
   rotate: false
-  xy: 1, 711
+  xy: 1, 983
   size: 707, 353
   orig: 707, 353
   offset: 0, 0
   index: -1
 pauseBtn1_3-removebg-preview
   rotate: false
-  xy: 1, 356
+  xy: 1, 628
   size: 707, 353
   orig: 707, 353
   offset: 0, 0
   index: -1
 pauseBtn1_4-removebg-preview
   rotate: false
-  xy: 1, 1
+  xy: 1, 273
   size: 707, 353
   orig: 707, 353
   offset: 0, 0
   index: -1
 playBtn
   rotate: false
-  xy: 710, 646
+  xy: 710, 918
   size: 645, 387
   orig: 645, 387
   offset: 0, 0

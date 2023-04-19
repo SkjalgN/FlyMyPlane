@@ -90,6 +90,7 @@ task run(type: Exec) {
 
 dependencies {
     implementation 'com.google.firebase:firebase-database:20.0.4'
+
 }
 
 eclipse.project.name = appName + "-android"

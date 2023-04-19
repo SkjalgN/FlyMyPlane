@@ -79,7 +79,7 @@ public class Package {
 
     public void draw(Batch batch) {
 
-            batch.draw(packageTextureRegion, xPos, yPos);
+            batch.draw(packageTextureRegion, xPos, yPos,width,height);
 
     }
 
