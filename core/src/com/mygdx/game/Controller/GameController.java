@@ -39,8 +39,6 @@ public class GameController extends Game {
 		_FBIC.submitHighscore(new Score(3490,"Skjalg"));
 		_FBIC.getHighscores(listen);
 
-
-
 	}
 
 	@Override
@@ -48,7 +46,7 @@ public class GameController extends Game {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
-		handleInput();
+
 	}
 
 	public void handleInput() {
