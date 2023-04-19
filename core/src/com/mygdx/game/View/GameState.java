@@ -75,7 +75,7 @@ public class GameState extends State {
         backgroundWater = new Texture("gamescreens/water.jpg");
         cam.setToOrtho(false, background.getWidth(), background.getHeight());
         cam.zoom = (float) 0.18;
-        plane = new Plane(background.getWidth() / 2 - 200, background.getHeight() / 2 - 200, 7, 1, 200, 200,
+        plane = new Plane(background.getWidth() / 2 - 25, background.getHeight() / 2 - 25, 3, 1, 50, 50,
                 skinVar);
         
         boat = new Boat(2700, 2700, 1, 1, 300, 300, new TextureRegion(new Texture("objects/boat.png")));
