@@ -1,7 +1,6 @@
 package com.mygdx.game.View;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
 
 public class TutorialState extends State {
-    private SpriteBatch batch;
     private TextureRegion background[];
     private int backgroundVar = 0;
     private Button nextBtn;
@@ -22,12 +20,9 @@ public class TutorialState extends State {
     private Skin exitBtnSkin;
     private Skin backBtnSkin;
     private GameStage stage;
-    private API database;
-    TextButton.TextButtonStyle textButtonStyle;
 
     public TutorialState(final GameStateManager gsm, final API database) {
         super(gsm);
-        batch = new SpriteBatch();
         background = new TextureRegion[2];
         background[0] = new TextureRegion(new Texture("gamescreens/tutorial1.jpg"));
         background[1] = new TextureRegion(new Texture("gamescreens/tutorial2.jpg"));
