@@ -98,8 +98,9 @@ public class SelectionState extends State{
         nextBtnSkin.add("font", font, BitmapFont.class);
 
         box1.setSize(width/5f, width/5f);
-        box1.setPosition(width/2f-(box1.getWidth()/2f+115), height/2f-(box1.getHeight()/2f));
+        box1.setPosition(width/2f - width*0.18f -(box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
         box1.setColor(1,1,1,0);
+        System.out.println("Width: " + width + " Height: " + height);
         box1.addListener(new InputListener() {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -117,7 +118,7 @@ public class SelectionState extends State{
         });
 
         box2.setSize(width/5f, width/5f);
-        box2.setPosition(width/2f-(box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
+        box2.setPosition(width/2f-box1.getWidth()/2f, height/2f-(box1.getHeight()/2f));
         box2.setColor(1,1,1,0);
         box2.addListener(new InputListener() {
             @Override
@@ -136,7 +137,7 @@ public class SelectionState extends State{
         });
 
         box3.setSize(width/5f, width/5f);
-        box3.setPosition(width/2f-(box1.getWidth()/2f-115), height/2f-(box1.getHeight()/2f));
+        box3.setPosition(width/2f + width*0.18f - (box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
         box3.setColor(1,1,1,0);
         box3.addListener(new InputListener() {
             @Override
@@ -155,7 +156,7 @@ public class SelectionState extends State{
         });
 
         box4.setSize(width/5f, width/5f);
-        box4.setPosition(width/2f-(box1.getWidth()/2f+115), height/2f-(box1.getHeight()/2f+120));
+        box4.setPosition(width/2f - width*0.18f - box1.getWidth()/2f, height/2f-height*0.25f-(box1.getHeight()/2f));
         box4.setColor(1,1,1,0);
         box4.addListener(new InputListener() {
             @Override
@@ -174,7 +175,7 @@ public class SelectionState extends State{
         });
 
         box5.setSize(width/5f, width/5f);
-        box5.setPosition(width/2f-(box1.getWidth()/2f), height/2f-(box1.getHeight()/2f+120));
+        box5.setPosition(width/2f-(box1.getWidth()/2f), height/2f-height*0.25f-(box1.getHeight()/2f));
         box5.setColor(1,1,1,0);
         box5.addListener(new InputListener() {
             @Override
@@ -193,7 +194,7 @@ public class SelectionState extends State{
         });
         
         box6.setSize(width/5f, width/5f);
-        box6.setPosition(width/2f-(box1.getWidth()/2f-115), height/2f-(box1.getHeight()/2f+120));
+        box6.setPosition(width/2f + width*0.18f -(box1.getWidth()/2f), height/2f-height*0.25f-(box1.getHeight()/2f));
         box6.setColor(1,1,1,0);
         box6.addListener(new InputListener() {
             @Override
