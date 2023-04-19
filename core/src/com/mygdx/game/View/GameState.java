@@ -440,7 +440,7 @@ public class GameState extends State {
 
         int randomNum = generateRandomNumber();
         newPackage = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
-                locations[randomNum].getY(), 200, 200, new TextureRegion(new Texture(texture)), true);
+                locations[randomNum].getY(), 72, 72, new TextureRegion(new Texture(texture)), true);
 
         if(packNum == 0) {
             packageIndex = randomNum;
