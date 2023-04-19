@@ -6,19 +6,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 
 
-public class SelectionState extends State{
+public class SelectionView extends State{
     private Texture background;
     private Texture loading;
     private Texture loadingbackground;
@@ -49,7 +46,7 @@ public class SelectionState extends State{
         SWITCHING
     }
 
-    protected SelectionState(final GameStateManager gsm, final API database) {
+    public SelectionView(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/selection1.jpg");

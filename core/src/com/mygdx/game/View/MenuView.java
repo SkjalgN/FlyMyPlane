@@ -1,7 +1,6 @@
 package com.mygdx.game.View;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -47,26 +46,11 @@ public class MenuView extends State{
         // Set the button's position and size
         startGameButton.setSize(width/2f, height/3.5f);
         startGameButton.setPosition(width/2f-startGameButton.getWidth()/2f, height*6f/10f+20);
-        
-        startGameButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new SelectionState(gsm, database));
-                System.out.println("Button Pressed");
-                return true;
-            }
-        });
+
 
         tutorialButton.setSize(width/2f, height/3.5f);
         tutorialButton.setPosition(width/2f-tutorialButton.getWidth()/2f, height*4f/10f);
-        tutorialButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new TutorialState(gsm, database));
-                System.out.println("Button Pressed");
-                return true;
-            }
-        });
+
 
         scoreboardButton.setSize(width/2f, height/3.5f);
         scoreboardButton.setPosition(width/2f-scoreboardButton.getWidth()/2f, height*2f/10f-20);
@@ -84,6 +68,12 @@ public class MenuView extends State{
         stage.addActor(tutorialButton);
         stage.addActor(scoreboardButton);
         Gdx.input.setInputProcessor(stage);
+    }
+    public Button getSelectionButton() {
+        return startGameButton;
+    }
+    public Button getTutorialButton() {
+        return tutorialButton;
     }
 
     @Override

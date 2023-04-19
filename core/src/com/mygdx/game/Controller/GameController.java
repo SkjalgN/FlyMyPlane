@@ -9,16 +9,19 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.mygdx.game.API;
 import com.mygdx.game.Model.Score;
-import com.mygdx.game.View.GameState;
 import com.mygdx.game.View.MenuView;
 import com.mygdx.game.View.GameStateManager;
+import com.mygdx.game.View.SelectionView;
 import com.mygdx.game.View.StartGameView;
-import com.mygdx.game.View.VictoryState;
+import com.mygdx.game.View.TutorialView;
 
 import java.util.ArrayList;
 
 
 public class GameController extends Game {
+	public interface Callback {
+		void execute();
+	}
 
 	private GameStateManager gsm;
 	private  SpriteBatch batch;
@@ -26,8 +29,10 @@ public class GameController extends Game {
 
 
 	// ALL THE STATES ARE CREATED HERE
-	private StartGameView StartGameView;
-	private MenuView MenuView;
+	private StartGameView startGameView;
+	private MenuView menuView;
+	private SelectionView SelectionView;
+	private TutorialView tutorialView;
 	
 
 
@@ -40,42 +45,87 @@ public class GameController extends Game {
 	public ArrayList<Score> listen;
 	@Override
 	public void create() {
-		//THIS VIEW IS CREATED FIRST
-		StartGameView();
 
 		batch = new SpriteBatch();
- 		gsm = new GameStateManager();
+		gsm = new GameStateManager();
+		//THIS VIEW IS CREATED FIRST
+		startGameView();
+/*
 		gsm.push(this.StartGameView);
-		listen = new ArrayList<>();
+*/
 		/*
 		* Database.submitHighscore(new Score(3490,"Skjalg"));
 		* THIS METHOD IS USED TO SAVE SCORES TO DB IN THIS FORMAT!
 		* CREATE A NEW SCORE WITH SCORE FIRST, THEN USERNAME
 		* */
 		Database.submitHighscore(new Score(3490,"Skjalg"));
-		Database.getHighscores(listen);
 
 	}
-
-	public void StartGameView(){
-		this.StartGameView = new StartGameView(gsm, Database);
-		changeStateButton(this.StartGameView.getStartGameButton());
+	//The button is activated at correct view
+	public void startMenuView(){
+		changeStateButton(this.startGameView.getStartGameButton(), new Callback() {
+			@Override
+			public void execute() {
+				menuView();
+			}
+		});
+	}
+	//The button is activated at correct view
+	public void startSelectionView(){
+		changeStateButton(this.menuView.getSelectionButton(), new Callback() {
+			@Override
+			public void execute() {
+				System.out.println("Started SelectionView");
+				selectionView();
+			}
+		});
+	}
+	public void startTutorialView(){
+		changeStateButton(this.menuView.getTutorialButton(), new Callback() {
+			@Override
+			public void execute() {
+				tutorialView();
+			}
+		});
 	}
 
 	// StartGameButton
-	public void changeStateButton(Button button){
+	public void changeStateButton(Button button, final Callback callback){
 		button.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                MenuView();
-                System.out.println("Started MenuView");
-                return true;
-            }
-        });
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				callback.execute();
+				return true;
+			}
+		});
 	}
-	public void MenuView(){
-		this.MenuView = new MenuView(gsm, Database);
-		gsm.set(this.MenuView);
+	public void startGameView(){
+		this.startGameView = new StartGameView(gsm, Database);
+		gsm.push(this.startGameView);
+
+		//Knappene som aktiveres skal hit
+		startMenuView();
+	}
+
+	public void menuView(){
+		this.menuView = new MenuView(gsm, Database);
+		gsm.set(this.menuView);
+
+		//Knappene som aktiveres på MenuView
+		startSelectionView();
+		startTutorialView();
+	}
+	public void selectionView(){
+		this.SelectionView = new SelectionView(gsm, Database);
+		gsm.set(this.SelectionView);
+
+		//Knappene som aktiveres på SelectionView
+	}
+	public void tutorialView(){
+		this.tutorialView = new TutorialView(gsm, Database);
+		gsm.set(this.tutorialView);
+
+		//Knappene som aktiveres på TutorialView
 	}
 	//
 
@@ -84,7 +134,6 @@ public class GameController extends Game {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		gsm.update(Gdx.graphics.getDeltaTime());
 		gsm.render(batch);
-
 	}
 
 	public void handleInput() {

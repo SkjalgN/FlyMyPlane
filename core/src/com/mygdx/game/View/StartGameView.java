@@ -27,7 +27,12 @@ public class StartGameView extends State {
         this.database = Database;
 
         background = new Texture("gamescreens/startPage.jpg");
+
+        //Button
         startGameButton = new StartGameButton();
+
+
+        //New Stage
         stage = new GameStage();
         stage.addActor(startGameButton.getButton());
         Gdx.input.setInputProcessor(stage);
