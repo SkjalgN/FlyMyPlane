@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -23,10 +22,6 @@ import com.mygdx.game.Model.Location;
 import com.mygdx.game.Model.Package;
 import com.mygdx.game.Model.Plane;
 import com.mygdx.game.Model.Boat;
-import java.time.Clock;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 import com.badlogic.gdx.utils.TimeUtils;
 
 public class GameState extends State {
@@ -39,7 +34,6 @@ public class GameState extends State {
     private Package pack2;
     private long startTime;
     private long elapsedTime;
-    private BitmapFont font;
 
     private BitmapFont packageFont;
     private GameStage stage;
@@ -55,7 +49,7 @@ public class GameState extends State {
     private Button rightBtn;
     private Button boostBtn;
     private Button flameBtn;
-    private Table packageTable;
+    private Table textTable;
     private API database;
     private Location[] locations = new Location[6];
     private Batch batch;
@@ -113,19 +107,25 @@ public class GameState extends State {
 
         startTime = TimeUtils.millis();
         packageFont = new BitmapFont();
-        font = new BitmapFont();
+
+
 
 
         //Table til å legge til packageLabel på
-        packageTable = new Table();
+        textTable = new Table();
         packageFont = new BitmapFont();
-        timeLabel = new Label("Time: " + elapsedTime, new Label.LabelStyle(packageFont, Color.WHITE));
-        timeLabel.setFontScale(SCREEN_HEIGHT * 0.0005f);
         packageLabel = new Label("Get the package in: " + pack.getCity(), new Label.LabelStyle(packageFont, Color.WHITE));
         packageLabel.setFontScale(SCREEN_HEIGHT/200);
-        packageTable.add(packageLabel).expandX().padTop(10);
-        packageTable.setPosition(SCREEN_WIDTH/ 2f, SCREEN_HEIGHT-(SCREEN_HEIGHT*0.05f));
-        packageTable.row();
+        textTable.add(packageLabel).expandX().padTop(10);
+        textTable.setPosition(SCREEN_WIDTH/ 2f, SCREEN_HEIGHT-(SCREEN_HEIGHT*0.07f));
+        textTable.row();
+
+        //Label som holder styr på tida
+        timeLabel = new Label("Time: ", new Label.LabelStyle(packageFont, Color.WHITE));
+        timeLabel.setFontScale(SCREEN_HEIGHT/200);
+        textTable.add(timeLabel).expandY().padTop(10);
+
+
 
 
         // BUTTONS!!!!
@@ -213,7 +213,7 @@ public class GameState extends State {
         stage.addActor(rightBtn);
         stage.addActor(boostBtn);
         stage.addActor(flameBtn);
-        stage.addActor(packageTable);
+        stage.addActor(textTable);
         //stage.addActor(timeTable);
 
         Gdx.input.setInputProcessor(stage);
@@ -248,12 +248,7 @@ public class GameState extends State {
         long elapsedTime = TimeUtils.timeSinceMillis(startTime);
         int seconds = (int) (elapsedTime / 1000);
 
-
-       font.draw(sb, "Tid: " + Integer.toString(seconds), plane.getxPos() + SCREEN_WIDTH * 1.2f, plane.getyPos() + SCREEN_HEIGHT * 1.3f);
-       font.getData().setScale(3f);
-
-
-
+        timeLabel.setText("Time: " + seconds);
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
