@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -22,8 +23,16 @@ public class ScoreboardState extends State{
     private Skin backSkin;
     private Button backButton;
     private GameStage stage;
+
+    private BitmapFont customFont;
+
     protected ScoreboardState(final GameStateManager gsm, API Database) {
         super(gsm);
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Fonts/AmaticSC-Regular.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 24*6; // Set the font size here
+        customFont = generator.generateFont(parameter);
+        generator.dispose();
         this.database = Database;
         background = new Texture("gamescreens/scoreboard.jpg");
         cam.setToOrtho(false, width,height);
@@ -66,14 +75,14 @@ public class ScoreboardState extends State{
 
     @Override
     public void render(SpriteBatch sb) {
-        BitmapFont font = new BitmapFont();
-        font.setColor(Color.WHITE);
-        font.getData().setScale(6);
+
+        customFont.setColor(Color.BLACK);
+        customFont.getData().setScale(1);
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0,width,height);
         GlyphLayout layout = new GlyphLayout();
-        layout.setText(font, "-----------------------------------");
+        layout.setText(customFont, "--------------------");
         float centerX = (width - layout.width) / 2f;
 
         ArrayList<Score> safeList = new ArrayList<>(scoreboardList);
@@ -84,8 +93,8 @@ public class ScoreboardState extends State{
         for (Score score : safeList) {
             String scoreText = score.getName() + ": ";
             String scoreInt = Integer.toString((score.getScore()));
-            font.draw(sb, scoreText, centerX, y);
-            font.draw(sb, scoreInt, centerX + width/4f , y);
+            customFont.draw(sb, scoreText, centerX, y);
+            customFont.draw(sb, scoreInt, centerX + width/4f , y);
             y -= height/12f; // space out the scores vertically
             index++;
             if (index > 6){
