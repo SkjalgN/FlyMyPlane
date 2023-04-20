@@ -96,119 +96,37 @@ public class SelectionView extends State{
 
         box1.setSize(width/5f, width/5f);
         box1.setPosition(width/2f - width*0.18f -(box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
-        box1.setColor(1,1,1,0);
+        resetColor();
+
         System.out.println("Width: " + width + " Height: " + height);
-        box1.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Box Pressed");
-                box1.setColor(1,1,1,1);
-                box2.setColor(1,1,1,0);
-                box3.setColor(1,1,1,0);
-                box4.setColor(1,1,1,0);
-                box5.setColor(1,1,1,0);
-                box6.setColor(1,1,1,0);
-                skinVar = 0;
-                nextBtn.setVisible(true);
-                return true;
-            }
-        });
+       
 
         box2.setSize(width/5f, width/5f);
         box2.setPosition(width/2f-box1.getWidth()/2f, height/2f-(box1.getHeight()/2f));
         box2.setColor(1,1,1,0);
-        box2.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Box Pressed");
-                box1.setColor(1,1,1,0);
-                box2.setColor(1,1,1,1);
-                box3.setColor(1,1,1,0);
-                box4.setColor(1,1,1,0);
-                box5.setColor(1,1,1,0);
-                box6.setColor(1,1,1,0);
-                skinVar = 1;
-                nextBtn.setVisible(true);
-                return true;
-            }
-        });
+        
 
         box3.setSize(width/5f, width/5f);
         box3.setPosition(width/2f + width*0.18f - (box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
         box3.setColor(1,1,1,0);
-        box3.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Box Pressed");
-                box1.setColor(1,1,1,0);
-                box2.setColor(1,1,1,0);
-                box3.setColor(1,1,1,1);
-                box4.setColor(1,1,1,0);
-                box5.setColor(1,1,1,0);
-                box6.setColor(1,1,1,0);
-                skinVar = 2;
-                nextBtn.setVisible(true);
-                return true;
-            }
-        });
-
+        
         box4.setSize(width/5f, width/5f);
         box4.setPosition(width/2f - width*0.18f - box1.getWidth()/2f, height/2f-height*0.25f-(box1.getHeight()/2f));
         box4.setColor(1,1,1,0);
-        box4.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Box Pressed");
-                box1.setColor(1,1,1,0);
-                box2.setColor(1,1,1,0);
-                box3.setColor(1,1,1,0);
-                box4.setColor(1,1,1,1);
-                box5.setColor(1,1,1,0);
-                box6.setColor(1,1,1,0);
-                skinVar = 3;
-                nextBtn.setVisible(true);
-                return true;
-            }
-        });
-
+       
         box5.setSize(width/5f, width/5f);
         box5.setPosition(width/2f-(box1.getWidth()/2f), height/2f-height*0.25f-(box1.getHeight()/2f));
         box5.setColor(1,1,1,0);
-        box5.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Box Pressed");
-                box1.setColor(1,1,1,0);
-                box2.setColor(1,1,1,0);
-                box3.setColor(1,1,1,0);
-                box4.setColor(1,1,1,0);
-                box5.setColor(1,1,1,1);
-                box6.setColor(1,1,1,0);
-                skinVar = 4;
-                nextBtn.setVisible(true);
-                return true;
-            }
-        });
+        
         
         box6.setSize(width/5f, width/5f);
         box6.setPosition(width/2f + width*0.18f -(box1.getWidth()/2f), height/2f-height*0.25f-(box1.getHeight()/2f));
         box6.setColor(1,1,1,0);
-        box6.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Box Pressed");
-                box1.setColor(1,1,1,0);
-                box2.setColor(1,1,1,0);
-                box3.setColor(1,1,1,0);
-                box4.setColor(1,1,1,0);
-                box5.setColor(1,1,1,0);
-                box6.setColor(1,1,1,1);
-                skinVar = 5;
-                nextBtn.setVisible(true);
-                return true;
-            }
-        });
-
+       
+        
+        
+        
+        //USER INPUT!
         textFieldStyle = new TextFieldStyle();
         textFieldStyle.font = nextBtnSkin.getFont("font"); // You can use the same font from the nextBtnSkin or create a new one.
         textFieldStyle.fontColor = Color.BLACK; // Set the font color.
@@ -240,6 +158,43 @@ public class SelectionView extends State{
         stage.addActor(box6);
         stage.addActor(inputField);
         Gdx.input.setInputProcessor(stage);
+    }
+    public void changeBox(int i){
+        resetColor();
+        getBoxButton(i).setColor(1,1,1,1);
+        skinVar = i-1;
+        nextBtn.setVisible(true);
+    }
+
+    public void resetColor(){
+        box1.setColor(1,1,1,0);
+        box2.setColor(1,1,1,0);
+        box3.setColor(1,1,1,0);
+        box4.setColor(1,1,1,0);
+        box5.setColor(1,1,1,0);
+        box6.setColor(1,1,1,0);
+    }
+    public Button getBoxButton(int i){
+        if(i == 1){
+            return box1;
+        }
+        else if(i == 2){
+            return box2;
+        }
+        else if(i == 3){
+            return box3;
+        }
+        else if(i == 4){
+            return box4;
+        }
+        else if(i == 5){
+            return box5;
+        }
+        else if(i == 6){
+            return box6;
+        }else{
+            return null;
+        }
     }
 
 

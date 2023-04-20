@@ -10,14 +10,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
 
-public class VictoryState extends State {
+public class VictoryView extends State {
     private Texture background;
     private Button nextBtn;
     private Skin nextBtnSkin;
     private GameStage stage;
     private API database;
 
-    public VictoryState(final GameStateManager gsm, final API database) {
+    public VictoryView(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/victoryScreen.jpg");

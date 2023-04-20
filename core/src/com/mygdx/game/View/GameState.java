@@ -292,103 +292,7 @@ public class GameState extends State {
 
     }
 
-
-    private Button createButton(String path, float x, float y, float width, float height){
-        Skin skin = new Skin(Gdx.files.internal(path));
-        Button button = new Button(skin);
-        button.setSize(width, height);
-        button.setPosition(x, y);
-        return button;
-    }
-
-    private void createPauseButton(String path, float x, float y, float width, float height){
-        pauseBtn = createButton(path, height, startTime, width, height);
-        pauseBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gsm.push(new PauseState(gsm, database));
-                return true;
-            }
-        });
-        stage.addActor(pauseBtn);
-    }
-
-    private void createLeftButton(String path, float x, float y, float width, float height){
-        leftBtn = createButton(path, height, startTime, width, height);
-        leftBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                plane.rotateLeft();
-                System.out.println("Turn Left");
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                plane.stopRotateLeft();
-            }
-        });
-        stage.addActor(leftBtn);
-    }
-
-    private void createRightButton(String path, float x, float y, float width, float height){
-        rightBtn = createButton(path, height, startTime, width, height);
-        rightBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                plane.rotateRight();
-                System.out.println("Turn Right");
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                plane.stopRotateRight();
-            }
-        });
-        stage.addActor(rightBtn);
-    }
-
-    private void createBoostButton(String path, float x, float y, float width, float height){
-        boostBtn = createButton(path, height, startTime, width, height);
-        boostBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                plane.setSpeed(15);
-                plane.setAirflowvar(0);
-                System.out.println("Button Pressed");
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                plane.setSpeed(3);
-                plane.setAirflowvar(1);
-            }
-        });
-        stage.addActor(boostBtn);
-    }
-
-    private void createFlameButton(String path, float x, float y, float width, float height){
-        flameBtn = createButton(path, height, startTime, width, height);
-        flameBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                plane.setFlamevar(1);
-                System.out.println("Button Pressed");
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                plane.setFlamevar(0);
-                System.out.println("DSADASDSA Pressed");
-            }
-        });
-        stage.addActor(flameBtn);
-    }
-
-     // Function to initialize locations
+     // FLYTTET TIL MAP
      public void initializeLocations() {
          Location Oslo = new Location("Oslo", 1512, 1278);
          Location Istanbul = new Location("Istanbul", 1656, 1062);
@@ -403,7 +307,8 @@ public class GameState extends State {
         locations[4] = NewYork;
         locations[5] = SaoPaulo;
 
-     }
+    }
+
     //Function to generate random number
     private int generateRandomNumber(){
         return (int) Math.floor(Math.random() * locations.length);
@@ -428,19 +333,17 @@ public class GameState extends State {
             if (Intersector.overlaps(circle, rect1)) {
                 showPackage = false;
                 showDestination = false;
-                gsm.push(new VictoryState(gsm, database));
+                gsm.push(new VictoryView(gsm, database));
                 elapsedTime = seconds;
             }
         }
     }
 
-    //Function to initialize the package
-    //Function to initialize the package
+    // FLYTTET TIL MAP
     public Package initializePackage(Package newPackage, int packNum, String texture){
-
         int randomNum = generateRandomNumber();
         newPackage = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
-                locations[randomNum].getY(), 72, 72, new TextureRegion(new Texture(texture)), true);
+                locations[randomNum].getY(), new TextureRegion(new Texture(texture)), true);
 
         if(packNum == 0) {
             packageIndex = randomNum;

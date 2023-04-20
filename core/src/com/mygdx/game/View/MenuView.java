@@ -28,6 +28,7 @@ public class MenuView extends State{
         cam.zoom = (float)1;
         cam.translate(0, 0);
         background = new Texture("gamescreens/mapClean.jpg");
+
         // Create a stage
         stage = new GameStage();
     
@@ -35,8 +36,6 @@ public class MenuView extends State{
         startGameButtonSkin = new Skin(Gdx.files.internal("buttons/menu/startGame/startGame.json"));
         tutorialSkin = new Skin(Gdx.files.internal("buttons/menu/tutorial/tutorial.json"));
         scoreboardSkin = new Skin(Gdx.files.internal("buttons/menu/scoreboard/scoreboard.json"));
-
-
 
         // Create a text button with a label
         startGameButton = new Button(startGameButtonSkin);
@@ -47,21 +46,11 @@ public class MenuView extends State{
         startGameButton.setSize(width/2f, height/3.5f);
         startGameButton.setPosition(width/2f-startGameButton.getWidth()/2f, height*6f/10f+20);
 
-
         tutorialButton.setSize(width/2f, height/3.5f);
         tutorialButton.setPosition(width/2f-tutorialButton.getWidth()/2f, height*4f/10f);
 
-
         scoreboardButton.setSize(width/2f, height/3.5f);
         scoreboardButton.setPosition(width/2f-scoreboardButton.getWidth()/2f, height*2f/10f-20);
-        scoreboardButton.addListener(new InputListener(){
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new ScoreboardState(gsm, database));
-                System.out.println("Button Pressed");
-                return true;
-            }
-        });
 
         // Add the button to the stage
         stage.addActor(startGameButton);
@@ -76,6 +65,9 @@ public class MenuView extends State{
         return tutorialButton;
     }
 
+    public Button getScoreBoardButton(){
+        return scoreboardButton;
+    }
     @Override
     public void update(float dt) {
         cam.update();

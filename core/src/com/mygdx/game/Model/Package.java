@@ -9,20 +9,18 @@ public class Package {
     private float xPos;
     private float yPos;
 
-    private float width;
+    private float width = 72;
 
-    private float height;
+    private float height = 72;
     private TextureRegion packageTextureRegion;
     private boolean active;
 
     //constructor
 
-    public Package(String city, float xPos, float yPos, float width, float height, TextureRegion packageTextureRegion, boolean active) {
+    public Package(String city, float xPos, float yPos, TextureRegion packageTextureRegion, boolean active) {
         this.city = city;
         this.xPos = xPos;
         this.yPos = yPos;
-        this.width = width;
-        this.height = height;
         this.packageTextureRegion = packageTextureRegion;
         this.active = active;
     }

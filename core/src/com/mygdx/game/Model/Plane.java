@@ -153,9 +153,6 @@ public class Plane {
     
 
     public void draw(Batch batch) {
-
-
-
         airflow = new TextureRegion[2];
         airflow[0] = new TextureRegion(new Texture("effects/airflow.png"));
         airflow[1] = new TextureRegion(new Texture("effects/empty.png"));

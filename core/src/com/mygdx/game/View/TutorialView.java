@@ -13,9 +13,11 @@ import com.mygdx.game.API;
 public class TutorialView extends State {
     private TextureRegion background[];
     private int backgroundVar = 0;
+
     private Button nextBtn;
     private Button exitBtn;
     private Button backBtn;
+
     private Skin nextBtnSkin;
     private Skin exitBtnSkin;
     private Skin backBtnSkin;
@@ -35,6 +37,7 @@ public class TutorialView extends State {
         exitBtnSkin = new Skin(Gdx.files.internal("buttons/tutorial/exit/exit.json"));
         backBtnSkin = new Skin(Gdx.files.internal("buttons/tutorial/back/back.json"));
 
+
         // Create a button
         nextBtn = new Button(nextBtnSkin);
         exitBtn = new Button(exitBtnSkin);
@@ -43,28 +46,28 @@ public class TutorialView extends State {
         // Set button position, size and function
         nextBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
         nextBtn.setPosition(SCREEN_WIDTH * 5f / 8f, SCREEN_HEIGHT * 1f / 8f);
-        nextBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Button Pressed");
-                nextBtn.setVisible(false);
-                backBtn.setVisible(true);
-                backgroundVar = 1;
-                return true;
-            }
-        });
+
+        //nextBtn.addListener(new InputListener() {
+            //@Override
+            //public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                //System.out.println("Button Pressed");
+                //nextBtn.setVisible(false);
+                //backBtn.setVisible(true);
+                //backgroundVar = 1;
+                //return true;
+            //}
+        //});
 
         exitBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
         exitBtn.setPosition(SCREEN_WIDTH * 1.8f / 8f, SCREEN_HEIGHT * 1f / 8f);
-        exitBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new MenuView(gsm, database));
-                System.out.println("Button Pressed");
-                return true;
-            }
-
-        });
+        //exitBtn.addListener(new InputListener() {
+            //@Override
+            //public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+               // gsm.set(new MenuView(gsm, database));
+                //System.out.println("Button Pressed"); Gammel kode, logikken ligger nå i gameController
+                //return true;
+            //}} 
+        ;
 
         backBtn.setVisible(false);
         backBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
@@ -80,11 +83,60 @@ public class TutorialView extends State {
 
         });
 
+
+
         stage.addActor(nextBtn);
         stage.addActor(exitBtn);
         stage.addActor(backBtn);
         Gdx.input.setInputProcessor(stage);
     }
+
+
+
+    //Getters and setters for buttons
+
+    public Button getTutorialNextButton(){
+        return this.nextBtn;
+    }
+
+    public Button getTutorialBackButton(){
+        return this.backBtn;
+    }
+
+    public Button getTutorialExitButton(){
+        return this.exitBtn;
+    }
+
+
+    //Methods for the buttons to be called in gameController
+
+    public boolean tutorialNextButton(){
+                backgroundVar = 1;
+                return true;
+    }
+
+    public void setBackGroundVar1(){
+        backgroundVar = 1;
+    }
+
+    public boolean tutorialExitButton(){
+        return true;
+    }
+
+    public boolean tutorialBackButton(){
+       // backgroundVar = 0;
+               // nextBtn.setVisible(true);
+               // backBtn.setVisible(false);
+               return true;
+    }
+    
+    public void test(){ //Denne metoden blir kallet på igamecontroller
+		getTutorialNextButton().setVisible(false);
+	    getTutorialBackButton().setVisible(true);
+		setBackGroundVar1();
+	}
+
+
 
     @Override
     public void update(float dt) {
