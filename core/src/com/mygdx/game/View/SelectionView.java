@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -32,6 +33,7 @@ public class SelectionView extends State{
     private GameStage stage;
 
     private TextFieldStyle textFieldStyle;
+    private BitmapFont customFont;
     private TextField inputField;
     private String userInput;
     private int skinVar;
@@ -123,30 +125,26 @@ public class SelectionView extends State{
         box6.setPosition(width/2f + width*0.18f -(box1.getWidth()/2f), height/2f-height*0.25f-(box1.getHeight()/2f));
         box6.setColor(1,1,1,0);
        
+        //Kanskje gjøres i Controller
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Fonts/AmaticSC-Regular.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 24*4; // Set the font size here
+        customFont = generator.generateFont(parameter);
+        generator.dispose();
         
-        
-        
+
         //USER INPUT!
         textFieldStyle = new TextFieldStyle();
-        textFieldStyle.font = nextBtnSkin.getFont("font"); // You can use the same font from the nextBtnSkin or create a new one.
+        textFieldStyle.font = customFont; // You can use the same font from the nextBtnSkin or create a new one.
         textFieldStyle.fontColor = Color.BLACK; // Set the font color.
 /*
         textFieldStyle.background = box1Skin.getDrawable("background"); // Use the box1Skin background as the TextField background.
 */
         font.getData().setScale(1f);
         inputField = new TextField("", textFieldStyle);
-        inputField.setSize(width / 4f, width / 4f);
+        inputField.setSize(width / 4f, height / 10f);
         inputField.setPosition(width / 2f + (width / 20f) - (inputField.getWidth() / 2f), height*0.70f - (inputField.getHeight() / 2f));
-        inputField.setTextFieldListener(new TextField.TextFieldListener() {
-            @Override
-            public void keyTyped(TextField textField, char c) {
-                userInput = textField.getText();
-                System.out.println("User input: " + userInput);
-                
-            }
-        });
-
-
+       
 
 
         stage.addActor(nextBtn);
@@ -159,11 +157,17 @@ public class SelectionView extends State{
         stage.addActor(inputField);
         Gdx.input.setInputProcessor(stage);
     }
+    public TextField getInputField(){
+        return inputField;
+    }
     public void changeBox(int i){
         resetColor();
         getBoxButton(i).setColor(1,1,1,1);
         skinVar = i-1;
         nextBtn.setVisible(true);
+    }
+    public Button getNextButton(){
+        return nextBtn;
     }
 
     public void resetColor(){

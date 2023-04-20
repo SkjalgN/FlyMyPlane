@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.API;
 import com.mygdx.game.Model.Score;
 import com.mygdx.game.View.MenuView;
@@ -41,6 +42,7 @@ public class GameController extends Game {
 
 	//GameView variables
 	private int planeSkinVar;
+	private String playerName;
 
 	private API Database;
 
@@ -140,6 +142,15 @@ public class GameController extends Game {
 			});
 	
 	}
+	public void startGameStateButton(){
+			changeStateButton(this.selectionView.getNextButton(), new Callback(){
+				@Override
+				public void execute(){
+					// this.selectionView.SelectionStateStatus  = SelectionStateStatus.LOADING;
+				}
+			});
+	
+	}
 
 	// StartGameButton
 	public void changeStateButton(Button button, final Callback callback){
@@ -203,6 +214,19 @@ public class GameController extends Game {
 			}
 		});
 	}
+	public void getUsername(){
+		this.playerName = this.selectionView.getInputField().getText();
+	}
+
+	public void startInputField(){
+		this.selectionView.getInputField().setTextFieldListener(
+			new TextField.TextFieldListener() {
+			@Override
+            public void keyTyped(TextField textField, char c) {
+				getUsername();
+            }
+        });
+	}
 
 	public void startGameView(){
 		this.startGameView = new StartGameView(gsm, Database);
@@ -228,6 +252,7 @@ public class GameController extends Game {
 
 		//Knappene som aktiveres på SelectionView
 		setPlaneSkinButton();
+		startInputField();
 	}
 
 	public void tutorialView(){

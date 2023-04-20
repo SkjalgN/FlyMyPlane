@@ -28,11 +28,14 @@ public class ScoreboardView extends State{
 
     public ScoreboardView(final GameStateManager gsm, API Database) {
         super(gsm);
+        //Kanskje gjøres i Controller
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Fonts/AmaticSC-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 24*6; // Set the font size here
+        parameter.size = 24*5; // Set the font size here
         customFont = generator.generateFont(parameter);
         generator.dispose();
+        //
+
         this.database = Database;
         background = new Texture("gamescreens/scoreboard.jpg");
         cam.setToOrtho(false, width,height);
