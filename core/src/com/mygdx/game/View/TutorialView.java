@@ -47,41 +47,16 @@ public class TutorialView extends State {
         nextBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
         nextBtn.setPosition(SCREEN_WIDTH * 5f / 8f, SCREEN_HEIGHT * 1f / 8f);
 
-        //nextBtn.addListener(new InputListener() {
-            //@Override
-            //public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //System.out.println("Button Pressed");
-                //nextBtn.setVisible(false);
-                //backBtn.setVisible(true);
-                //backgroundVar = 1;
-                //return true;
-            //}
-        //});
 
         exitBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
         exitBtn.setPosition(SCREEN_WIDTH * 1.8f / 8f, SCREEN_HEIGHT * 1f / 8f);
-        //exitBtn.addListener(new InputListener() {
-            //@Override
-            //public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-               // gsm.set(new MenuView(gsm, database));
-                //System.out.println("Button Pressed"); Gammel kode, logikken ligger nå i gameController
-                //return true;
-            //}} 
-        ;
+        
+
 
         backBtn.setVisible(false);
         backBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
         backBtn.setPosition(SCREEN_WIDTH * 3.8f / 8f, SCREEN_HEIGHT * 1f / 8f);
-        backBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                backgroundVar = 0;
-                nextBtn.setVisible(true);
-                backBtn.setVisible(false);
-                return true;
-            }
-
-        });
+        
 
 
 
@@ -110,30 +85,17 @@ public class TutorialView extends State {
 
     //Methods for the buttons to be called in gameController
 
-    public boolean tutorialNextButton(){
-                backgroundVar = 1;
-                return true;
-    }
 
-    public void setBackGroundVar1(){
-        backgroundVar = 1;
-    }
-
-    public boolean tutorialExitButton(){
-        return true;
-    }
-
-    public boolean tutorialBackButton(){
-       // backgroundVar = 0;
-               // nextBtn.setVisible(true);
-               // backBtn.setVisible(false);
-               return true;
-    }
     
-    public void test(){ //Denne metoden blir kallet på igamecontroller
+    public void nextPage(){ //Denne metoden blir kallet på igamecontroller
 		getTutorialNextButton().setVisible(false);
 	    getTutorialBackButton().setVisible(true);
-		setBackGroundVar1();
+        backgroundVar = 1;
+	}
+    public void backPage(){ //Denne metoden blir kallet på igamecontroller
+        backgroundVar = 0;
+        nextBtn.setVisible(true);
+        backBtn.setVisible(false);
 	}
 
 
