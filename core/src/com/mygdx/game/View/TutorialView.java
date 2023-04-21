@@ -47,27 +47,11 @@ public class TutorialView extends State {
         nextBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
         nextBtn.setPosition(SCREEN_WIDTH * 5f / 8f, SCREEN_HEIGHT * 1f / 8f);
 
-        //nextBtn.addListener(new InputListener() {
-            //@Override
-            //public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                //System.out.println("Button Pressed");
-                //nextBtn.setVisible(false);
-                //backBtn.setVisible(true);
-                //backgroundVar = 1;
-                //return true;
-            //}
-        //});
 
         exitBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
         exitBtn.setPosition(SCREEN_WIDTH * 1.8f / 8f, SCREEN_HEIGHT * 1f / 8f);
-        //exitBtn.addListener(new InputListener() {
-            //@Override
-            //public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-               // gsm.set(new MenuView(gsm, database));
-                //System.out.println("Button Pressed"); Gammel kode, logikken ligger nå i gameController
-                //return true;
-            //}} 
-        ;
+        
+
 
         backBtn.setVisible(false);
         backBtn.setSize(SCREEN_WIDTH / 7f, SCREEN_HEIGHT / 11f);
