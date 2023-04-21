@@ -1,5 +1,8 @@
 package com.mygdx.game.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -19,6 +22,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.API;
 import com.mygdx.game.FontManager;
+import com.mygdx.game.GameOverEvent;
+import com.mygdx.game.GameOverListener;
 import com.mygdx.game.Model.Location;
 import com.mygdx.game.Model.Map;
 import com.mygdx.game.Model.Package;
@@ -66,6 +71,10 @@ public class GameView extends State {
 
     private int seconds;
 
+
+    private List<GameOverListener> gameOverListeners = new ArrayList<>();
+
+    
     private int packageIndex;
     private int destinationIndex;
 
@@ -183,6 +192,21 @@ public class GameView extends State {
     public Plane getPlane(){
         return this.plane;
     }
+    
+
+    public void addGameOverListener(GameOverListener listener) {
+        gameOverListeners.add(listener);
+    }
+
+    private void fireGameOverEvent() {
+        GameOverEvent event = new GameOverEvent(this);
+        for (GameOverListener listener : gameOverListeners) {
+            listener.onGameOver(event);
+        }
+    }
+    public void removeGameOverListener(GameOverListener listener) {
+        gameOverListeners.remove(listener);
+    }
 
 
     @Override
@@ -192,7 +216,7 @@ public class GameView extends State {
         boat.update(dt);
         map.update(dt);
         if (map.gameOver()) {
-            handleGameOver();
+            fireGameOverEvent();
         }
         handlePlaneOutsideScreen();
         Gdx.input.setInputProcessor(stage);
@@ -242,9 +266,9 @@ public class GameView extends State {
         stage.dispose();
     }
 
-    public void handleGameOver() {
-        gsm.push(new VictoryView(gsm, database));
-        elapsedTime = seconds;
+
+    public long getElapsedTime(){
+        return this.elapsedTime;
     }
 
     public void handlePlaneOutsideScreen() {
