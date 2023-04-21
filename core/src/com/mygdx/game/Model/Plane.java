@@ -2,6 +2,7 @@ package com.mygdx.game.Model;
 
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.Input;
 public class Plane {
 
     private float xPos,yPos;
+    private Rectangle bounds;
     private float speed;
     private float angle;
     private float planeWidth;
@@ -29,6 +31,7 @@ public class Plane {
     public Plane(float xPos, float yPos,float speed, float angle, float planeWidth, float planeHeight, int skinVar) {
         this.xPos = xPos;
         this.yPos = yPos;
+        this.bounds = new Rectangle(xPos, yPos, planeWidth, planeHeight);
         this.speed = speed;
         this.angle = angle;
         this.planeWidth = planeWidth;
@@ -92,6 +95,10 @@ public class Plane {
 
     public void setSpeed(float speed) {
         this.speed = speed;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 
     public float getAngle() {

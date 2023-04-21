@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.API;
 import com.mygdx.game.Model.Location;
+import com.mygdx.game.Model.Map;
 import com.mygdx.game.Model.Package;
 import com.mygdx.game.Model.Plane;
 import com.mygdx.game.Model.Boat;
@@ -32,6 +33,7 @@ public class GameView extends State {
     private Boat boat;
     private Package pack;
     private Package pack2;
+    private Map map;
 
 
     private BitmapFont packageFont;
@@ -73,8 +75,6 @@ public class GameView extends State {
     public GameView(final GameStateManager gsm, final API database,int skinVar) {
         super(gsm);
         this.database = database;
-        initializeLocations();
-        this.pack = initializePackage(0, "objects/packs.png");
         background = new Texture("gamescreens/theMap.jpg");
         backgroundWater = new Texture("gamescreens/water.jpg");
         cam.setToOrtho(false, background.getWidth(), background.getHeight());
@@ -83,7 +83,7 @@ public class GameView extends State {
                 skinVar);
         
         boat = new Boat(2700, 2700, 1, 1, 300, 300, new TextureRegion(new Texture("objects/boat.png")));
-
+        map = new Map(plane);
 
 
 
@@ -230,6 +230,10 @@ public class GameView extends State {
         cam.update();
         plane.update(dt);
         boat.update(dt);
+        map.update(dt);
+        if (map.gameOver()) {
+            handleGameOver();
+        }
         handlePlaneOutsideScreen();
         Gdx.input.setInputProcessor(stage);
     }
@@ -240,6 +244,16 @@ public class GameView extends State {
         sb.begin();
         sb.draw(backgroundWater, -4000, -1000, 16000, 8000);
         sb.draw(background, 0, 0);
+
+        //Nytt, fiks dette
+        if (map.pickUpState()){
+            pack.draw(sb);
+        }
+        else {
+            pack2.draw(sb);
+            packageLabel.setText("Deliver the package to " + this.pack2.getCity());
+        }
+
         boat.draw(sb);
         plane.draw(sb);
 
@@ -247,7 +261,6 @@ public class GameView extends State {
             gsm.push(new PauseState(gsm, database));
         }*/
 
-        packageLogic(sb);
 
         long elapsedTime = TimeUtils.timeSinceMillis(startTime);
         int seconds = (int) (elapsedTime / 1000);
@@ -267,6 +280,11 @@ public class GameView extends State {
         boostBtnSkin.dispose();
         flameBtnSkin.dispose();
         stage.dispose();
+    }
+
+    public void handleGameOver() {
+        gsm.push(new VictoryView(gsm, database));
+        elapsedTime = seconds;
     }
 
     public void handlePlaneOutsideScreen() {
@@ -292,105 +310,13 @@ public class GameView extends State {
 
     }
 
-     // FLYTTET TIL MAP
-     public void initializeLocations() {
-         Location Oslo = new Location("Oslo", 1512, 1278);
-         Location Istanbul = new Location("Istanbul", 1656, 1062);
-         Location Lagos = new Location("Lagos", 1476, 792);
-         Location Manila = new Location("Manila", 2412, 839);
-         Location NewYork = new Location("New York", 828, 1080);
-         Location SaoPaulo = new Location("Sao Paulo", 1080, 540);
-        locations[0] = Oslo;
-        locations[1] = Istanbul;
-        locations[2] = Lagos;
-        locations[3] = Manila;
-        locations[4] = NewYork;
-        locations[5] = SaoPaulo;
+     
+   
 
-    }
-
-    //Function to generate random number
-    private int generateRandomNumber(){
-        return (int) Math.floor(Math.random() * locations.length);
-    }
-
-    //Function to check for collision. When the plane hits the package, the render function stops drawing the first package, and the delivery location starts being drawn.
-
-    public void checkPackageCollision(Plane plane, Package package2) {
-
-        if (package2 == pack) {
-            Rectangle rect1 = new Rectangle(plane.getxPos(), plane.getyPos(), plane.getPlaneWidth()/3, plane.getPlaneHeight()/3);
-            Rectangle rect2 = new Rectangle(package2.getX(), package2.getY(), package2.getWidth(), package2.getHeight());
-            if (Intersector.overlaps(rect1, rect2)) {
-                showPackage = false;
-                showDestination = false;
-            }
-        }
-
-        else if (package2 == pack2) {
-            Rectangle rect1 = new Rectangle(plane.getxPos(), plane.getyPos(), plane.getPlaneWidth()/3, plane.getPlaneHeight()/3);
-            Circle circle = new Circle(package2.getX() + package2.getWidth() / 3f, package2.getY() + package2.getHeight() / 3f, package2.getWidth() / 3f);
-            if (Intersector.overlaps(circle, rect1)) {
-                showPackage = false;
-                showDestination = false;
-                gsm.push(new VictoryView(gsm, database));
-                elapsedTime = seconds;
-            }
-        }
-    }
-
-    // FLYTTET TIL MAP
-    public Package initializePackage( int packNum, String texture){
-        int randomNum = generateRandomNumber();
-        Package newPackage = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
-                locations[randomNum].getY(), new TextureRegion(new Texture(texture)), true);
-
-        if(packNum == 0) {
-            packageIndex = randomNum;
-        }
-        else {
-            if(randomNum == packageIndex) {
-                randomNum = generateRandomNumber();
-            }
-            destinationIndex = randomNum;
-        }
-
-        return newPackage;
-    }
+    
 
 
-    //Function to handle logic around packages and locations
-    public void packageLogic(SpriteBatch sb){
 
-        //This is true by default, and the first package is drawn (pick up point)
-        if (showPackage && pack != null){
-            pack.draw(sb);
-            checkPackageCollision(plane,pack);
-        }
-        //This is false by default but is made true, when the plane hits the pick up point
-        else if (showDestination) {
-            pack2.draw(sb);
-            checkPackageCollision(plane,pack2);
-
-        }
-        //When the plane hits the package, the first statement is made false, the second is false, and so this "else" sentence is activated.
-        else {
-            //Creates a random location for delivery
-            destinationIndex = generateRandomNumber();
-            //If the pick up point is the same as the delivery point, it creates a new random number
-            while (destinationIndex == packageIndex) {
-                destinationIndex = generateRandomNumber();
-            }
-            //The delivery point is instantiated, and the "showTextureRegion2" is made true. The next time the render function is called,
-            //the delivery point will be drawn.
-            if (this.pack2 == null){
-                this.pack2 = initializePackage( 1, "objects/Target1.png");
-            }
-            packageLabel.setText("Deliver the package to " + this.pack2.getCity());
-            showDestination = true;
-
-        }
-    }
 
     
 }

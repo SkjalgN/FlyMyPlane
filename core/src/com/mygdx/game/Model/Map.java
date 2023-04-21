@@ -5,13 +5,22 @@ import java.util.List;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Intersector;
+import com.mygdx.game.Controller.GameController;
+import com.mygdx.game.View.GameView;
 
 public class Map {
     private List<Location> locations = new ArrayList<>();
     private Package package1;
     private Package target1;
+    private Plane plane;
+    private Boolean pickUpState = true;
+    private Boolean gameOver = false;
 
-    public Map() {
+    public Map(Plane plane) {
+        this.plane = plane;
+        initializeLocations();
+        package1 = initializePackage(false);
         
     }
 
@@ -42,21 +51,42 @@ public class Map {
             texture,
             isTarget
         );
-        /*
-        if(packNum == 0) {
-            packageIndex = randomNum;
-        }
-        else {
-            if(randomNum == packageIndex) {
-                randomNum = generateRandomNumber();
-            }
-            destinationIndex = randomNum;
-        }
-        */
         return newPackage;
     }
 
     private int generateRandomNumber(){
         return (int) Math.floor(Math.random() * locations.size());
     }
+
+    public Boolean checkCollision(Plane plane, Package pack) {
+        if (Intersector.overlaps(plane.getBounds(), pack.getBounds())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public Boolean pickUpState() {
+        return pickUpState;
+    }
+
+    public Boolean gameOver() {
+        return gameOver;
+    }
+
+    public void update(float dt) {
+        handleCollision();
+    }
+
+    public void handleCollision(){
+        if (checkCollision(plane, package1)){
+            pickUpState = false;
+            target1 = initializePackage(true);
+        }
+        if (checkCollision(plane, target1)){
+            gameOver = true;
+        }
+    }
+    
 }
