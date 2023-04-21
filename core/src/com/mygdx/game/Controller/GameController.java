@@ -13,10 +13,12 @@ import com.mygdx.game.Model.Score;
 import com.mygdx.game.View.MenuView;
 import com.mygdx.game.View.ScoreboardView;
 import com.mygdx.game.View.GameStateManager;
+import com.mygdx.game.View.GameView;
 import com.mygdx.game.View.SelectionView;
 import com.mygdx.game.View.StartGameView;
 import com.mygdx.game.View.TutorialView;
 import com.mygdx.game.View.VictoryView;
+
 
 import java.util.ArrayList;
 
@@ -38,6 +40,7 @@ public class GameController extends Game {
 	private TutorialView tutorialView;
 	private ScoreboardView scoreboardView;
 	private VictoryView victoryView;
+	private GameView gameView;
 	
 
 	//GameView variables
@@ -70,6 +73,9 @@ public class GameController extends Game {
 		* */
 		/*Database.submitHighscore(new Score(3490,"Skjalg"));*/
 
+	}
+	public SelectionView getSelectionView(){
+		return this.selectionView;
 	}
 	//The button is activated at correct view
 	public void startMenuViewButton(){
@@ -146,10 +152,12 @@ public class GameController extends Game {
 			changeStateButton(this.selectionView.getNextButton(), new Callback(){
 				@Override
 				public void execute(){
-					// this.selectionView.SelectionStateStatus  = SelectionStateStatus.LOADING;
+					// getSelectionView().setSelectionStateStatusLoading();
+					// //Her skal switchen skje
+					// getSelectionView().setSelectionStateStatusSwitching();
+					gameView();
 				}
 			});
-	
 	}
 
 	// StartGameButton
@@ -244,6 +252,7 @@ public class GameController extends Game {
 		startSelectionViewButton();
 		startTutorialViewButton();
 		startScoreboardViewButton();
+		
 	}
 
 	public void selectionView(){
@@ -253,6 +262,7 @@ public class GameController extends Game {
 		//Knappene som aktiveres på SelectionView
 		setPlaneSkinButton();
 		startInputField();
+		startGameStateButton();
 	}
 
 	public void tutorialView(){
@@ -271,6 +281,14 @@ public class GameController extends Game {
 
 		//Knappene som aktiveres på scoreboardView
 		startMenuViewScoreButton();
+	}
+
+	public void gameView(){
+		this.gameView = new GameView(gsm, Database, this.planeSkinVar);
+		gsm.set(this.gameView);
+
+		//Knappene som aktiveres på gameView
+
 	}
 	//
 

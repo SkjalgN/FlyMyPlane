@@ -18,8 +18,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class SelectionView extends State{
     private Texture background;
-    private Texture loading;
-    private Texture loadingbackground;
+
+    // private Texture loading;
+    // private Texture loadingbackground;
     private Button nextBtn;
 
     private Button box1;
@@ -39,21 +40,34 @@ public class SelectionView extends State{
     private int skinVar;
 
     private API database;
-    private SelectionStateStatus selectionStateStatus = SelectionStateStatus.NORMAL;
+    // private SelectionStateStatus selectionStateStatus = SelectionStateStatus.NORMAL;
 
 
-    private enum SelectionStateStatus {
-        NORMAL,
-        LOADING,
-        SWITCHING
-    }
+    // private enum SelectionStateStatus {
+    //     NORMAL,
+    //     LOADING,
+    //     SWITCHING
+    // }
+    
+    // public SelectionStateStatus getSelectionStateStatus(){
+    //     return this.selectionStateStatus;
+    // }
+    // public void setSelectionStateStatusNormal(){
+    //     this.selectionStateStatus = SelectionStateStatus.NORMAL;
+    // }
+    // public void setSelectionStateStatusLoading(){
+    //     this.selectionStateStatus = SelectionStateStatus.LOADING;
+    // }
+    // public void setSelectionStateStatusSwitching(){
+    //     this.selectionStateStatus = SelectionStateStatus.SWITCHING;
+    // }
 
     public SelectionView(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/selection1.jpg");
-        loadingbackground = new Texture("gamescreens/mapClean.jpg");
-        loading = new Texture("gamescreens/loadingtexture.png");
+        // loadingbackground = new Texture("gamescreens/mapClean.jpg");
+        // loading = new Texture("gamescreens/loadingtexture.png");
         cam.setToOrtho(false, width,height);
         cam.zoom = (float)1.0;
         cam.translate(0, 0);
@@ -81,15 +95,7 @@ public class SelectionView extends State{
         nextBtn.setSize(width/8f, width/8f);
         nextBtn.setPosition(width-nextBtn.getWidth()*1.2f, height/2f-(nextBtn.getHeight()/2f));
         nextBtn.setVisible(false);
-        nextBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                selectionStateStatus = SelectionStateStatus.LOADING;
-                return true;
-            }
-
-
-        });
+        
         nextBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
 
         // Create a new BitmapFont and add it to the Skin
@@ -207,22 +213,21 @@ public class SelectionView extends State{
         cam.update();
     }
 
+
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0, 0, width, height);
 
-        if (selectionStateStatus == SelectionStateStatus.SWITCHING) {
-            gsm.set(new GameState(gsm, database,skinVar));
-        }
+        
 
-        if (selectionStateStatus == SelectionStateStatus.LOADING) {
-            sb.draw(loadingbackground, 0, 0, width, height);
-            sb.draw(loading, width/2f-loading.getWidth()/2f, height/2f-loading.getHeight()/2f, width/4f, height/4f);
-            stage.clear();
-            selectionStateStatus = SelectionStateStatus.SWITCHING;
-        }
+        // if (selectionStateStatus == SelectionStateStatus.LOADING) {
+        //     sb.draw(loadingbackground, 0, 0, width, height);
+        //     sb.draw(loading, width/2f-loading.getWidth()/2f, height/2f-loading.getHeight()/2f, width/4f, height/4f);
+        //     stage.clear();
+        //     selectionStateStatus = SelectionStateStatus.SWITCHING;
+        // }
 
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());

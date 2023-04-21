@@ -19,8 +19,8 @@ public class GameStateManager {
         states.pop().dispose();
     }
 
-    public GameState getGameState(){
-        return (GameState) states.get(0);
+    public GameView getGameState(){
+        return (GameView) states.get(0);
     }
 
     public void set(State state){

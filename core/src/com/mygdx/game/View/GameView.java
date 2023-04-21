@@ -24,7 +24,7 @@ import com.mygdx.game.Model.Plane;
 import com.mygdx.game.Model.Boat;
 import com.badlogic.gdx.utils.TimeUtils;
 
-public class GameState extends State {
+public class GameView extends State {
 
     private Texture background;
     private Texture backgroundWater;
@@ -70,11 +70,11 @@ public class GameState extends State {
     private boolean showPackage = true;
     private boolean showDestination = false;
 
-    public GameState(final GameStateManager gsm, final API database,int skinVar) {
+    public GameView(final GameStateManager gsm, final API database,int skinVar) {
         super(gsm);
         this.database = database;
         initializeLocations();
-        this.pack = initializePackage(pack, 0, "objects/packs.png");
+        this.pack = initializePackage(0, "objects/packs.png");
         background = new Texture("gamescreens/theMap.jpg");
         backgroundWater = new Texture("gamescreens/water.jpg");
         cam.setToOrtho(false, background.getWidth(), background.getHeight());
@@ -243,9 +243,9 @@ public class GameState extends State {
         boat.draw(sb);
         plane.draw(sb);
 
-        if(Gdx.input.isKeyPressed(Input.Keys.P)) {
+      /*  if(Gdx.input.isKeyPressed(Input.Keys.P)) {
             gsm.push(new PauseState(gsm, database));
-        }
+        }*/
 
         packageLogic(sb);
 
@@ -340,9 +340,9 @@ public class GameState extends State {
     }
 
     // FLYTTET TIL MAP
-    public Package initializePackage(Package newPackage, int packNum, String texture){
+    public Package initializePackage( int packNum, String texture){
         int randomNum = generateRandomNumber();
-        newPackage = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
+        Package newPackage = new Package(locations[randomNum].getLocationName(), locations[randomNum].getX(),
                 locations[randomNum].getY(), new TextureRegion(new Texture(texture)), true);
 
         if(packNum == 0) {
@@ -363,7 +363,7 @@ public class GameState extends State {
     public void packageLogic(SpriteBatch sb){
 
         //This is true by default, and the first package is drawn (pick up point)
-        if (showPackage) {
+        if (showPackage && pack != null){
             pack.draw(sb);
             checkPackageCollision(plane,pack);
         }
@@ -383,8 +383,10 @@ public class GameState extends State {
             }
             //The delivery point is instantiated, and the "showTextureRegion2" is made true. The next time the render function is called,
             //the delivery point will be drawn.
-            this.pack2 = initializePackage(pack2, 1, "objects/Target1.png");
-            packageLabel.setText("Deliver the package to " + pack2.getCity());
+            if (this.pack2 == null){
+                this.pack2 = initializePackage( 1, "objects/Target1.png");
+            }
+            packageLabel.setText("Deliver the package to " + this.pack2.getCity());
             showDestination = true;
 
         }
