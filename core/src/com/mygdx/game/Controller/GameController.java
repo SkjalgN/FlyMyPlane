@@ -217,7 +217,16 @@ public class GameController extends Game {
 		changeStateButton(this.tutorialView.getTutorialNextButton(), new Callback() {
 			@Override
 			public void execute() {
-				tutorialView.test();
+				tutorialView.nextPage();
+			}
+		});
+
+	}
+	public void startTutorialViewBackButton() {
+		changeStateButton(this.tutorialView.getTutorialBackButton(), new Callback() {
+			@Override
+			public void execute() {
+				tutorialView.backPage();
 			}
 		});
 
@@ -368,6 +377,7 @@ public class GameController extends Game {
 		// Knappene som aktiveres på TutorialView
 		exitTutorialViewButton();
 		startTutorialViewNextButton();
+		startTutorialViewBackButton();
 	}
 
 	public void scoreboardView() {
