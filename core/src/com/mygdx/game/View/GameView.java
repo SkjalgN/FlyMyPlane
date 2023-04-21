@@ -208,6 +208,15 @@ public class GameView extends State {
         gameOverListeners.remove(listener);
     }
 
+    private void checkGameOver(){
+        if (map.gameOver()){
+            fireGameOverEvent();
+        }
+    }
+
+    public void setInputProcessorManually(){
+        Gdx.input.setInputProcessor(stage);
+    }
 
     @Override
     public void update(float dt) {
@@ -215,11 +224,8 @@ public class GameView extends State {
         plane.update(dt);
         boat.update(dt);
         map.update(dt);
-        if (map.gameOver()) {
-            fireGameOverEvent();
-        }
+        checkGameOver();
         handlePlaneOutsideScreen();
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override

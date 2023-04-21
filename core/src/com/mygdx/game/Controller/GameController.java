@@ -401,6 +401,7 @@ public class GameController extends Game implements GameOverListener{
 		gsm.pop();
 
 		startGameButtons();
+		gameView.setInputProcessorManually();
 	}
 	public void menuFromPause(){
 		gsm.pop();
@@ -426,6 +427,7 @@ public class GameController extends Game implements GameOverListener{
 
 		// Knappene som aktiveres på gameView
 		startGameButtons();
+		gameView.setInputProcessorManually();
 
 	}
 
