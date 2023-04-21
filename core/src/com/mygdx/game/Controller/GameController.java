@@ -20,9 +20,7 @@ import com.mygdx.game.View.StartGameView;
 import com.mygdx.game.View.TutorialView;
 import com.mygdx.game.View.VictoryView;
 
-
 import java.util.ArrayList;
-
 
 public class GameController extends Game {
 	public interface Callback {
@@ -30,9 +28,7 @@ public class GameController extends Game {
 	}
 
 	private GameStateManager gsm;
-	private  SpriteBatch batch;
-
-
+	private SpriteBatch batch;
 
 	// ALL THE VIEWS ARE CREATED HERE
 	private StartGameView startGameView;
@@ -43,9 +39,8 @@ public class GameController extends Game {
 	private VictoryView victoryView;
 	private GameView gameView;
 	private PauseView pauseView;
-	
 
-	//GameView variables
+	// GameView variables
 	private int planeSkinVar;
 	private String playerName;
 
@@ -53,7 +48,7 @@ public class GameController extends Game {
 
 	public GameController(API database) {
 		Database = database;
-    }
+	}
 
 	public ArrayList<Score> listen;
 
@@ -62,25 +57,26 @@ public class GameController extends Game {
 
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
-		
-		//THIS VIEW IS CREATED FIRST
+
+		// THIS VIEW IS CREATED FIRST
 		startGameView();
-/*
-		gsm.push(this.StartGameView);
-*/
 		/*
-		* Database.submitHighscore(new Score(3490,"Skjalg"));
-		* THIS METHOD IS USED TO SAVE SCORES TO DB IN THIS FORMAT!
-		* CREATE A NEW SCORE WITH SCORE FIRST, THEN USERNAME
-		* */
-		/*Database.submitHighscore(new Score(3490,"Skjalg"));*/
+		 * gsm.push(this.StartGameView);
+		 */
+		/*
+		 * Database.submitHighscore(new Score(3490,"Skjalg"));
+		 * THIS METHOD IS USED TO SAVE SCORES TO DB IN THIS FORMAT!
+		 * CREATE A NEW SCORE WITH SCORE FIRST, THEN USERNAME
+		 */
+		/* Database.submitHighscore(new Score(3490,"Skjalg")); */
 
 	}
+
 	// public SelectionView getSelectionView(){
-	// 	return this.selectionView;
+	// return this.selectionView;
 	// }
-	//The button is activated at correct view
-	public void startMenuViewButton(){
+	// The button is activated at correct view
+	public void startMenuViewButton() {
 		changeStateButton(this.startGameView.getStartGameButton(), new Callback() {
 			@Override
 			public void execute() {
@@ -88,30 +84,50 @@ public class GameController extends Game {
 			}
 		});
 	}
-
-	public void startMenuViewScoreButton(){
-		changeStateButton(
-			this.scoreboardView.getBackButton(), new Callback() {
+	public void exitFromPause() {
+		changeStateButton(this.pauseView.getExitButton(), new Callback() {
 			@Override
 			public void execute() {
-				menuView();
+				menuFromPause();
 			}
 		});
 	}
-	public void startGameButtons(){
-		System.out.println("DENNE SKAL KJØRE NÅÅÅÅÅ!!!");
+
+	public void startMenuViewScoreButton() {
 		changeStateButton(
-			this.gameView.getPauseButton(), new Callback() {
-			@Override
-			public void execute() {
-				pauseView();
-			}
-		});
+				this.scoreboardView.getBackButton(), new Callback() {
+					@Override
+					public void execute() {
+						menuView();
+					}
+				});
+	}
+
+	public void startPauseButtons() {
+		changeStateButton(
+				this.pauseView.getContinueButton(), new Callback() {
+					@Override
+					public void execute() {
+						// Gå tilbake fra Pause til Gamestate igjen
+						// gameView();
+						exitPauseView();
+
+					}
+				});
+	}
+
+	public void startGameButtons() {
+		changeStateButton(
+				this.gameView.getPauseButton(), new Callback() {
+					@Override
+					public void execute() {
+						pauseView();
+					}
+				});
 		changePlaneStateGameButtons(this.gameView.getLeftButton(), new Callback() {
 			@Override
 			public void execute() {
 				gameView.getPlane().rotateLeft();
-				System.out.println("ROTATE LEEEEEFT CONTROLLER");
 			}
 		}, new Callback() {
 			@Override
@@ -154,15 +170,13 @@ public class GameController extends Game {
 				gameView.getPlane().setFlamevar(0);
 			}
 		});
-
-	}
-	
-
-	public void victoryView(){
-		
 	}
 
-	public void startScoreboardViewButton(){
+	public void victoryView() {
+
+	}
+
+	public void startScoreboardViewButton() {
 		changeStateButton(this.menuView.getScoreBoardButton(), new Callback() {
 			@Override
 			public void execute() {
@@ -171,8 +185,8 @@ public class GameController extends Game {
 		});
 	}
 
-	//The button is activated at correct view
-	public void startSelectionViewButton(){
+	// The button is activated at correct view
+	public void startSelectionViewButton() {
 		changeStateButton(this.menuView.getSelectionButton(), new Callback() {
 			@Override
 			public void execute() {
@@ -181,7 +195,7 @@ public class GameController extends Game {
 		});
 	}
 
-	public void startTutorialViewButton(){
+	public void startTutorialViewButton() {
 		changeStateButton(this.menuView.getTutorialButton(), new Callback() {
 			@Override
 			public void execute() {
@@ -190,56 +204,57 @@ public class GameController extends Game {
 		});
 	}
 
-	public void exitTutorialViewButton(){
-			changeStateButton(this.tutorialView.getTutorialExitButton(), new Callback() {
-				@Override
-				public void execute() {
-					menuView();
-				}
-			});
-	}
-	
-
-	public void startTutorialViewNextButton(){
-			changeStateButton(this.tutorialView.getTutorialNextButton(), new Callback(){
-				@Override
-				public void execute(){
-					tutorialView.test();
-				}
-			});
-	
-	}
-	public void startGameStateButton(){
-			changeStateButton(this.selectionView.getNextButton(), new Callback(){
-				@Override
-				public void execute(){
-					// getSelectionView().setSelectionStateStatusLoading();
-					// //Her skal switchen skje
-					// getSelectionView().setSelectionStateStatusSwitching();
-					gameView();
-				}
-			});
-	}
-
-	public void changePlaneStateGameButtons(Button button, final Callback callback1, final Callback callback2){
-		button.addListener(new InputListener(){
+	public void exitTutorialViewButton() {
+		changeStateButton(this.tutorialView.getTutorialExitButton(), new Callback() {
 			@Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                // plane.rotateRight();
+			public void execute() {
+				menuView();
+			}
+		});
+	}
+
+	public void startTutorialViewNextButton() {
+		changeStateButton(this.tutorialView.getTutorialNextButton(), new Callback() {
+			@Override
+			public void execute() {
+				tutorialView.test();
+			}
+		});
+
+	}
+
+	public void startGameStateButton() {
+		changeStateButton(this.selectionView.getNextButton(), new Callback() {
+			@Override
+			public void execute() {
+				// getSelectionView().setSelectionStateStatusLoading();
+				// //Her skal switchen skje
+				// getSelectionView().setSelectionStateStatusSwitching();
+				gameView();
+			}
+		});
+	}
+
+	public void changePlaneStateGameButtons(Button button, final Callback callback1, final Callback callback2) {
+		button.addListener(new InputListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				// plane.rotateRight();
 				callback1.execute();
-                return true;
-            }
+				return true;
+			}
+
 			@Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                // plane.stopRotateRight();
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				// plane.stopRotateRight();
 				callback2.execute();
-            }
+			}
 		});
 
 	}
 
 	// StartGameButton
-	public void changeStateButton(Button button, final Callback callback){
+	public void changeStateButton(Button button, final Callback callback) {
 		button.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -248,10 +263,12 @@ public class GameController extends Game {
 			}
 		});
 	}
-	private void selectionViewChangeBox(int i){
+
+	private void selectionViewChangeBox(int i) {
 		this.selectionView.changeBox(i);
 	}
-	public void setPlaneSkinButton(){
+
+	public void setPlaneSkinButton() {
 		changeStateButton(this.selectionView.getBoxButton(1), new Callback() {
 			@Override
 			public void execute() {
@@ -262,7 +279,7 @@ public class GameController extends Game {
 		changeStateButton(this.selectionView.getBoxButton(2), new Callback() {
 			@Override
 			public void execute() {
-				planeSkinVar = 1;	
+				planeSkinVar = 1;
 				selectionViewChangeBox(2);
 
 			}
@@ -277,7 +294,7 @@ public class GameController extends Game {
 		});
 		changeStateButton(this.selectionView.getBoxButton(4), new Callback() {
 			@Override
-			public void execute() {				
+			public void execute() {
 				planeSkinVar = 3;
 				selectionViewChangeBox(4);
 
@@ -300,81 +317,100 @@ public class GameController extends Game {
 			}
 		});
 	}
-	public void getUsername(){
+
+	public void getUsername() {
 		this.playerName = this.selectionView.getInputField().getText();
 	}
 
-	public void startInputField(){
+	public void startInputField() {
 		this.selectionView.getInputField().setTextFieldListener(
-			new TextField.TextFieldListener() {
-			@Override
-            public void keyTyped(TextField textField, char c) {
-				getUsername();
-            }
-        });
+				new TextField.TextFieldListener() {
+					@Override
+					public void keyTyped(TextField textField, char c) {
+						getUsername();
+					}
+				});
 	}
 
-	public void startGameView(){
+	public void startGameView() {
 		this.startGameView = new StartGameView(gsm, Database);
 		gsm.push(this.startGameView);
 
-		//Knappene som aktiveres skal hit
+		// Knappene som aktiveres skal hit
 		startMenuViewButton();
 	}
 
-	public void menuView(){
+	public void menuView() {
 		this.menuView = new MenuView(gsm, Database);
 		gsm.set(this.menuView);
 
-		//Knappene som aktiveres på MenuView
+		// Knappene som aktiveres på MenuView
 		startSelectionViewButton();
 		startTutorialViewButton();
 		startScoreboardViewButton();
-		
+
 	}
 
-	public void selectionView(){
+	public void selectionView() {
 		this.selectionView = new SelectionView(gsm, Database);
 		gsm.set(this.selectionView);
 
-		//Knappene som aktiveres på SelectionView
+		// Knappene som aktiveres på SelectionView
 		setPlaneSkinButton();
 		startInputField();
 		startGameStateButton();
 	}
 
-	public void tutorialView(){
+	public void tutorialView() {
 		this.tutorialView = new TutorialView(gsm, Database);
 		gsm.set(this.tutorialView);
 
-		//Knappene som aktiveres på TutorialView
+		// Knappene som aktiveres på TutorialView
 		exitTutorialViewButton();
 		startTutorialViewNextButton();
-		
 	}
-	
-	public void scoreboardView(){
+
+	public void scoreboardView() {
 		this.scoreboardView = new ScoreboardView(gsm, Database);
 		gsm.set(scoreboardView);
 
-		//Knappene som aktiveres på scoreboardView
+		// Knappene som aktiveres på scoreboardView
 		startMenuViewScoreButton();
 	}
+	public void exitPauseView(){
+		gsm.pop();
 
-	public void gameView(){
-		this.gameView = new GameView(gsm, Database, this.planeSkinVar);
-		gsm.set(this.gameView);
+		startGameButtons();
+	}
+	public void menuFromPause(){
+		gsm.pop();
+		menuView();
+	}
 
-		//Knappene som aktiveres på gameView
+	public void gameView() {
+		// if (gsm.getStateSize() > 1 && this.gameView != null) {
+		// 	// FRA PAUSE TIL GAMEVIEW IGJEN
+		// 	// LEGG TIL LOGIKK FOR TIDEN IGJEN!
+		// 	gsm.pop();
+		// } else {
+			this.gameView = new GameView(gsm, Database, this.planeSkinVar);
+			gsm.set(this.gameView);
+		// }
+
+		// Knappene som aktiveres på gameView
 		startGameButtons();
 
 	}
-	public void pauseView(){
-		gsm.push(new PauseView(gsm, Database));
 
-		//HUSK Å PAUSE TIDEN SOM TELLES!
+	public void pauseView() {
+		this.pauseView = new PauseView(gsm, Database);
+		gsm.push(pauseView);
 
-		//Knappene som aktiveres på pauseView
+		// HUSK Å PAUSE TIDEN SOM TELLES!
+
+		// Knappene som aktiveres på pauseView
+		startPauseButtons();
+		exitFromPause();
 
 	}
 	//
@@ -387,7 +423,6 @@ public class GameController extends Game {
 	}
 
 	public void handleInput() {
-		
-		
+
 	}
 }
