@@ -14,9 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-
-
-public class SelectionView extends State{
+public class SelectionView extends State {
     private Texture background;
 
     // private Texture loading;
@@ -40,26 +38,26 @@ public class SelectionView extends State{
     private int skinVar;
 
     private API database;
-    // private SelectionStateStatus selectionStateStatus = SelectionStateStatus.NORMAL;
-
+    // private SelectionStateStatus selectionStateStatus =
+    // SelectionStateStatus.NORMAL;
 
     // private enum SelectionStateStatus {
-    //     NORMAL,
-    //     LOADING,
-    //     SWITCHING
+    // NORMAL,
+    // LOADING,
+    // SWITCHING
     // }
-    
+
     // public SelectionStateStatus getSelectionStateStatus(){
-    //     return this.selectionStateStatus;
+    // return this.selectionStateStatus;
     // }
     // public void setSelectionStateStatusNormal(){
-    //     this.selectionStateStatus = SelectionStateStatus.NORMAL;
+    // this.selectionStateStatus = SelectionStateStatus.NORMAL;
     // }
     // public void setSelectionStateStatusLoading(){
-    //     this.selectionStateStatus = SelectionStateStatus.LOADING;
+    // this.selectionStateStatus = SelectionStateStatus.LOADING;
     // }
     // public void setSelectionStateStatusSwitching(){
-    //     this.selectionStateStatus = SelectionStateStatus.SWITCHING;
+    // this.selectionStateStatus = SelectionStateStatus.SWITCHING;
     // }
 
     public SelectionView(final GameStateManager gsm, final API database) {
@@ -68,21 +66,18 @@ public class SelectionView extends State{
         background = new Texture("gamescreens/selection1.jpg");
         // loadingbackground = new Texture("gamescreens/mapClean.jpg");
         // loading = new Texture("gamescreens/loadingtexture.png");
-        cam.setToOrtho(false, width,height);
-        cam.zoom = (float)1.0;
+        cam.setToOrtho(false, width, height);
+        cam.zoom = (float) 1.0;
         cam.translate(0, 0);
 
-
-
-
-        //Create a stage
+        // Create a stage
         stage = new GameStage();
 
-        //Load a skin from JSON file
+        // Load a skin from JSON file
         nextBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
         boxSkin = new Skin(Gdx.files.internal("buttons/selection/box/box.json"));
 
-        //Create a button
+        // Create a button
         nextBtn = new Button(nextBtnSkin);
         box1 = new Button(boxSkin);
         box2 = new Button(boxSkin);
@@ -91,67 +86,65 @@ public class SelectionView extends State{
         box5 = new Button(boxSkin);
         box6 = new Button(boxSkin);
 
-        //Set button position, size and function
-        nextBtn.setSize(width/8f, width/8f);
-        nextBtn.setPosition(width-nextBtn.getWidth()*1.2f, height/2f-(nextBtn.getHeight()/2f));
+        // Set button position, size and function
+        nextBtn.setSize(width / 8f, width / 8f);
+        nextBtn.setPosition(width - nextBtn.getWidth() * 1.2f, height / 2f - (nextBtn.getHeight() / 2f));
         nextBtn.setVisible(false);
-        
+
         nextBtnSkin = new Skin(Gdx.files.internal("buttons/game/rightBtn/rightBtn.json"));
 
         // Create a new BitmapFont and add it to the Skin
         BitmapFont font = new BitmapFont();
         nextBtnSkin.add("font", font, BitmapFont.class);
 
-        box1.setSize(width/5f, width/5f);
-        box1.setPosition(width/2f - width*0.18f -(box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
+        box1.setSize(width / 5f, width / 5f);
+        box1.setPosition(width / 2f - width * 0.18f - (box1.getWidth() / 2f), height / 2f - (box1.getHeight() / 2f));
         resetColor();
 
         System.out.println("Width: " + width + " Height: " + height);
-       
 
-        box2.setSize(width/5f, width/5f);
-        box2.setPosition(width/2f-box1.getWidth()/2f, height/2f-(box1.getHeight()/2f));
-        box2.setColor(1,1,1,0);
-        
+        box2.setSize(width / 5f, width / 5f);
+        box2.setPosition(width / 2f - box1.getWidth() / 2f, height / 2f - (box1.getHeight() / 2f));
+        box2.setColor(1, 1, 1, 0);
 
-        box3.setSize(width/5f, width/5f);
-        box3.setPosition(width/2f + width*0.18f - (box1.getWidth()/2f), height/2f-(box1.getHeight()/2f));
-        box3.setColor(1,1,1,0);
-        
-        box4.setSize(width/5f, width/5f);
-        box4.setPosition(width/2f - width*0.18f - box1.getWidth()/2f, height/2f-height*0.25f-(box1.getHeight()/2f));
-        box4.setColor(1,1,1,0);
-       
-        box5.setSize(width/5f, width/5f);
-        box5.setPosition(width/2f-(box1.getWidth()/2f), height/2f-height*0.25f-(box1.getHeight()/2f));
-        box5.setColor(1,1,1,0);
-        
-        
-        box6.setSize(width/5f, width/5f);
-        box6.setPosition(width/2f + width*0.18f -(box1.getWidth()/2f), height/2f-height*0.25f-(box1.getHeight()/2f));
-        box6.setColor(1,1,1,0);
-       
-        //Kanskje gjøres i Controller
+        box3.setSize(width / 5f, width / 5f);
+        box3.setPosition(width / 2f + width * 0.18f - (box1.getWidth() / 2f), height / 2f - (box1.getHeight() / 2f));
+        box3.setColor(1, 1, 1, 0);
+
+        box4.setSize(width / 5f, width / 5f);
+        box4.setPosition(width / 2f - width * 0.18f - box1.getWidth() / 2f,
+                height / 2f - height * 0.25f - (box1.getHeight() / 2f));
+        box4.setColor(1, 1, 1, 0);
+
+        box5.setSize(width / 5f, width / 5f);
+        box5.setPosition(width / 2f - (box1.getWidth() / 2f), height / 2f - height * 0.25f - (box1.getHeight() / 2f));
+        box5.setColor(1, 1, 1, 0);
+
+        box6.setSize(width / 5f, width / 5f);
+        box6.setPosition(width / 2f + width * 0.18f - (box1.getWidth() / 2f),
+                height / 2f - height * 0.25f - (box1.getHeight() / 2f));
+        box6.setColor(1, 1, 1, 0);
+
+        // Kanskje gjøres i Controller
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Fonts/AmaticSC-Regular.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 24*4; // Set the font size here
+        parameter.size = 24 * 4; // Set the font size here
         customFont = generator.generateFont(parameter);
         generator.dispose();
-        
 
-        //USER INPUT!
+        // USER INPUT!
         textFieldStyle = new TextFieldStyle();
         textFieldStyle.font = customFont; // You can use the same font from the nextBtnSkin or create a new one.
         textFieldStyle.fontColor = Color.BLACK; // Set the font color.
-/*
-        textFieldStyle.background = box1Skin.getDrawable("background"); // Use the box1Skin background as the TextField background.
-*/
+        /*
+         * textFieldStyle.background = box1Skin.getDrawable("background"); // Use the
+         * box1Skin background as the TextField background.
+         */
         font.getData().setScale(1f);
         inputField = new TextField("", textFieldStyle);
         inputField.setSize(width / 4f, height / 10f);
-        inputField.setPosition(width / 2f + (width / 20f) - (inputField.getWidth() / 2f), height*0.70f - (inputField.getHeight() / 2f));
-       
-
+        inputField.setPosition(width / 2f + (width / 20f) - (inputField.getWidth() / 2f),
+                height * 0.70f - (inputField.getHeight() / 2f));
 
         stage.addActor(nextBtn);
         stage.addActor(box1);
@@ -163,72 +156,59 @@ public class SelectionView extends State{
         stage.addActor(inputField);
         Gdx.input.setInputProcessor(stage);
     }
-    public TextField getInputField(){
+
+    public TextField getInputField() {
         return inputField;
     }
-    public void changeBox(int i){
+
+    public void changeBox(int i) {
         resetColor();
-        getBoxButton(i).setColor(1,1,1,1);
-        skinVar = i-1;
+        getBoxButton(i).setColor(1, 1, 1, 1);
+        skinVar = i - 1;
         nextBtn.setVisible(true);
     }
-    public Button getNextButton(){
+
+    public Button getNextButton() {
         return nextBtn;
     }
 
-    public void resetColor(){
-        box1.setColor(1,1,1,0);
-        box2.setColor(1,1,1,0);
-        box3.setColor(1,1,1,0);
-        box4.setColor(1,1,1,0);
-        box5.setColor(1,1,1,0);
-        box6.setColor(1,1,1,0);
+    public void resetColor() {
+        box1.setColor(1, 1, 1, 0);
+        box2.setColor(1, 1, 1, 0);
+        box3.setColor(1, 1, 1, 0);
+        box4.setColor(1, 1, 1, 0);
+        box5.setColor(1, 1, 1, 0);
+        box6.setColor(1, 1, 1, 0);
     }
-    public Button getBoxButton(int i){
-        if(i == 1){
+
+    public Button getBoxButton(int i) {
+        if (i == 1) {
             return box1;
-        }
-        else if(i == 2){
+        } else if (i == 2) {
             return box2;
-        }
-        else if(i == 3){
+        } else if (i == 3) {
             return box3;
-        }
-        else if(i == 4){
+        } else if (i == 4) {
             return box4;
-        }
-        else if(i == 5){
+        } else if (i == 5) {
             return box5;
-        }
-        else if(i == 6){
+        } else if (i == 6) {
             return box6;
-        }else{
+        } else {
             return null;
         }
     }
-
 
     @Override
     public void update(float dt) {
         cam.update();
     }
 
-
     @Override
     public void render(SpriteBatch sb) {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0, 0, width, height);
-
-        
-
-        // if (selectionStateStatus == SelectionStateStatus.LOADING) {
-        //     sb.draw(loadingbackground, 0, 0, width, height);
-        //     sb.draw(loading, width/2f-loading.getWidth()/2f, height/2f-loading.getHeight()/2f, width/4f, height/4f);
-        //     stage.clear();
-        //     selectionStateStatus = SelectionStateStatus.SWITCHING;
-        // }
-
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();

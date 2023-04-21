@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.API;
 import com.mygdx.game.Model.Score;
 import com.mygdx.game.View.MenuView;
+import com.mygdx.game.View.PauseView;
 import com.mygdx.game.View.ScoreboardView;
 import com.mygdx.game.View.GameStateManager;
 import com.mygdx.game.View.GameView;
@@ -41,6 +42,7 @@ public class GameController extends Game {
 	private ScoreboardView scoreboardView;
 	private VictoryView victoryView;
 	private GameView gameView;
+	private PauseView pauseView;
 	
 
 	//GameView variables
@@ -74,9 +76,9 @@ public class GameController extends Game {
 		/*Database.submitHighscore(new Score(3490,"Skjalg"));*/
 
 	}
-	public SelectionView getSelectionView(){
-		return this.selectionView;
-	}
+	// public SelectionView getSelectionView(){
+	// 	return this.selectionView;
+	// }
 	//The button is activated at correct view
 	public void startMenuViewButton(){
 		changeStateButton(this.startGameView.getStartGameButton(), new Callback() {
@@ -96,6 +98,65 @@ public class GameController extends Game {
 			}
 		});
 	}
+	public void startGameButtons(){
+		System.out.println("DENNE SKAL KJØRE NÅÅÅÅÅ!!!");
+		changeStateButton(
+			this.gameView.getPauseButton(), new Callback() {
+			@Override
+			public void execute() {
+				pauseView();
+			}
+		});
+		changePlaneStateGameButtons(this.gameView.getLeftButton(), new Callback() {
+			@Override
+			public void execute() {
+				gameView.getPlane().rotateLeft();
+				System.out.println("ROTATE LEEEEEFT CONTROLLER");
+			}
+		}, new Callback() {
+			@Override
+			public void execute() {
+				gameView.getPlane().stopRotateLeft();
+			}
+		});
+		changePlaneStateGameButtons(this.gameView.getRightButton(), new Callback() {
+			@Override
+			public void execute() {
+				gameView.getPlane().rotateRight();
+			}
+		}, new Callback() {
+			@Override
+			public void execute() {
+				gameView.getPlane().stopRotateRight();
+			}
+		});
+		changePlaneStateGameButtons(this.gameView.getBoostButton(), new Callback() {
+			@Override
+			public void execute() {
+				gameView.getPlane().setSpeed(15);
+				gameView.getPlane().setAirflowvar(0);
+			}
+		}, new Callback() {
+			@Override
+			public void execute() {
+				gameView.getPlane().setSpeed(3);
+				gameView.getPlane().setAirflowvar(1);
+			}
+		});
+		changePlaneStateGameButtons(this.gameView.getFlameButton(), new Callback() {
+			@Override
+			public void execute() {
+				gameView.getPlane().setFlamevar(1);
+			}
+		}, new Callback() {
+			@Override
+			public void execute() {
+				gameView.getPlane().setFlamevar(0);
+			}
+		});
+
+	}
+	
 
 	public void victoryView(){
 		
@@ -158,6 +219,23 @@ public class GameController extends Game {
 					gameView();
 				}
 			});
+	}
+
+	public void changePlaneStateGameButtons(Button button, final Callback callback1, final Callback callback2){
+		button.addListener(new InputListener(){
+			@Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                // plane.rotateRight();
+				callback1.execute();
+                return true;
+            }
+			@Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                // plane.stopRotateRight();
+				callback2.execute();
+            }
+		});
+
 	}
 
 	// StartGameButton
@@ -288,6 +366,15 @@ public class GameController extends Game {
 		gsm.set(this.gameView);
 
 		//Knappene som aktiveres på gameView
+		startGameButtons();
+
+	}
+	public void pauseView(){
+		gsm.push(new PauseView(gsm, Database));
+
+		//HUSK Å PAUSE TIDEN SOM TELLES!
+
+		//Knappene som aktiveres på pauseView
 
 	}
 	//

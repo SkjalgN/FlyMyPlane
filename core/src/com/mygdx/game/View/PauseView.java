@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
 import com.mygdx.game.Model.Plane;
 
-public class PauseState extends State{
+public class PauseView extends State{
     
     private Texture background;
     private Skin continueBtnSkin;
@@ -25,7 +25,7 @@ public class PauseState extends State{
 
 
 
-    public PauseState(final GameStateManager gsm, final API database) {
+    public PauseView(final GameStateManager gsm, final API database) {
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/pauseMenu.jpg");

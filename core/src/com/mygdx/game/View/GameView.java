@@ -136,82 +136,22 @@ public class GameView extends State {
 
         pauseBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
         pauseBtn.setPosition(0, SCREEN_HEIGHT - buttonHeight);
-        pauseBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gsm.push(new PauseState(gsm, database));
-                System.out.println("Button Pressed");
-                return true;
-            }
-        });
+        
 
         leftBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
         leftBtn.setPosition(0, 0);
-        leftBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                plane.rotateLeft();
-                System.out.println("Turn Left");
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                plane.stopRotateLeft();
-            }
-        });
+        
 
         rightBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
         rightBtn.setPosition(buttonWidth * 1.2f, 0);
-        rightBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                plane.rotateRight();
-                System.out.println("Turn Right");
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                plane.stopRotateRight();
-            }
-        });
+        
 
         boostBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
         boostBtn.setPosition(SCREEN_WIDTH - buttonWidth, 0);
-        boostBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                plane.setSpeed(15);
-                plane.setAirflowvar(0);
-                System.out.println("Button Pressed");
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                plane.setSpeed(3);
-                plane.setAirflowvar(1);
-            }
-        });
 
         flameBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
         flameBtn.setPosition(SCREEN_WIDTH - buttonWidth, buttonHeight);
-        flameBtn.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                plane.setFlamevar(1);
-                System.out.println("Button Pressed");
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                plane.setFlamevar(0);
-                System.out.println("DSADASDSA Pressed");
-            }
-        });
-
+        
         stage.addActor(pauseBtn);
         stage.addActor(leftBtn);
         stage.addActor(rightBtn);
@@ -223,6 +163,24 @@ public class GameView extends State {
         Gdx.input.setInputProcessor(stage);
     }
 
+    public Button getPauseButton(){
+        return this.pauseBtn;
+    }
+    public Button getLeftButton(){
+        return this.leftBtn;
+    }
+    public Button getRightButton(){
+        return this.rightBtn;
+    }
+    public Button getBoostButton(){
+        return this.boostBtn;
+    }
+    public Button getFlameButton(){
+        return this.flameBtn;
+    }
+    public Plane getPlane(){
+        return this.plane;
+    }
 
 
     @Override
