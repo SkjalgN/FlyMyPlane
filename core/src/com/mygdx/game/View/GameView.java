@@ -1,5 +1,8 @@
 package com.mygdx.game.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -18,6 +21,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.API;
+import com.mygdx.game.FontManager;
+import com.mygdx.game.GameOverEvent;
+import com.mygdx.game.GameOverListener;
 import com.mygdx.game.Model.Location;
 import com.mygdx.game.Model.Map;
 import com.mygdx.game.Model.Package;
@@ -63,6 +69,10 @@ public class GameView extends State {
 
     private int seconds;
 
+
+    private List<GameOverListener> gameOverListeners = new ArrayList<>();
+
+    
     private int packageIndex;
     private int destinationIndex;
 
@@ -84,7 +94,7 @@ public class GameView extends State {
         map = new Map(plane);
         
 
-
+        
         stage = new GameStage();
 
         pauseBtnSkin = new Skin(Gdx.files.internal("buttons/game/pauseBtn/pauseBtn.json"));
@@ -108,7 +118,8 @@ public class GameView extends State {
 
 
         startTime = TimeUtils.millis();
-        packageFont = new BitmapFont();
+        packageFont = FontManager.getInstance().getFont();
+
 
 
 
@@ -179,7 +190,31 @@ public class GameView extends State {
     public Plane getPlane(){
         return this.plane;
     }
+    
 
+    public void addGameOverListener(GameOverListener listener) {
+        gameOverListeners.add(listener);
+    }
+
+    private void fireGameOverEvent() {
+        GameOverEvent event = new GameOverEvent(this);
+        for (GameOverListener listener : gameOverListeners) {
+            listener.onGameOver(event);
+        }
+    }
+    public void removeGameOverListener(GameOverListener listener) {
+        gameOverListeners.remove(listener);
+    }
+
+    private void checkGameOver(){
+        if (map.gameOver()){
+            fireGameOverEvent();
+        }
+    }
+
+    public void setInputProcessorManually(){
+        Gdx.input.setInputProcessor(stage);
+    }
 
     @Override
     public void update(float dt) {
@@ -187,11 +222,8 @@ public class GameView extends State {
         plane.update(dt);
         boat.update(dt);
         map.update(dt);
-        if (map.gameOver()) {
-            handleGameOver();
-        }
+        checkGameOver();
         handlePlaneOutsideScreen();
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -238,9 +270,9 @@ public class GameView extends State {
         stage.dispose();
     }
 
-    public void handleGameOver() {
-        gsm.push(new VictoryView(gsm, database));
-        elapsedTime = seconds;
+
+    public long getElapsedTime(){
+        return this.elapsedTime;
     }
 
     public void handlePlaneOutsideScreen() {

@@ -9,6 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.API;
+import com.mygdx.game.GameOverEvent;
+import com.mygdx.game.GameOverListener;
 import com.mygdx.game.Model.Score;
 import com.mygdx.game.View.MenuView;
 import com.mygdx.game.View.PauseView;
@@ -22,7 +24,9 @@ import com.mygdx.game.View.VictoryView;
 
 import java.util.ArrayList;
 
-public class GameController extends Game {
+public class GameController extends Game implements GameOverListener {
+
+	// This interface is used for methods to send in a method as a parameter
 	public interface Callback {
 		void execute();
 	}
@@ -43,6 +47,7 @@ public class GameController extends Game {
 	// GameView variables
 	private int planeSkinVar;
 	private String playerName;
+	private long elapsedTime;
 
 	private API Database;
 
@@ -84,6 +89,7 @@ public class GameController extends Game {
 			}
 		});
 	}
+
 	public void exitFromPause() {
 		changeStateButton(this.pauseView.getExitButton(), new Callback() {
 			@Override
@@ -172,10 +178,6 @@ public class GameController extends Game {
 		});
 	}
 
-	public void victoryView() {
-
-	}
-
 	public void startScoreboardViewButton() {
 		changeStateButton(this.menuView.getScoreBoardButton(), new Callback() {
 			@Override
@@ -222,6 +224,7 @@ public class GameController extends Game {
 		});
 
 	}
+
 	public void startTutorialViewBackButton() {
 		changeStateButton(this.tutorialView.getTutorialBackButton(), new Callback() {
 			@Override
@@ -349,6 +352,13 @@ public class GameController extends Game {
 		startMenuViewButton();
 	}
 
+	public void victoryView() {
+		this.victoryView = new VictoryView(gsm, Database);
+		gsm.push(victoryView);
+
+		// Buttons for VictoryView
+	}
+
 	public void menuView() {
 		this.menuView = new MenuView(gsm, Database);
 		gsm.set(this.menuView);
@@ -387,28 +397,35 @@ public class GameController extends Game {
 		// Knappene som aktiveres på scoreboardView
 		startMenuViewScoreButton();
 	}
-	public void exitPauseView(){
+
+	public void exitPauseView() {
 		gsm.pop();
 
 		startGameButtons();
+		gameView.setInputProcessorManually();
 	}
-	public void menuFromPause(){
+
+	public void menuFromPause() {
 		gsm.pop();
 		menuView();
 	}
 
 	public void gameView() {
 		// if (gsm.getStateSize() > 1 && this.gameView != null) {
-		// 	// FRA PAUSE TIL GAMEVIEW IGJEN
-		// 	// LEGG TIL LOGIKK FOR TIDEN IGJEN!
-		// 	gsm.pop();
+		// // FRA PAUSE TIL GAMEVIEW IGJEN
+		// // LEGG TIL LOGIKK FOR TIDEN IGJEN!
+		// gsm.pop();
 		// } else {
-			this.gameView = new GameView(gsm, Database, this.planeSkinVar);
-			gsm.set(this.gameView);
+		this.gameView = new GameView(gsm, Database, this.planeSkinVar);
+		gsm.set(this.gameView);
+
+		// Lager en gameover lytter i dette viewet
+		gameView.addGameOverListener(this);
 		// }
 
 		// Knappene som aktiveres på gameView
 		startGameButtons();
+		gameView.setInputProcessorManually();
 
 	}
 
@@ -433,6 +450,17 @@ public class GameController extends Game {
 	}
 
 	public void handleInput() {
+
+	}
+
+	@Override
+	public void onGameOver(GameOverEvent event) {
+		// TODO Auto-generated method stub
+		// AFTER GAME IS OVER!
+		this.elapsedTime = this.gameView.getElapsedTime();
+		gsm.push(new VictoryView(gsm, Database));
+
+		this.gameView.removeGameOverListener(this);
 
 	}
 }

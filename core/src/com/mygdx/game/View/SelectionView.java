@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
+import com.mygdx.game.FontManager;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -126,11 +127,9 @@ public class SelectionView extends State {
         box6.setColor(1, 1, 1, 0);
 
         // Kanskje gjøres i Controller
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Fonts/AmaticSC-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 24 * 4; // Set the font size here
-        customFont = generator.generateFont(parameter);
-        generator.dispose();
+       
+        customFont = FontManager.getInstance().getFont();
+
 
         // USER INPUT!
         textFieldStyle = new TextFieldStyle();
