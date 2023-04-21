@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.mygdx.game.API;
+import com.mygdx.game.FontManager;
 import com.mygdx.game.Model.Location;
 import com.mygdx.game.Model.Map;
 import com.mygdx.game.Model.Package;
@@ -86,7 +87,7 @@ public class GameView extends State {
         map = new Map(plane);
 
 
-
+        
         stage = new GameStage();
 
         pauseBtnSkin = new Skin(Gdx.files.internal("buttons/game/pauseBtn/pauseBtn.json"));
@@ -110,7 +111,8 @@ public class GameView extends State {
 
 
         startTime = TimeUtils.millis();
-        packageFont = new BitmapFont();
+        packageFont = FontManager.getInstance().getFont();
+
 
 
 

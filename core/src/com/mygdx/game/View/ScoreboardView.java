@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
+import com.mygdx.game.FontManager;
 import com.mygdx.game.Model.Score;
 
 import java.util.ArrayList;
@@ -29,11 +30,9 @@ public class ScoreboardView extends State{
     public ScoreboardView(final GameStateManager gsm, API Database) {
         super(gsm);
         //Kanskje gjøres i Controller
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Fonts/AmaticSC-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 24*5; // Set the font size here
-        customFont = generator.generateFont(parameter);
-        generator.dispose();
+        
+        customFont = FontManager.getInstance().getFont();
+
         //
 
         this.database = Database;
