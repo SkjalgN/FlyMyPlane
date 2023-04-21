@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Intersector;
 import com.mygdx.game.Controller.GameController;
@@ -21,7 +22,7 @@ public class Map {
         this.plane = plane;
         initializeLocations();
         package1 = initializePackage(false);
-        
+
     }
 
     public void initializeLocations() {
@@ -75,17 +76,44 @@ public class Map {
         return gameOver;
     }
 
+    public String getPackageLocation() {
+        return package1.getCity();
+    }
+
+    public String getTargetLocation(){
+        return target1.getCity();
+    }
+
+    public Package getTarget() {
+        return target1;
+    }
+
+    public void drawPackage(SpriteBatch sb){
+        package1.draw(sb);
+    }
+
+    public void drawTarget(SpriteBatch sb){
+        target1.draw(sb);
+    }
+
     public void update(float dt) {
         handleCollision();
     }
 
     public void handleCollision(){
-        if (checkCollision(plane, package1)){
-            pickUpState = false;
-            target1 = initializePackage(true);
+        if (pickUpState){
+            if (checkCollision(plane, package1)){
+                pickUpState = false;
+                target1 = initializePackage(true);
+                System.out.println("Magnuuuuus");
+                System.out.println("Magnuuuuus");
+                System.out.println("Magnuuuuus");
+            }
         }
-        if (checkCollision(plane, target1)){
-            gameOver = true;
+        else {
+            if (checkCollision(plane, target1)){
+                gameOver = true;
+            }
         }
     }
     

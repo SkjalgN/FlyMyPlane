@@ -31,8 +31,6 @@ public class GameView extends State {
     private Texture backgroundWater;
     private Plane plane;
     private Boat boat;
-    private Package pack;
-    private Package pack2;
     private Map map;
 
 
@@ -84,7 +82,7 @@ public class GameView extends State {
         
         boat = new Boat(2700, 2700, 1, 1, 300, 300, new TextureRegion(new Texture("objects/boat.png")));
         map = new Map(plane);
-
+        
 
 
         stage = new GameStage();
@@ -118,7 +116,7 @@ public class GameView extends State {
         //Table til å legge til packageLabel på
         textTable = new Table();
         packageFont = new BitmapFont();
-        packageLabel = new Label("Get the package in: " + pack.getCity(), new Label.LabelStyle(packageFont, Color.WHITE));
+        packageLabel = new Label("Get the package in Magnus: " + map.getPackageLocation(), new Label.LabelStyle(packageFont, Color.WHITE));
         packageLabel.setFontScale(SCREEN_HEIGHT/200);
         textTable.add(packageLabel).expandX().padTop(10);
         textTable.setPosition(SCREEN_WIDTH/ 2f, SCREEN_HEIGHT-(SCREEN_HEIGHT*0.07f));
@@ -205,11 +203,11 @@ public class GameView extends State {
 
         //Nytt, fiks dette
         if (map.pickUpState()){
-            pack.draw(sb);
+            map.drawPackage(sb);
         }
         else {
-            pack2.draw(sb);
-            packageLabel.setText("Deliver the package to " + this.pack2.getCity());
+            map.drawTarget(sb);
+            packageLabel.setText("Deliver the package to " + map.getTargetLocation());
         }
 
         boat.draw(sb);
