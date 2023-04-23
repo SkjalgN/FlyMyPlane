@@ -6,7 +6,9 @@ import java.util.List;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.mygdx.game.Controller.GameController;
 import com.mygdx.game.View.GameView;
 
@@ -59,15 +61,6 @@ public class Map {
         return (int) Math.floor(Math.random() * locations.size());
     }
 
-    public Boolean checkCollision(Plane plane, Package pack) {
-        if (Intersector.overlaps(plane.getBounds(), pack.getBounds())) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public Boolean pickUpState() {
         return pickUpState;
     }
@@ -102,17 +95,46 @@ public class Map {
 
     public void handleCollision(){
         if (pickUpState){
-            if (checkCollision(plane, package1)){
+            if (checkPackageCollision(plane, package1)){
                 pickUpState = false;
                 target1 = initializePackage(true);
-                System.out.println("Magnuuuuus");
-                System.out.println("Magnuuuuus");
-                System.out.println("Magnuuuuus");
             }
         }
         else {
-            if (checkCollision(plane, target1)){
+            if (checkPackageCollision(plane, target1)){
                 gameOver = true;
+            }
+        }
+    }
+
+    public Boolean checkCollision(Plane plane, Package pack) {
+        if (Intersector.overlaps(plane.getBounds(), pack.getBounds())) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public Boolean checkPackageCollision(Plane plane, Package package2) {
+        if (package2.isTarget()) {
+            Rectangle rect1 = new Rectangle(plane.getxPos(), plane.getyPos(), plane.getPlaneWidth()/3, plane.getPlaneHeight()/3);
+            Circle circle = new Circle(package2.getX() + package2.getWidth() / 3f, package2.getY() + package2.getHeight() / 3f, package2.getWidth() / 3f);
+            if (Intersector.overlaps(circle, rect1)) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else {
+            Rectangle rect1 = new Rectangle(plane.getxPos(), plane.getyPos(), plane.getPlaneWidth()/3, plane.getPlaneHeight()/3);
+            Rectangle rect2 = new Rectangle(package2.getX(), package2.getY(), package2.getWidth(), package2.getHeight());
+            if (Intersector.overlaps(rect1, rect2)) {
+                return true;
+            }
+            else {
+                return false;
             }
         }
     }

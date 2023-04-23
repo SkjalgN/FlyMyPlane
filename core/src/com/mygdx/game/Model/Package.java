@@ -19,7 +19,7 @@ public class Package {
 
     public Package(String city, float xPos, float yPos, TextureRegion packageTextureRegion, boolean isTarget) {
         this.city = city;
-        this.bounds = new Rectangle(xPos-200, yPos-200, 400, 400);
+        this.bounds = new Rectangle(xPos, yPos, width, height);
         this.xPos = xPos;
         this.yPos = yPos;
         this.packageTextureRegion = packageTextureRegion;
@@ -43,6 +43,14 @@ public class Package {
 
     public Rectangle getBounds() {
         return bounds;
+    }
+
+    public float getX() {
+        return xPos;
+    }
+
+    public float getY() {
+        return yPos;
     }
 
 

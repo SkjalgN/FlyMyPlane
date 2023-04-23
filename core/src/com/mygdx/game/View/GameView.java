@@ -127,7 +127,7 @@ public class GameView extends State {
         //Table til å legge til packageLabel på
         textTable = new Table();
         packageFont = new BitmapFont();
-        packageLabel = new Label("Get the package in Magnus: " + map.getPackageLocation(), new Label.LabelStyle(packageFont, Color.WHITE));
+        packageLabel = new Label("Get the package in: " + map.getPackageLocation(), new Label.LabelStyle(packageFont, Color.WHITE));
         packageLabel.setFontScale(SCREEN_HEIGHT/200);
         textTable.add(packageLabel).expandX().padTop(10);
         textTable.setPosition(SCREEN_WIDTH/ 2f, SCREEN_HEIGHT-(SCREEN_HEIGHT*0.07f));
