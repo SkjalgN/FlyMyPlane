@@ -22,7 +22,7 @@ public class AndroidFireBaseAPI implements API{
     }
     @Override
     public void submitHighscore(Score score) {
-        System.out.println("Submitting highscore");
+        System.out.println("Submitting highscore" + score);
         myRef.push().setValue(score);
     }
 

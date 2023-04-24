@@ -100,23 +100,22 @@ public class VictoryView extends State {
 
             customFont.draw(sb, scoreText1, xRight, yCenter - playerLayout1.height);
             customFont.draw(sb, scoreText2, xLeft - playerLayout2.width, yCenter - playerLayout2.height);
-            this.winner = score1;
+            this.winner = new Score(score1.getScore(),score1.getName());
         } else {
             customFont.draw(sb, player1, xLeft - playerLayout1.width, yCenter);
             customFont.draw(sb, player2, xRight, yCenter);
 
             customFont.draw(sb, scoreText1, xLeft - playerLayout1.width, yCenter - playerLayout1.height);
             customFont.draw(sb, scoreText2, xRight, yCenter - playerLayout2.height);
-            this.winner = score2;
+            this.winner = new Score(score2.getScore(),score2.getName());        
         }
-
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
 
     public Score getWinner() {
-        return winner;
+        return this.winner;
     }
 
     @Override

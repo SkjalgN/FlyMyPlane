@@ -529,7 +529,7 @@ public class GameController extends Game implements GameOverListener {
 			startMenuViewFromVictoryButton();
 			//Save the winner to database
 			Score winner = victoryView.getWinner();
-			Database.submitHighscore(winner);
+			this.Database.submitHighscore(new Score(winner.getScore(), winner.getName()));
 
 
 		}
