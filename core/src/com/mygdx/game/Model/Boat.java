@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 
 public class Boat {
+    // TODO: Boat vises ikke i spillet, fjern den hvis ikke vi får fikset!
 
     private float xPos,yPos;
     private float speed;
@@ -35,7 +36,7 @@ public class Boat {
     public void update(float delta) {
         xPos += speed * Math.cos(angle);
         yPos += speed * Math.sin(angle);
-        if(xPos <2600 || xPos > 3400) {
+        if(xPos < 2600 || xPos > 3400) {
             angle = (float) Math.PI - angle;
         }
         if(yPos < 2400 || yPos > 3000) {

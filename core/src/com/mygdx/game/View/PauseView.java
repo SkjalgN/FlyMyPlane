@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.game.API;
 
 public class PauseView extends State {
 
@@ -18,11 +17,9 @@ public class PauseView extends State {
     private Button exitBtn;
     private Button soundBtn;
     private GameStage stage;
-    private API database;
 
-    public PauseView(final GameStateManager gsm, final API database) {
+    public PauseView(final GameStateManager gsm) {
         super(gsm);
-        this.database = database;
         background = new Texture("gamescreens/pauseMenu.jpg");
         cam.setToOrtho(false, width, height);
         cam.zoom = (float) 1.0;

@@ -5,20 +5,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.game.API;
 
 public class StartGameView extends State {
 
-    private API database;
     private Texture background;
     private Button startButton;
     private GameStage stage;
     private Skin startSkin;
 
-    public StartGameView(final GameStateManager gsm, API Database) {
+    public StartGameView(final GameStateManager gsm) {
 
         super(gsm);
-        this.database = Database;
 
         background = new Texture("gamescreens/startPage.jpg");
 

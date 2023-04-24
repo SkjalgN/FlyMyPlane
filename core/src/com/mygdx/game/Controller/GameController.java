@@ -402,7 +402,7 @@ public class GameController extends Game implements GameOverListener {
 		manager = new AssetManager();
 		manager.load("Audio/background.ogg",Music.class);
 		manager.finishLoading();
-		this.startGameView = new StartGameView(gsm, Database);
+		this.startGameView = new StartGameView(gsm);
 		gsm.push(this.startGameView);
 		manager.get("Audio/background.ogg", Music.class).setLooping(true);
 		manager.get("Audio/background.ogg", Music.class).play();
@@ -411,7 +411,7 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void menuView() {
-		this.menuView = new MenuView(gsm, Database);
+		this.menuView = new MenuView(gsm);
 		gsm.set(this.menuView);
 
 		// Knappene som aktiveres på MenuView
@@ -431,7 +431,7 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void tutorialView() {
-		this.tutorialView = new TutorialView(gsm, Database);
+		this.tutorialView = new TutorialView(gsm);
 		gsm.set(this.tutorialView);
 
 		// Knappene som aktiveres på TutorialView
@@ -480,7 +480,7 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void pauseView() {
-		this.pauseView = new PauseView(gsm, Database);
+		this.pauseView = new PauseView(gsm);
 		gsm.push(pauseView);
 
 		// HUSK Å PAUSE TIDEN SOM TELLES!
