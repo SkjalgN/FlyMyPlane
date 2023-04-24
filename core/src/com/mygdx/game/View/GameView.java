@@ -221,7 +221,7 @@ public class GameView extends State {
         cam.update();
         plane.update(dt);
         boat.update(dt);
-        map.update(dt);
+        map.update();
         checkGameOver();
         handlePlaneOutsideScreen();
     }

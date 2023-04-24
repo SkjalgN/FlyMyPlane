@@ -18,7 +18,6 @@ public class Plane {
     private float planeHeight;
     private TextureRegion planeTextureRegion;
     private TextureRegion planeTextureRegionList[];
-    private int planeTextureRegionvar = 0;
     private TextureRegion[] airflow;
     private int airflowvar = 1;
     private TextureRegion flames[];
@@ -113,20 +112,8 @@ public class Plane {
         return planeWidth;
     }
 
-    public void setPlaneWidth(float width) {
-        this.planeWidth = width;
-    }
-
     public float getPlaneHeight() {
         return planeHeight;
-    }
-
-    public void setplaneHeight(float height) {
-        this.planeHeight = height;
-    }
-
-    public TextureRegion getplaneTextureRegion() {
-        return planeTextureRegion;
     }
 
     public void setTexture(TextureRegion texture) {
@@ -148,16 +135,6 @@ public class Plane {
             rotate(-0.08f);
         }
     }
-
-    public int getPlaneTextureRegionvar() {
-        return planeTextureRegionvar;
-    }
-
-    public void setPlaneTextureRegionvar(int planeTextureRegionvar) {
-        this.planeTextureRegionvar = planeTextureRegionvar;
-    }
-
-    
 
     public void draw(Batch batch) {
         airflow = new TextureRegion[2];

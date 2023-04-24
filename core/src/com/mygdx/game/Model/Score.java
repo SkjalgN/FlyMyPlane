@@ -9,16 +9,11 @@ public class Score implements Comparable<Score>{
         this.score = score;
         this.name = name;
     }
-    public Score(){
 
-    }
-   /* public Score getScoreObject(){
-        return this;
-    }
-*/
     public int getScore(){
         return this.score;
     }
+
     public String getName(){
         return this.name;
     }
