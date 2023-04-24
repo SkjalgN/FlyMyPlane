@@ -126,17 +126,17 @@ public class GameView extends State {
 
         //Table til å legge til packageLabel på
         textTable = new Table();
-        packageFont = new BitmapFont();
+        packageFont = FontManager.getInstance().getFont();
         packageLabel = new Label("Get the package in: " + map.getPackageLocation(), new Label.LabelStyle(packageFont, Color.WHITE));
-        packageLabel.setFontScale(SCREEN_HEIGHT/200);
+        packageLabel.setFontScale(SCREEN_HEIGHT/900);
         textTable.add(packageLabel).expandX().padTop(10);
-        textTable.setPosition(SCREEN_WIDTH/ 2f, SCREEN_HEIGHT-(SCREEN_HEIGHT*0.07f));
+        textTable.setPosition(SCREEN_WIDTH/ 2f, SCREEN_HEIGHT-(SCREEN_HEIGHT*0.13f));
         textTable.row();
 
         //Label som holder styr på tida
         timeLabel = new Label("Time: ", new Label.LabelStyle(packageFont, Color.WHITE));
-        timeLabel.setFontScale(SCREEN_HEIGHT/200);
-        textTable.add(timeLabel).expandY().padTop(10);
+        timeLabel.setFontScale(SCREEN_HEIGHT/900);
+        textTable.add(timeLabel).expandY().padTop(5);
 
 
 
