@@ -12,6 +12,8 @@ import com.mygdx.game.API;
 import com.mygdx.game.GameOverEvent;
 import com.mygdx.game.GameOverListener;
 import com.mygdx.game.Model.Score;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.assets.AssetManager;
 import com.mygdx.game.View.MenuView;
 import com.mygdx.game.View.PauseView;
 import com.mygdx.game.View.ScoreboardView;
@@ -53,6 +55,9 @@ public class GameController extends Game implements GameOverListener {
 	private int elapsedTime;
 	private Boolean nextPlayer = false;
 
+	// for the music
+	private AssetManager manager;
+
 	private API Database;
 
 	public GameController(API database) {
@@ -93,6 +98,7 @@ public class GameController extends Game implements GameOverListener {
 			}
 		});
 	}
+
 	public void startMenuViewFromVictoryButton() {
 		changeStateButton(this.victoryView.getNextButton(), new Callback() {
 			@Override
@@ -101,9 +107,10 @@ public class GameController extends Game implements GameOverListener {
 			}
 		});
 	}
-	public void startNextPlayerTurn(){
-				if (nextPlayer){
-					selectionView();
+
+	public void startNextPlayerTurn() {
+		if (nextPlayer) {
+			selectionView();
 		}
 	}
 
@@ -135,6 +142,21 @@ public class GameController extends Game implements GameOverListener {
 						// gameView();
 						exitPauseView();
 
+					}
+				});
+		changeStateButton(
+				this.pauseView.getSoundButton(), new Callback() {
+					@Override
+					public void execute() {
+						// Metoden din for
+						// changeTexture();
+
+						// muteSound();
+						if (manager.get("Audio/background.ogg", Music.class).isPlaying()) {
+							manager.get("Audio/background.ogg", Music.class).pause();
+						} else {
+							manager.get("Audio/background.ogg", Music.class).play();
+						}
 					}
 				});
 	}
@@ -348,10 +370,10 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void getUsername() {
-		if (!nextPlayer){
+		if (!nextPlayer) {
 
 			this.playerName1 = this.selectionView.getInputField().getText();
-		}else{
+		} else {
 			this.playerName2 = this.selectionView.getInputField().getText();
 
 		}
@@ -368,13 +390,16 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void startGameView() {
+		manager = new AssetManager();
+		manager.load("Audio/background.ogg",Music.class);
+		manager.finishLoading();
 		this.startGameView = new StartGameView(gsm, Database);
 		gsm.push(this.startGameView);
-
+		manager.get("Audio/background.ogg", Music.class).setLooping(true);
+		manager.get("Audio/background.ogg", Music.class).play();
 		// Knappene som aktiveres skal hit
 		startMenuViewButton();
 	}
-
 
 	public void menuView() {
 		this.menuView = new MenuView(gsm, Database);
@@ -475,19 +500,19 @@ public class GameController extends Game implements GameOverListener {
 		// TODO Auto-generated method stub
 		// AFTER GAME IS OVER!
 		// Player 1
-		if (!this.nextPlayer){
+		if (!this.nextPlayer) {
 			this.elapsedTime = this.gameView.getElapsedTime();
 			System.out.println("Elapsed time: " + this.elapsedTime);
 			this.score1 = new Score(this.elapsedTime, this.playerName1);
 
 			// this.victoryView = new VictoryView(gsm, Database, this.score1);
-			//Kanskje push? 
-			
+			// Kanskje push?
+
 			this.gameView.removeGameOverListener(this);
 			this.nextPlayer = true;
 			startNextPlayerTurn();
-			
-		}else if (this.nextPlayer){
+
+		} else if (this.nextPlayer) {
 			this.elapsedTime = this.gameView.getElapsedTime();
 			System.out.println("Elapsed time: " + this.elapsedTime);
 			this.score2 = new Score(this.elapsedTime, this.playerName2);
@@ -495,22 +520,16 @@ public class GameController extends Game implements GameOverListener {
 			this.gameView.removeGameOverListener(this);
 
 			this.nextPlayer = false;
-			//Ta inn begge scores
+			// Ta inn begge scores
 			this.victoryView = new VictoryView(gsm, Database, this.score1, this.score2);
 
-			//Knapp for menuview
+			// Knapp for menuview
 			gsm.set(victoryView);
 			startMenuViewFromVictoryButton();
 
 		}
 
-
-		//Denne skal vekk, ny selctionView
-
-
-
-
-		
+		// Denne skal vekk, ny selctionView
 
 	}
 }

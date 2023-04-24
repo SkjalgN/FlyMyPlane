@@ -36,11 +36,6 @@ public class StartGameView extends State {
         stage.addActor(startGameButton.getButton());
         Gdx.input.setInputProcessor(stage);
 
-
-        // start music
-        manager.get("Audio/background.ogg", Music.class).setLooping(true);
-        manager.get("Audio/background.ogg", Music.class).play();
-
     }
 
     public Button getStartGameButton() {

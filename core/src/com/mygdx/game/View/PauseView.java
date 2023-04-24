@@ -17,8 +17,10 @@ public class PauseView extends State {
     private Skin continueBtnSkin;
     private Skin tutorialBtnSkin;
     private Skin exitBtnSkin;
+    private Skin soundBtnSkin;
     private Button continueBtn;
     private Button exitBtn;
+    private Button soundBtn;
     private GameStage stage;
     private API database;
 
@@ -36,10 +38,12 @@ public class PauseView extends State {
         // Load a skin from a JSON file
         continueBtnSkin = new Skin(Gdx.files.internal("buttons/pause/continue/continue.json"));
         exitBtnSkin = new Skin(Gdx.files.internal("buttons/pause/exit/exit.json"));
+        soundBtnSkin = new Skin(Gdx.files.internal("buttons/game/flameBtn/flameBtn.json"));
 
         // Create a button with the skin
         continueBtn = new Button(continueBtnSkin);
         exitBtn = new Button(exitBtnSkin);
+        soundBtn = new Button(soundBtnSkin);
 
         // Set the properties of the button
         continueBtn.setSize(width / 4f, width / 4f);
@@ -47,11 +51,14 @@ public class PauseView extends State {
                 height / 2f - (continueBtn.getHeight() / 2f));
 
         exitBtn.setSize(width / 4f, width / 9f);
-        exitBtn.setPosition(width / 2f - exitBtn.getWidth() / 2f, height / 5f);
+        exitBtn.setPosition(width / 2f - exitBtn.getWidth() / 2f, height / 7f);
 
+        soundBtn.setSize(width / 9f, width / 9f);
+        soundBtn.setPosition(width - soundBtn.getWidth(), height-soundBtn.getHeight());
         // Add the button to the stage
         stage.addActor(continueBtn);
         stage.addActor(exitBtn);
+        stage.addActor(soundBtn);
         Gdx.input.setInputProcessor(stage);
     }
 
@@ -61,6 +68,10 @@ public class PauseView extends State {
 
     public Button getExitButton() {
         return this.exitBtn;
+    }
+
+    public Button getSoundButton() {
+        return this.soundBtn;
     }
 
     @Override

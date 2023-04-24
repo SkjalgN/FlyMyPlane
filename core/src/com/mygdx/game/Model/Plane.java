@@ -142,10 +142,10 @@ public class Plane {
 
     public void updateRotation() {
         if(rotateLeft) {
-            rotate(0.03f);
+            rotate(0.08f);
         }
         if(rotateRight) {
-            rotate(-0.03f);
+            rotate(-0.08f);
         }
     }
 
