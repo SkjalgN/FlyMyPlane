@@ -46,9 +46,12 @@ public class GameController extends Game implements GameOverListener {
 
 	// GameView variables
 	private int planeSkinVar;
-	private String playerName;
-	private Score score;
+	private String playerName1;
+	private String playerName2;
+	private Score score1;
+	private Score score2;
 	private int elapsedTime;
+	private Boolean nextPlayer = false;
 
 	private API Database;
 
@@ -90,13 +93,18 @@ public class GameController extends Game implements GameOverListener {
 			}
 		});
 	}
-	public void startMenuViewFromEndgameButton(){
+	public void startMenuViewFromVictoryButton() {
 		changeStateButton(this.victoryView.getNextButton(), new Callback() {
 			@Override
 			public void execute() {
 				menuView();
 			}
 		});
+	}
+	public void startNextPlayerTurn(){
+				if (nextPlayer){
+					selectionView();
+		}
 	}
 
 	public void exitFromPause() {
@@ -340,7 +348,13 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void getUsername() {
-		this.playerName = this.selectionView.getInputField().getText();
+		if (!nextPlayer){
+
+			this.playerName1 = this.selectionView.getInputField().getText();
+		}else{
+			this.playerName2 = this.selectionView.getInputField().getText();
+
+		}
 	}
 
 	public void startInputField() {
@@ -374,7 +388,7 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void selectionView() {
-		this.selectionView = new SelectionView(gsm, Database);
+		this.selectionView = new SelectionView(gsm, Database, this.nextPlayer);
 		gsm.set(this.selectionView);
 
 		// Knappene som aktiveres på SelectionView
@@ -460,15 +474,43 @@ public class GameController extends Game implements GameOverListener {
 	public void onGameOver(GameOverEvent event) {
 		// TODO Auto-generated method stub
 		// AFTER GAME IS OVER!
-		this.elapsedTime = this.gameView.getElapsedTime();
-		System.out.println("Elapsed time: " + this.elapsedTime);
-		this.score = new Score(this.elapsedTime, this.playerName);
-		this.victoryView = new VictoryView(gsm, Database, this.score);
-		//Kanskje push? 
-		gsm.set(victoryView);
+		// Player 1
+		if (!this.nextPlayer){
+			this.elapsedTime = this.gameView.getElapsedTime();
+			System.out.println("Elapsed time: " + this.elapsedTime);
+			this.score1 = new Score(this.elapsedTime, this.playerName1);
 
-		this.gameView.removeGameOverListener(this);
-		startMenuViewFromEndgameButton();
+			// this.victoryView = new VictoryView(gsm, Database, this.score1);
+			//Kanskje push? 
+			
+			this.gameView.removeGameOverListener(this);
+			this.nextPlayer = true;
+			startNextPlayerTurn();
+			
+		}else if (this.nextPlayer){
+			this.elapsedTime = this.gameView.getElapsedTime();
+			System.out.println("Elapsed time: " + this.elapsedTime);
+			this.score2 = new Score(this.elapsedTime, this.playerName2);
+
+			this.gameView.removeGameOverListener(this);
+
+			this.nextPlayer = false;
+			//Ta inn begge scores
+			this.victoryView = new VictoryView(gsm, Database, this.score1, this.score2);
+
+			//Knapp for menuview
+			gsm.set(victoryView);
+			startMenuViewFromVictoryButton();
+
+		}
+
+
+		//Denne skal vekk, ny selctionView
+
+
+
+
+		
 
 	}
 }
