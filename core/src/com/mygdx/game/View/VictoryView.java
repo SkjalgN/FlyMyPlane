@@ -22,10 +22,11 @@ public class VictoryView extends State {
     private GameStage stage;
     private API database;
     private BitmapFont customFont;
-    private Score score;
+    private Score score1;
+    private Score score2;
 
 
-    public VictoryView(final GameStateManager gsm, final API database, Score score) {
+    public VictoryView(final GameStateManager gsm, final API database, Score score1, Score score2) {
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/victoryScreen.jpg");
@@ -33,7 +34,8 @@ public class VictoryView extends State {
         cam.zoom = (float)1.0;
         cam.translate(0, 0);
         customFont = FontManager.getInstance().getFont();
-        this.score = score;
+        this.score1 = score1;
+        this.score2 = score2;
 
 
         // Create a stage
@@ -68,34 +70,47 @@ public class VictoryView extends State {
 
     @Override
     public void render(SpriteBatch sb) {
-    sb.setProjectionMatrix(cam.combined);
-    sb.begin();
-    sb.draw(background, 0, 0, width, height);
-    customFont.setColor(Color.BLACK);
-    customFont.getData().setScale(1);
-    String Cong = "Congratulations!";
-    String scoreText = "Player: " + score.getName() + "    Score: " + score.getScore();
-    System.out.println(scoreText);
+        sb.setProjectionMatrix(cam.combined);
+        sb.begin();
+        sb.draw(background, 0, 0, width, height);
+        customFont.setColor(Color.BLACK);
+        customFont.getData().setScale(.6f);
+        String player1 = "Player: " + score1.getName();
+        String player2 = "Player: " + score2.getName();
+        String scoreText1 = "Score: " + score1.getScore();
+        String scoreText2 = "Score: " + score2.getScore();
 
-    // Calculate the x and y coordinates for the center of the screen
-    float xCenter = width / 2f;
-    float yCenter = height - (height / 4f);
+        // Calculate the x and y coordinates for the center of the screen
+        float xCenter = width / 2f;
+        float yCenter = height - (height / 4f);
 
-    // Calculate the width and height of the "Congratulations!" text
-    GlyphLayout congLayout = new GlyphLayout(customFont, Cong);
+        // Calculate the width and height of the player texts
+        GlyphLayout playerLayout1 = new GlyphLayout(customFont, player1);
+        GlyphLayout playerLayout2 = new GlyphLayout(customFont, player2);
 
-    // Draw "Congratulations!" text centered
-    customFont.draw(sb, Cong, xCenter - congLayout.width / 2, yCenter + congLayout.height / 2);
+        // Calculate the x coordinates for the left and right side of the middle
+        float gap = 20f; // Adjust the gap between the scores to your liking
+        float xLeft = xCenter - gap / 2 - Math.max(playerLayout1.width, playerLayout2.width);
+        float xRight = xCenter + gap / 2;
 
-    // Calculate the width and height of the score text
-    GlyphLayout scoreLayout = new GlyphLayout(customFont, scoreText);
+        // Determine which score is higher and which is lower
+        if (score1.getScore() > score2.getScore()) {
+            customFont.draw(sb, player1, xRight, yCenter);
+            customFont.draw(sb, player2, xLeft - playerLayout2.width, yCenter);
 
-    // Draw the score text centered below the "Congratulations!" text
-    customFont.draw(sb, scoreText, xCenter - scoreLayout.width / 2, yCenter - scoreLayout.height / 2);
+            customFont.draw(sb, scoreText1, xRight, yCenter - playerLayout1.height);
+            customFont.draw(sb, scoreText2, xLeft - playerLayout2.width, yCenter - playerLayout2.height);
+        } else {
+            customFont.draw(sb, player1, xLeft - playerLayout1.width, yCenter);
+            customFont.draw(sb, player2, xRight, yCenter);
 
-    sb.end();
-    stage.act(Gdx.graphics.getDeltaTime());
-    stage.draw();
+            customFont.draw(sb, scoreText1, xLeft - playerLayout1.width, yCenter - playerLayout1.height);
+            customFont.draw(sb, scoreText2, xRight, yCenter - playerLayout2.height);
+}
+
+sb.end();
+stage.act(Gdx.graphics.getDeltaTime());
+stage.draw();
     }
 
     @Override

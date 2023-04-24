@@ -37,6 +37,7 @@ public class SelectionView extends State {
     private TextField inputField;
     private String userInput;
     private int skinVar;
+    private boolean nextPlayer;
 
     private API database;
     // private SelectionStateStatus selectionStateStatus =
@@ -61,15 +62,20 @@ public class SelectionView extends State {
     // this.selectionStateStatus = SelectionStateStatus.SWITCHING;
     // }
 
-    public SelectionView(final GameStateManager gsm, final API database) {
+    public SelectionView(final GameStateManager gsm, final API database, boolean nextPlayer) {
         super(gsm);
         this.database = database;
-        background = new Texture("gamescreens/selection1.jpg");
+        if (!nextPlayer) {
+            background = new Texture("gamescreens/selection1.jpg");
+        }else{
+            background = new Texture("gamescreens/selection2.jpg");
+        }
         // loadingbackground = new Texture("gamescreens/mapClean.jpg");
         // loading = new Texture("gamescreens/loadingtexture.png");
         cam.setToOrtho(false, width, height);
         cam.zoom = (float) 1.0;
         cam.translate(0, 0);
+        this.nextPlayer = nextPlayer;
 
         // Create a stage
         stage = new GameStage();

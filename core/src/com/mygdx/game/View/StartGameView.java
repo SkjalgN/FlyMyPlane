@@ -17,7 +17,6 @@ public class StartGameView extends State {
     // private Skin startSkin;
     // private Button startButton;
     private Texture background;
-    private BitmapFont customFont;
     private StartGameButton startGameButton;
     private GameStage stage;
 
@@ -37,13 +36,6 @@ public class StartGameView extends State {
         stage.addActor(startGameButton.getButton());
         Gdx.input.setInputProcessor(stage);
 
-        // Load a custom font KAN SIKKERET FJERNES
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
-                Gdx.files.internal("Amatic_SC/AmaticSC-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 24; // Set the font size here
-        this.customFont = generator.generateFont(parameter);
-        generator.dispose();
 
 
     }
