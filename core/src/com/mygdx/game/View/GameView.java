@@ -117,7 +117,7 @@ public class GameView extends State {
         //createPauseButton("buttons/game/pauseBtn/pauseBtn.json", 0, SCREEN_HEIGHT - buttonHeight, buttonWidth, buttonHeight);
 
 
-        startTime = TimeUtils.millis();
+        this.startTime = TimeUtils.millis();
         packageFont = FontManager.getInstance().getFont();
 
 
@@ -271,9 +271,13 @@ public class GameView extends State {
     }
 
 
-    public long getElapsedTime(){
-        return this.elapsedTime;
+    public int getElapsedTime(){
+        long elapsedTime = TimeUtils.timeSinceMillis(startTime);
+        int seconds = (int) (elapsedTime / 1000);
+        return seconds;
     }
+
+    //TODO: ALT MED PLANES KAN FLYTTES UT FRA DENNE FUNKSJONEN!
 
     public void handlePlaneOutsideScreen() {
         if (plane.getxPos() > background.getWidth() + 300) {

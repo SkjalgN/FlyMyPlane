@@ -47,7 +47,8 @@ public class GameController extends Game implements GameOverListener {
 	// GameView variables
 	private int planeSkinVar;
 	private String playerName;
-	private long elapsedTime;
+	private Score score;
+	private int elapsedTime;
 
 	private API Database;
 
@@ -83,6 +84,14 @@ public class GameController extends Game implements GameOverListener {
 	// The button is activated at correct view
 	public void startMenuViewButton() {
 		changeStateButton(this.startGameView.getStartGameButton(), new Callback() {
+			@Override
+			public void execute() {
+				menuView();
+			}
+		});
+	}
+	public void startMenuViewFromEndgameButton(){
+		changeStateButton(this.victoryView.getNextButton(), new Callback() {
 			@Override
 			public void execute() {
 				menuView();
@@ -352,12 +361,6 @@ public class GameController extends Game implements GameOverListener {
 		startMenuViewButton();
 	}
 
-	public void victoryView() {
-		this.victoryView = new VictoryView(gsm, Database);
-		gsm.push(victoryView);
-
-		// Buttons for VictoryView
-	}
 
 	public void menuView() {
 		this.menuView = new MenuView(gsm, Database);
@@ -458,9 +461,14 @@ public class GameController extends Game implements GameOverListener {
 		// TODO Auto-generated method stub
 		// AFTER GAME IS OVER!
 		this.elapsedTime = this.gameView.getElapsedTime();
-		gsm.push(new VictoryView(gsm, Database));
+		System.out.println("Elapsed time: " + this.elapsedTime);
+		this.score = new Score(this.elapsedTime, this.playerName);
+		this.victoryView = new VictoryView(gsm, Database, this.score);
+		//Kanskje push? 
+		gsm.set(victoryView);
 
 		this.gameView.removeGameOverListener(this);
+		startMenuViewFromEndgameButton();
 
 	}
 }
