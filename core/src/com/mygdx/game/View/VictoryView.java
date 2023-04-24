@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -67,19 +68,34 @@ public class VictoryView extends State {
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.setProjectionMatrix(cam.combined);
-        sb.begin();
-        sb.draw(background, 0, 0, width, height);
-        customFont.setColor(Color.BLACK);
-        customFont.getData().setScale(1);
-        String Cong = "Congratulations!";
-        String scoreText = "Player: " + score.getName() + "\t Score: " + score.getScore();
-        System.out.println(scoreText);
-        customFont.draw(sb, Cong, width, height);
-        customFont.draw(sb, scoreText, width, height);      
-        sb.end();
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
+    sb.setProjectionMatrix(cam.combined);
+    sb.begin();
+    sb.draw(background, 0, 0, width, height);
+    customFont.setColor(Color.BLACK);
+    customFont.getData().setScale(1);
+    String Cong = "Congratulations!";
+    String scoreText = "Player: " + score.getName() + "    Score: " + score.getScore();
+    System.out.println(scoreText);
+
+    // Calculate the x and y coordinates for the center of the screen
+    float xCenter = width / 2f;
+    float yCenter = height - (height / 4f);
+
+    // Calculate the width and height of the "Congratulations!" text
+    GlyphLayout congLayout = new GlyphLayout(customFont, Cong);
+
+    // Draw "Congratulations!" text centered
+    customFont.draw(sb, Cong, xCenter - congLayout.width / 2, yCenter + congLayout.height / 2);
+
+    // Calculate the width and height of the score text
+    GlyphLayout scoreLayout = new GlyphLayout(customFont, scoreText);
+
+    // Draw the score text centered below the "Congratulations!" text
+    customFont.draw(sb, scoreText, xCenter - scoreLayout.width / 2, yCenter - scoreLayout.height / 2);
+
+    sb.end();
+    stage.act(Gdx.graphics.getDeltaTime());
+    stage.draw();
     }
 
     @Override
