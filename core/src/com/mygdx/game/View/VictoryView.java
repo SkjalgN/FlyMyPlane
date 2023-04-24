@@ -74,7 +74,7 @@ public class VictoryView extends State {
         sb.begin();
         sb.draw(background, 0, 0, width, height);
         customFont.setColor(Color.BLACK);
-        customFont.getData().setScale(.5f);
+        customFont.getData().setScale(.6f);
         String player1 = "Player: " + score1.getName();
         String player2 = "Player: " + score2.getName();
         String scoreText1 = "Score: " + score1.getScore();
