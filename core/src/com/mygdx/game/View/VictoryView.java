@@ -24,19 +24,18 @@ public class VictoryView extends State {
     private BitmapFont customFont;
     private Score score1;
     private Score score2;
-
+    private Score winner;
 
     public VictoryView(final GameStateManager gsm, final API database, Score score1, Score score2) {
         super(gsm);
         this.database = database;
         background = new Texture("gamescreens/victoryScreen.jpg");
-        cam.setToOrtho(false, width,height);
-        cam.zoom = (float)1.0;
+        cam.setToOrtho(false, width, height);
+        cam.zoom = (float) 1.0;
         cam.translate(0, 0);
         customFont = FontManager.getInstance().getFont();
         this.score1 = score1;
         this.score2 = score2;
-
 
         // Create a stage
         stage = new GameStage();
@@ -53,18 +52,19 @@ public class VictoryView extends State {
 
         stage.addActor(nextBtn);
         Gdx.input.setInputProcessor(stage);
+
     }
 
-    public Button getNextButton(){
+    public Button getNextButton() {
         return nextBtn;
     }
+
     @Override
     public void update(float dt) {
         cam.update();
     }
 
-    public void renderScore(SpriteBatch sb){
-
+    public void renderScore(SpriteBatch sb) {
 
     }
 
@@ -100,17 +100,23 @@ public class VictoryView extends State {
 
             customFont.draw(sb, scoreText1, xRight, yCenter - playerLayout1.height);
             customFont.draw(sb, scoreText2, xLeft - playerLayout2.width, yCenter - playerLayout2.height);
+            this.winner = score1;
         } else {
             customFont.draw(sb, player1, xLeft - playerLayout1.width, yCenter);
             customFont.draw(sb, player2, xRight, yCenter);
 
             customFont.draw(sb, scoreText1, xLeft - playerLayout1.width, yCenter - playerLayout1.height);
             customFont.draw(sb, scoreText2, xRight, yCenter - playerLayout2.height);
-}
+            this.winner = score2;
+        }
 
-sb.end();
-stage.act(Gdx.graphics.getDeltaTime());
-stage.draw();
+        sb.end();
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+    }
+
+    public Score getWinner() {
+        return winner;
     }
 
     @Override

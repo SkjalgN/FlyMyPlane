@@ -61,7 +61,7 @@ public class GameController extends Game implements GameOverListener {
 	private API Database;
 
 	public GameController(API database) {
-		Database = database;
+		this.Database = database;
 	}
 
 	public ArrayList<Score> listen;
@@ -71,6 +71,7 @@ public class GameController extends Game implements GameOverListener {
 
 		batch = new SpriteBatch();
 		gsm = new GameStateManager();
+
 
 		// THIS VIEW IS CREATED FIRST
 		startGameView();
@@ -526,6 +527,10 @@ public class GameController extends Game implements GameOverListener {
 			// Knapp for menuview
 			gsm.set(victoryView);
 			startMenuViewFromVictoryButton();
+			//Save the winner to database
+			Score winner = victoryView.getWinner();
+			Database.submitHighscore(winner);
+
 
 		}
 
