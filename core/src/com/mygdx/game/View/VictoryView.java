@@ -25,6 +25,9 @@ public class VictoryView extends State {
     private Score score1;
     private Score score2;
     private Score winner;
+    private Score loser;
+
+
 
     public VictoryView(final GameStateManager gsm, final API database, Score score1, Score score2) {
         super(gsm);
@@ -36,6 +39,14 @@ public class VictoryView extends State {
         customFont = FontManager.getInstance().getFont();
         this.score1 = score1;
         this.score2 = score2;
+
+        if(score1.getScore() < score2.getScore()) {
+            winner = score1;
+            loser = score2;
+        } else {
+            winner = score2;
+            loser = score1;
+        }
 
         // Create a stage
         stage = new GameStage();
@@ -75,18 +86,14 @@ public class VictoryView extends State {
         sb.draw(background, 0, 0, width, height);
         customFont.setColor(Color.BLACK);
         customFont.getData().setScale(.6f);
-        String player1 = "Player: " + score1.getName();
-        String player2 = "Player: " + score2.getName();
-        String scoreText1 = "Score: " + score1.getScore();
-        String scoreText2 = "Score: " + score2.getScore();
 
         // Calculate the x and y coordinates for the center of the screen
         float xCenter = width / 2f;
         float yCenter = height - (height / 4f);
 
         // Calculate the width and height of the player texts
-        GlyphLayout playerLayout1 = new GlyphLayout(customFont, player1);
-        GlyphLayout playerLayout2 = new GlyphLayout(customFont, player2);
+        GlyphLayout playerLayout1 = new GlyphLayout(customFont, "Player: " + winner.getName());
+        GlyphLayout playerLayout2 = new GlyphLayout(customFont, "Player: " + loser.getName());
 
         // Calculate the x coordinates for the left and right side of the middle
         float gap = 20f; // Adjust the gap between the scores to your liking
@@ -94,21 +101,14 @@ public class VictoryView extends State {
         float xRight = xCenter + gap / 2;
 
         // Determine which score is higher and which is lower
-        if (score1.getScore() > score2.getScore()) {
-            customFont.draw(sb, player1, xRight, yCenter);
-            customFont.draw(sb, player2, xLeft - playerLayout2.width, yCenter);
 
-            customFont.draw(sb, scoreText1, xRight, yCenter - playerLayout1.height);
-            customFont.draw(sb, scoreText2, xLeft - playerLayout2.width, yCenter - playerLayout2.height);
-            this.winner = new Score(score1.getScore(),score1.getName());
-        } else {
-            customFont.draw(sb, player1, xLeft - playerLayout1.width, yCenter);
-            customFont.draw(sb, player2, xRight, yCenter);
+            customFont.draw(sb, "Player: " + winner.getName(), xRight, yCenter);
+            customFont.draw(sb, "Player: " + loser.getName(), xLeft - playerLayout2.width, yCenter);
 
-            customFont.draw(sb, scoreText1, xLeft - playerLayout1.width, yCenter - playerLayout1.height);
-            customFont.draw(sb, scoreText2, xRight, yCenter - playerLayout2.height);
-            this.winner = new Score(score2.getScore(),score2.getName());        
-        }
+            customFont.draw(sb, "Score: " + winner.getScore(), xRight, yCenter - playerLayout1.height);
+            customFont.draw(sb,  "Score: " + loser.getScore(), xLeft - playerLayout2.width, yCenter - playerLayout2.height);
+            //this.winner = new Score(score1.getScore(),score1.getName());
+
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();

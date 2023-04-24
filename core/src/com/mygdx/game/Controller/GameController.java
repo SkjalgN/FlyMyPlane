@@ -504,7 +504,7 @@ public class GameController extends Game implements GameOverListener {
 		if (!this.nextPlayer) {
 			this.elapsedTime = this.gameView.getElapsedTime();
 			System.out.println("Elapsed time: " + this.elapsedTime);
-			this.score1 = new Score(this.elapsedTime, this.playerName1);
+			this.score1 = new Score((int) this.elapsedTime, this.playerName1);
 
 			// this.victoryView = new VictoryView(gsm, Database, this.score1);
 			// Kanskje push?
@@ -516,19 +516,21 @@ public class GameController extends Game implements GameOverListener {
 		} else if (this.nextPlayer) {
 			this.elapsedTime = this.gameView.getElapsedTime();
 			System.out.println("Elapsed time: " + this.elapsedTime);
-			this.score2 = new Score(this.elapsedTime, this.playerName2);
-
+			this.score2 = new Score((int) this.elapsedTime, this.playerName2);
 			this.gameView.removeGameOverListener(this);
 
 			this.nextPlayer = false;
 			// Ta inn begge scores
+			System.out.println("HER KOMMER DET: " + score2);
+			System.out.println("HER KOMMER DET ANDRE: " + score1);
 			this.victoryView = new VictoryView(gsm, Database, this.score1, this.score2);
 
 			// Knapp for menuview
 			gsm.set(victoryView);
 			startMenuViewFromVictoryButton();
 			//Save the winner to database
-			Score winner = victoryView.getWinner();
+			Score winner = this.victoryView.getWinner();
+			System.out.println("Winner SE HER" + winner);
 			this.Database.submitHighscore(new Score(winner.getScore(), winner.getName()));
 
 

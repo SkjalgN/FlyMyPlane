@@ -34,6 +34,14 @@ public class Map {
         locations.add(new Location("Manila", 2412, 839));
         locations.add(new Location("New York", 828, 1080));
         locations.add(new Location("Sao Paulo", 1080, 540));
+        locations.add(new Location("Gaborone", 1650, 510));
+        locations.add(new Location("Vilnius", 1620, 1210));
+        locations.add(new Location("Melbourne", 2650, 410));
+        locations.add(new Location("Funchal", 1280, 993));
+        locations.add(new Location("Lahore", 2000, 1015));
+
+
+
     }
 
     //Function to initialize the package
@@ -47,6 +55,8 @@ public class Map {
         else {
             texture = new TextureRegion(new Texture("objects/packs.png"));
         }
+
+
         Package newPackage = new Package(
             packageLocation.getLocationName(),
             packageLocation.getX(),
