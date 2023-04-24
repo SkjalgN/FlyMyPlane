@@ -12,6 +12,8 @@ import com.mygdx.game.API;
 import com.mygdx.game.GameOverEvent;
 import com.mygdx.game.GameOverListener;
 import com.mygdx.game.Model.Score;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.assets.AssetManager;
 import com.mygdx.game.View.MenuView;
 import com.mygdx.game.View.PauseView;
 import com.mygdx.game.View.ScoreboardView;
@@ -21,6 +23,7 @@ import com.mygdx.game.View.SelectionView;
 import com.mygdx.game.View.StartGameView;
 import com.mygdx.game.View.TutorialView;
 import com.mygdx.game.View.VictoryView;
+
 
 import java.util.ArrayList;
 
@@ -52,6 +55,9 @@ public class GameController extends Game implements GameOverListener {
 	private Score score2;
 	private int elapsedTime;
 	private Boolean nextPlayer = false;
+
+	//for the music
+	private AssetManager manager;
 
 	private API Database;
 
@@ -137,7 +143,24 @@ public class GameController extends Game implements GameOverListener {
 
 					}
 				});
+		changeStateButton(
+				this.pauseView.getSoundButton(), new Callback() {
+					@Override
+					public void execute() {
+						//Metoden din for 
+						//changeTexture();
+						
+						//muteSound();
+						if(manager.get("Audio/background.ogg", Music.class).isPlaying()){
+							manager.get("Audio/background.ogg", Music.class).pause();
+						}
+						else{
+							manager.get("Audio/background.ogg", Music.class).play();
+						}
+					}
+				});
 	}
+
 
 	public void startGameButtons() {
 		changeStateButton(
@@ -368,9 +391,13 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void startGameView() {
+		manager = new AssetManager();
+        manager.load("Audio/background.ogg",Music.class);
+        manager.finishLoading();
 		this.startGameView = new StartGameView(gsm, Database);
 		gsm.push(this.startGameView);
-
+		manager.get("Audio/background.ogg", Music.class).setLooping(true);
+        manager.get("Audio/background.ogg", Music.class).play();
 		// Knappene som aktiveres skal hit
 		startMenuViewButton();
 	}
