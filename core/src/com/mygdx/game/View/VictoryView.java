@@ -61,12 +61,7 @@ public class VictoryView extends State {
     }
 
     public void renderScore(SpriteBatch sb){
-        customFont.setColor(Color.BLACK);
-        customFont.getData().setScale(1);
-        String Cong = "Congratulations!";
-        String scoreText = "Player: " + score.getName() + "\t Score: " + score.getScore();
-        customFont.draw(sb, Cong, width, height/6f);
-        customFont.draw(sb, scoreText, width, height/4f);
+
 
     }
 
@@ -75,9 +70,13 @@ public class VictoryView extends State {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0, 0, width, height);
-        sb.end();
-        sb.begin();
-        renderScore(sb);
+        customFont.setColor(Color.BLACK);
+        customFont.getData().setScale(1);
+        String Cong = "Congratulations!";
+        String scoreText = "Player: " + score.getName() + "\t Score: " + score.getScore();
+        System.out.println(scoreText);
+        customFont.draw(sb, Cong, width, height);
+        customFont.draw(sb, scoreText, width, height);      
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
