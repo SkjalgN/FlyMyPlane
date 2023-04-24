@@ -45,9 +45,6 @@ public class StartGameView extends State {
         this.customFont = generator.generateFont(parameter);
         generator.dispose();
 
-        // start music
-        manager.get("Audio/background.ogg", Music.class).setLooping(true);
-        manager.get("Audio/background.ogg", Music.class).play();
 
     }
 
