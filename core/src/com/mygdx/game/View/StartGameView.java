@@ -10,8 +10,6 @@ import com.mygdx.game.API;
 public class StartGameView extends State {
 
     private API database;
-    // private Skin startSkin;
-    // private Button startButton;
     private Texture background;
     private Button startButton;
     private GameStage stage;

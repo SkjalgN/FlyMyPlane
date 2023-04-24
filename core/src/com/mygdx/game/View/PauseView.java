@@ -1,21 +1,16 @@
 package com.mygdx.game.View;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
-import com.mygdx.game.Model.Plane;
 
 public class PauseView extends State {
 
     private Texture background;
     private Skin continueBtnSkin;
-    private Skin tutorialBtnSkin;
     private Skin exitBtnSkin;
     private Skin soundOnBtnSkin;
     private Skin soundOffBtnSkin;
@@ -80,10 +75,6 @@ public class PauseView extends State {
         soundBtn.setSkin(soundOnBtnSkin);
     }
 
-    public GameStage getStage() {
-        return this.stage;
-    }
-
     public void soundOffButton(){
         soundBtn.setSkin(soundOffBtnSkin);
     }
@@ -98,7 +89,6 @@ public class PauseView extends State {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background, 0, 0, width, height);
-
         sb.end();
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
