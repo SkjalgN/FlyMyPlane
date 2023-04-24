@@ -59,6 +59,9 @@ public class GameController extends Game implements GameOverListener {
 	//for the music
 	private AssetManager manager;
 
+	//for the music
+	private AssetManager manager;
+
 	private API Database;
 
 	public GameController(API database) {
