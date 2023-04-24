@@ -66,9 +66,9 @@ public class SelectionView extends State {
         super(gsm);
         this.database = database;
         if (!nextPlayer) {
-            background = new Texture("gamescreens/selection1.jpg");
+            background = new Texture("gamescreens/selection2_no_planes.jpg"); // bytt til selection1_no_planes.jpg 
         }else{
-            background = new Texture("gamescreens/selection2.jpg");
+            background = new Texture("gamescreens/selection2_no_planes.jpg");
         }
         // loadingbackground = new Texture("gamescreens/mapClean.jpg");
         // loading = new Texture("gamescreens/loadingtexture.png");
@@ -175,6 +175,14 @@ public class SelectionView extends State {
 
     public Button getNextButton() {
         return nextBtn;
+    }
+
+    public void showPlanes(){
+        if (!nextPlayer) {
+            background = new Texture("gamescreens/selection1.jpg");
+        }else{
+            background = new Texture("gamescreens/selection2.jpg");
+        }
     }
 
     public void resetColor() {

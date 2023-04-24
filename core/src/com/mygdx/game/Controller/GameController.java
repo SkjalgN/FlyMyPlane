@@ -92,7 +92,7 @@ public class GameController extends Game implements GameOverListener {
 	// }
 	// The button is activated at correct view
 	public void startMenuViewButton() {
-		changeStateButton(this.startGameView.getStartGameButton(), new Callback() {
+		changeStateButton(this.startGameView.getStartButton(), new Callback() {
 			@Override
 			public void execute() {
 				menuView();
@@ -155,8 +155,10 @@ public class GameController extends Game implements GameOverListener {
 						// muteSound();
 						if (manager.get("Audio/background.ogg", Music.class).isPlaying()) {
 							manager.get("Audio/background.ogg", Music.class).pause();
+							pauseView.soundOffButton();
 						} else {
 							manager.get("Audio/background.ogg", Music.class).play();
+							pauseView.soundOnButton();
 						}
 					}
 				});
@@ -386,8 +388,14 @@ public class GameController extends Game implements GameOverListener {
 					@Override
 					public void keyTyped(TextField textField, char c) {
 						getUsername();
+						showPlanesAndButtons();
+						setPlaneSkinButton();
 					}
 				});
+	}
+
+	private void showPlanesAndButtons(){
+		this.selectionView.showPlanes();
 	}
 
 	public void startGameView() {
@@ -418,7 +426,6 @@ public class GameController extends Game implements GameOverListener {
 		gsm.set(this.selectionView);
 
 		// Knappene som aktiveres på SelectionView
-		setPlaneSkinButton();
 		startInputField();
 		startGameStateButton();
 	}

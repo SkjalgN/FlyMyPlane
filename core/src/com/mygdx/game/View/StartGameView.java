@@ -2,14 +2,10 @@ package com.mygdx.game.View;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.utils.Null;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
-import com.mygdx.game.Model.Buttons.StartGameButton;
-import com.badlogic.gdx.audio.Music;
 
 public class StartGameView extends State {
 
@@ -17,8 +13,9 @@ public class StartGameView extends State {
     // private Skin startSkin;
     // private Button startButton;
     private Texture background;
-    private StartGameButton startGameButton;
+    private Button startButton;
     private GameStage stage;
+    private Skin startSkin;
 
     public StartGameView(final GameStateManager gsm, API Database) {
 
@@ -28,18 +25,17 @@ public class StartGameView extends State {
         background = new Texture("gamescreens/startPage.jpg");
 
         //Button
-        startGameButton = new StartGameButton();
+        startSkin = new Skin(Gdx.files.internal("buttons/startscreen/playBtn/playBtn.json"));
+        startButton = new Button(startSkin);
+        startButton.setSize(Gdx.graphics.getWidth() / 4f, Gdx.graphics.getHeight() / 4f);
+        startButton.setPosition(Gdx.graphics.getWidth() / 2f - startButton.getWidth() / 2f, Gdx.graphics.getHeight() / 2.5f - startButton.getHeight() / 2f);
 
 
         //New Stage
         stage = new GameStage();
-        stage.addActor(startGameButton.getButton());
+        stage.addActor(startButton);
         Gdx.input.setInputProcessor(stage);
 
-    }
-
-    public Button getStartGameButton() {
-        return this.startGameButton.getButton();
     }
 
     @Override
@@ -60,9 +56,13 @@ public class StartGameView extends State {
         }
     }
 
+    public Button getStartButton(){
+        return this.startButton;
+    }
+
     @Override
     public void dispose() {
-        this.startGameButton.dispose();
         this.stage.dispose();
+        this.startSkin.dispose();
     }
 }
