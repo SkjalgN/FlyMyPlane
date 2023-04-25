@@ -94,7 +94,7 @@ public class VictoryView extends State {
         float xRight = xCenter + gap / 2;
 
         // Determine which score is higher and which is lower
-        if (score1.getScore() > score2.getScore()) {
+        if (score1.getScore() < score2.getScore()) {
             customFont.draw(sb, player1, xRight, yCenter);
             customFont.draw(sb, player2, xLeft - playerLayout2.width, yCenter);
 

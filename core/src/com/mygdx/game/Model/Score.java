@@ -12,6 +12,12 @@ public class Score implements Comparable<Score>{
     public Score(){
 
     }
+    public void setScore(int score){
+        this.score = score;
+    }
+    public void setName(String name){
+        this.name = name;
+    }
 
     public int getScore(){
         return this.score;
@@ -23,10 +29,10 @@ public class Score implements Comparable<Score>{
 
     @Override
     public int compareTo(Score o) {
-        if (score > o.score) {
+        if (score < o.score) {
             return -1;
         }
-        else if (score < o.score) {
+        else if (score > o.score) {
             return 1;
         }
         else {

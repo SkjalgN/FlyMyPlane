@@ -52,6 +52,7 @@ public class GameController extends Game implements GameOverListener {
 	private String playerName2;
 	private Score score1;
 	private Score score2;
+	private Score winner;
 	private int elapsedTime;
 	private Boolean nextPlayer = false;
 
@@ -512,6 +513,7 @@ public class GameController extends Game implements GameOverListener {
 			this.elapsedTime = this.gameView.getElapsedTime();
 			System.out.println("Elapsed time: " + this.elapsedTime);
 			this.score1 = new Score(this.elapsedTime, this.playerName1);
+			System.out.println(score1);
 
 			// this.victoryView = new VictoryView(gsm, Database, this.score1);
 			// Kanskje push?
@@ -524,7 +526,7 @@ public class GameController extends Game implements GameOverListener {
 			this.elapsedTime = this.gameView.getElapsedTime();
 			System.out.println("Elapsed time: " + this.elapsedTime);
 			this.score2 = new Score(this.elapsedTime, this.playerName2);
-
+			System.out.println(score2);
 			this.gameView.removeGameOverListener(this);
 
 			this.nextPlayer = false;
@@ -534,14 +536,20 @@ public class GameController extends Game implements GameOverListener {
 			// Knapp for menuview
 			gsm.set(victoryView);
 			startMenuViewFromVictoryButton();
+
+			if (this.score1.getScore() < this.score2.getScore()) {
+				this.winner = score1;
+			} else {
+				this.winner = score2;
+			}
+			System.out.println(winner);
 			//Save the winner to database
-			Score winner = victoryView.getWinner();
-			this.Database.submitHighscore(new Score(winner.getScore(), winner.getName()));
+			this.Database.submitHighscore(this.winner);
 
 
 		}
 
-		// Denne skal vekk, ny selctionView
+		
 
 	}
 }
