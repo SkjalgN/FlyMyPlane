@@ -7,11 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.game.API;
 import com.mygdx.game.FontManager;
 import com.mygdx.game.Model.Score;
 
@@ -20,15 +17,13 @@ public class VictoryView extends State {
     private Button nextBtn;
     private Skin nextBtnSkin;
     private GameStage stage;
-    private API database;
     private BitmapFont customFont;
     private Score score1;
     private Score score2;
     private Score winner;
 
-    public VictoryView(final GameStateManager gsm, final API database, Score score1, Score score2) {
+    public VictoryView(final GameStateManager gsm, Score score1, Score score2) {
         super(gsm);
-        this.database = database;
         background = new Texture("gamescreens/victoryScreen.jpg");
         cam.setToOrtho(false, width, height);
         cam.zoom = (float) 1.0;

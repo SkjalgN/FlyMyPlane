@@ -17,11 +17,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class SelectionView extends State {
     private Texture background;
-
-    // private Texture loading;
-    // private Texture loadingbackground;
     private Button nextBtn;
-
     private Button box1;
     private Button box2;
     private Button box3;
@@ -31,42 +27,15 @@ public class SelectionView extends State {
     private Skin nextBtnSkin;
     private Skin boxSkin;
     private GameStage stage;
-
     private TextFieldStyle textFieldStyle;
     private BitmapFont customFont;
     private TextField inputField;
-    private String userInput;
-    private int skinVar;
     private boolean nextPlayer;
-
-    private API database;
-    // private SelectionStateStatus selectionStateStatus =
-    // SelectionStateStatus.NORMAL;
-
-    // private enum SelectionStateStatus {
-    // NORMAL,
-    // LOADING,
-    // SWITCHING
-    // }
-
-    // public SelectionStateStatus getSelectionStateStatus(){
-    // return this.selectionStateStatus;
-    // }
-    // public void setSelectionStateStatusNormal(){
-    // this.selectionStateStatus = SelectionStateStatus.NORMAL;
-    // }
-    // public void setSelectionStateStatusLoading(){
-    // this.selectionStateStatus = SelectionStateStatus.LOADING;
-    // }
-    // public void setSelectionStateStatusSwitching(){
-    // this.selectionStateStatus = SelectionStateStatus.SWITCHING;
-    // }
-
-    public SelectionView(final GameStateManager gsm, final API database, boolean nextPlayer) {
+    
+    public SelectionView(final GameStateManager gsm, boolean nextPlayer) {
         super(gsm);
-        this.database = database;
         if (!nextPlayer) {
-            background = new Texture("gamescreens/selection2_no_planes.jpg"); // bytt til selection1_no_planes.jpg 
+            background = new Texture("gamescreens/selection1_no_planes.jpg");
         }else{
             background = new Texture("gamescreens/selection2_no_planes.jpg");
         }
@@ -164,7 +133,6 @@ public class SelectionView extends State {
     public void changeBox(int i) {
         resetColor();
         getBoxButton(i).setColor(1, 1, 1, 1);
-        skinVar = i - 1;
         nextBtn.setVisible(true);
     }
 

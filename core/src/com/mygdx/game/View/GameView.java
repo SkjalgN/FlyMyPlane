@@ -4,29 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Intersector;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.mygdx.game.API;
 import com.mygdx.game.FontManager;
 import com.mygdx.game.GameOverEvent;
 import com.mygdx.game.GameOverListener;
-import com.mygdx.game.Model.Location;
 import com.mygdx.game.Model.Map;
-import com.mygdx.game.Model.Package;
 import com.mygdx.game.Model.Plane;
 import com.mygdx.game.Model.Boat;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -55,34 +45,15 @@ public class GameView extends State {
     private Button boostBtn;
     private Button flameBtn;
     private Table textTable;
-    private API database;
-    private Location[] locations = new Location[6];
-    private Batch batch;
     private int buttonWidth;
     private int buttonHeight;
-
     private Label packageLabel;
     private Label timeLabel;
-
     private long startTime;
-    private long elapsedTime;
-
-    private int seconds;
-
-
     private List<GameOverListener> gameOverListeners = new ArrayList<>();
 
-    
-    private int packageIndex;
-    private int destinationIndex;
-
-    //Booleans to show and hide packages and locations
-    private boolean showPackage = true;
-    private boolean showDestination = false;
-
-    public GameView(final GameStateManager gsm, final API database,int skinVar) {
+    public GameView(final GameStateManager gsm,int skinVar) {
         super(gsm);
-        this.database = database;
         background = new Texture("gamescreens/theMap.jpg");
         backgroundWater = new Texture("gamescreens/water.jpg");
         cam.setToOrtho(false, background.getWidth(), background.getHeight());
@@ -110,19 +81,8 @@ public class GameView extends State {
         
         buttonWidth = SCREEN_WIDTH/8;
         buttonHeight = SCREEN_WIDTH/8;
-        //createBoostButton("buttons/game/boostBtn/boostBtn.json", SCREEN_WIDTH - buttonWidth, 0, buttonWidth, buttonHeight);
-        //createFlameButton("buttons/game/flameBtn/flameBtn.json", SCREEN_WIDTH - buttonWidth, buttonHeight, buttonWidth, buttonHeight);
-        //createLeftButton("buttons/game/leftBtn/leftBtn.json", 0, 0, buttonWidth, buttonHeight);
-        //createRightButton("buttons/game/rightBtn/rightBtn.json", buttonWidth * 1.2f, 0, buttonWidth, buttonHeight);
-        //createPauseButton("buttons/game/pauseBtn/pauseBtn.json", 0, SCREEN_HEIGHT - buttonHeight, buttonWidth, buttonHeight);
-
-
         this.startTime = TimeUtils.millis();
         packageFont = FontManager.getInstance().getFont();
-
-
-
-
 
         //Table til å legge til packageLabel på
         textTable = new Table();
@@ -138,11 +98,7 @@ public class GameView extends State {
         timeLabel.setFontScale(SCREEN_HEIGHT/900);
         textTable.add(timeLabel).expandY().padTop(5);
 
-
-
-
-        // BUTTONS!!!!
-
+        // BUTTONS
         pauseBtn.setSize(SCREEN_WIDTH / 8f, SCREEN_WIDTH / 8f);
         pauseBtn.setPosition(0, SCREEN_HEIGHT - buttonHeight);
         
@@ -167,7 +123,6 @@ public class GameView extends State {
         stage.addActor(boostBtn);
         stage.addActor(flameBtn);
         stage.addActor(textTable);
-        //stage.addActor(timeTable);
 
         Gdx.input.setInputProcessor(stage);
     }

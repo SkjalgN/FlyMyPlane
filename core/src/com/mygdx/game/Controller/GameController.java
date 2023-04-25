@@ -423,7 +423,7 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void selectionView() {
-		this.selectionView = new SelectionView(gsm, Database, this.nextPlayer);
+		this.selectionView = new SelectionView(gsm, this.nextPlayer);
 		gsm.set(this.selectionView);
 
 		// Knappene som aktiveres på SelectionView
@@ -467,7 +467,7 @@ public class GameController extends Game implements GameOverListener {
 		// // LEGG TIL LOGIKK FOR TIDEN IGJEN!
 		// gsm.pop();
 		// } else {
-		this.gameView = new GameView(gsm, Database, this.planeSkinVar);
+		this.gameView = new GameView(gsm, this.planeSkinVar);
 		gsm.set(this.gameView);
 
 		// Lager en gameover lytter i dette viewet
@@ -531,7 +531,7 @@ public class GameController extends Game implements GameOverListener {
 
 			this.nextPlayer = false;
 			// Ta inn begge scores
-			this.victoryView = new VictoryView(gsm, Database, this.score1, this.score2);
+			this.victoryView = new VictoryView(gsm, this.score1, this.score2);
 
 			// Knapp for menuview
 			gsm.set(victoryView);
