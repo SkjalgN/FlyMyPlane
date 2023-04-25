@@ -9,6 +9,9 @@ public class Score implements Comparable<Score>{
         this.score = score;
         this.name = name;
     }
+    public Score(){
+
+    }
 
     public int getScore(){
         return this.score;
