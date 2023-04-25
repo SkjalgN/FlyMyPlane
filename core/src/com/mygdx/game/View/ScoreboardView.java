@@ -72,7 +72,7 @@ public class ScoreboardView extends State{
     public void render(SpriteBatch sb) {
 
         customFont.setColor(Color.BLACK);
-        customFont.getData().setScale(1);
+        customFont.getData().setScale(0.8f);
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0,width,height);
