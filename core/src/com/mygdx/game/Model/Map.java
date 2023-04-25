@@ -9,8 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import com.mygdx.game.Controller.GameController;
-import com.mygdx.game.View.GameView;
 
 public class Map {
     private List<Location> locations = new ArrayList<>();
@@ -87,10 +85,6 @@ public class Map {
         return target1.getCity();
     }
 
-    public Package getTarget() {
-        return target1;
-    }
-
     public void drawPackage(SpriteBatch sb){
         package1.draw(sb);
     }
@@ -99,7 +93,7 @@ public class Map {
         target1.draw(sb);
     }
 
-    public void update(float dt) {
+    public void update() {
         handleCollision();
     }
 
@@ -116,7 +110,8 @@ public class Map {
             }
         }
     }
-
+    // Prøvde å lage en bedre måte å sjekke kollisjon på. Skal gjøre det samme som checkPackageCollision, men funker ikke per nå. Hvis du leser dette: Gjerne se om du skjønner hvorfor den ikke virker!
+    /*
     public Boolean checkCollision(Plane plane, Package pack) {
         if (Intersector.overlaps(plane.getBounds(), pack.getBounds())) {
             return true;
@@ -125,6 +120,7 @@ public class Map {
             return false;
         }
     }
+     */
 
     public Boolean checkPackageCollision(Plane plane, Package package2) {
         if (package2.isTarget()) {

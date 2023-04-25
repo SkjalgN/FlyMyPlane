@@ -92,7 +92,7 @@ public class GameController extends Game implements GameOverListener {
 	// }
 	// The button is activated at correct view
 	public void startMenuViewButton() {
-		changeStateButton(this.startGameView.getStartGameButton(), new Callback() {
+		changeStateButton(this.startGameView.getStartButton(), new Callback() {
 			@Override
 			public void execute() {
 				menuView();
@@ -155,8 +155,10 @@ public class GameController extends Game implements GameOverListener {
 						// muteSound();
 						if (manager.get("Audio/background.ogg", Music.class).isPlaying()) {
 							manager.get("Audio/background.ogg", Music.class).pause();
+							pauseView.soundOffButton();
 						} else {
 							manager.get("Audio/background.ogg", Music.class).play();
+							pauseView.soundOnButton();
 						}
 					}
 				});
@@ -386,15 +388,21 @@ public class GameController extends Game implements GameOverListener {
 					@Override
 					public void keyTyped(TextField textField, char c) {
 						getUsername();
+						showPlanesAndButtons();
+						setPlaneSkinButton();
 					}
 				});
+	}
+
+	private void showPlanesAndButtons(){
+		this.selectionView.showPlanes();
 	}
 
 	public void startGameView() {
 		manager = new AssetManager();
 		manager.load("Audio/background.ogg",Music.class);
 		manager.finishLoading();
-		this.startGameView = new StartGameView(gsm, Database);
+		this.startGameView = new StartGameView(gsm);
 		gsm.push(this.startGameView);
 		manager.get("Audio/background.ogg", Music.class).setLooping(true);
 		manager.get("Audio/background.ogg", Music.class).play();
@@ -403,7 +411,7 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void menuView() {
-		this.menuView = new MenuView(gsm, Database);
+		this.menuView = new MenuView(gsm);
 		gsm.set(this.menuView);
 
 		// Knappene som aktiveres på MenuView
@@ -418,13 +426,12 @@ public class GameController extends Game implements GameOverListener {
 		gsm.set(this.selectionView);
 
 		// Knappene som aktiveres på SelectionView
-		setPlaneSkinButton();
 		startInputField();
 		startGameStateButton();
 	}
 
 	public void tutorialView() {
-		this.tutorialView = new TutorialView(gsm, Database);
+		this.tutorialView = new TutorialView(gsm);
 		gsm.set(this.tutorialView);
 
 		// Knappene som aktiveres på TutorialView
@@ -473,7 +480,7 @@ public class GameController extends Game implements GameOverListener {
 	}
 
 	public void pauseView() {
-		this.pauseView = new PauseView(gsm, Database);
+		this.pauseView = new PauseView(gsm);
 		gsm.push(pauseView);
 
 		// HUSK Å PAUSE TIDEN SOM TELLES!

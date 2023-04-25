@@ -4,11 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.game.API;
 
 public class TutorialView extends State {
     private TextureRegion background[];
@@ -23,7 +20,7 @@ public class TutorialView extends State {
     private Skin backBtnSkin;
     private GameStage stage;
 
-    public TutorialView(final GameStateManager gsm, final API database) {
+    public TutorialView(final GameStateManager gsm) {
         super(gsm);
         background = new TextureRegion[2];
         background[0] = new TextureRegion(new Texture("gamescreens/tutorial1.jpg"));

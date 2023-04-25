@@ -66,12 +66,10 @@ public class SelectionView extends State {
         super(gsm);
         this.database = database;
         if (!nextPlayer) {
-            background = new Texture("gamescreens/selection1.jpg");
+            background = new Texture("gamescreens/selection2_no_planes.jpg"); // bytt til selection1_no_planes.jpg 
         }else{
-            background = new Texture("gamescreens/selection2.jpg");
+            background = new Texture("gamescreens/selection2_no_planes.jpg");
         }
-        // loadingbackground = new Texture("gamescreens/mapClean.jpg");
-        // loading = new Texture("gamescreens/loadingtexture.png");
         cam.setToOrtho(false, width, height);
         cam.zoom = (float) 1.0;
         cam.translate(0, 0);
@@ -141,10 +139,7 @@ public class SelectionView extends State {
         textFieldStyle = new TextFieldStyle();
         textFieldStyle.font = customFont; // You can use the same font from the nextBtnSkin or create a new one.
         textFieldStyle.fontColor = Color.BLACK; // Set the font color.
-        /*
-         * textFieldStyle.background = box1Skin.getDrawable("background"); // Use the
-         * box1Skin background as the TextField background.
-         */
+
         font.getData().setScale(1f);
         inputField = new TextField("", textFieldStyle);
         inputField.setSize(width / 4f, height / 10f);
@@ -175,6 +170,14 @@ public class SelectionView extends State {
 
     public Button getNextButton() {
         return nextBtn;
+    }
+
+    public void showPlanes(){
+        if (!nextPlayer) {
+            background = new Texture("gamescreens/selection1.jpg");
+        }else{
+            background = new Texture("gamescreens/selection2.jpg");
+        }
     }
 
     public void resetColor() {

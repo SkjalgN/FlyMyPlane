@@ -16,7 +16,6 @@ public class Package {
     private boolean isTarget;
 
     //constructor
-
     public Package(String city, float xPos, float yPos, TextureRegion packageTextureRegion, boolean isTarget) {
         this.city = city;
         this.bounds = new Rectangle(xPos, yPos, width, height);
@@ -33,7 +32,6 @@ public class Package {
     }
 
     public float getWidth() {
-
         return width;
     }
 
@@ -53,43 +51,13 @@ public class Package {
         return yPos;
     }
 
-
-
-    public TextureRegion getPackageTextureRegion() {
-        return packageTextureRegion;
-    }
-
     public boolean isTarget() {
         return isTarget;
     }
-    //setters
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setX(float x) {
-        this.xPos = x;
-    }
-
-    public void setY(float y) {
-        this.yPos = y;
-    }
-
-    public void setPackageTextureRegion(TextureRegion packageTextureRegion) {
-        this.packageTextureRegion = packageTextureRegion;
-    }
 
     public void draw(Batch batch) {
-
-            batch.draw(packageTextureRegion, xPos, yPos,width,height);
-
+        batch.draw(packageTextureRegion, xPos, yPos,width,height);
     }
-/* 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-*/
 }
 
 

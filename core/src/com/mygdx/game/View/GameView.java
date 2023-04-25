@@ -221,7 +221,7 @@ public class GameView extends State {
         cam.update();
         plane.update(dt);
         boat.update(dt);
-        map.update(dt);
+        map.update();
         checkGameOver();
         handlePlaneOutsideScreen();
     }
@@ -244,11 +244,6 @@ public class GameView extends State {
 
         boat.draw(sb);
         plane.draw(sb);
-
-      /*  if(Gdx.input.isKeyPressed(Input.Keys.P)) {
-            gsm.push(new PauseState(gsm, database));
-        }*/
-
 
         long elapsedTime = TimeUtils.timeSinceMillis(startTime);
         int seconds = (int) (elapsedTime / 1000);

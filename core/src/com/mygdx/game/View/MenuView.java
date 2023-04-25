@@ -3,11 +3,8 @@ package com.mygdx.game.View;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.mygdx.game.API;
 
 public class MenuView extends State{
     
@@ -19,11 +16,9 @@ public class MenuView extends State{
     private Button tutorialButton;
     private Button scoreboardButton;
     private GameStage stage;
-    private API database;
 
-    public MenuView(final GameStateManager gsm, API Database) {
+    public MenuView(final GameStateManager gsm) {
         super(gsm);
-        database = Database;
         cam.setToOrtho(false, width,height);
         cam.zoom = (float)1;
         cam.translate(0, 0);
