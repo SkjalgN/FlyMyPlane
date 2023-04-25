@@ -140,7 +140,7 @@ public class SelectionView extends State {
         textFieldStyle.font = customFont; // You can use the same font from the nextBtnSkin or create a new one.
         textFieldStyle.fontColor = Color.BLACK; // Set the font color.
 
-        font.getData().setScale(1f);
+        font.getData().setScale(0.8f);
         inputField = new TextField("", textFieldStyle);
         inputField.setSize(width / 4f, height / 10f);
         inputField.setPosition(width / 2f + (width / 20f) - (inputField.getWidth() / 2f),
