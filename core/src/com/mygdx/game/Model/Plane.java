@@ -2,21 +2,20 @@ package com.mygdx.game.Model;
 
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.Input;
 
 public class Plane {
 
     private float xPos,yPos;
+    private Rectangle bounds;
     private float speed;
     private float angle;
     private float planeWidth;
     private float planeHeight;
     private TextureRegion planeTextureRegion;
     private TextureRegion planeTextureRegionList[];
-    private int planeTextureRegionvar = 0;
     private TextureRegion[] airflow;
     private int airflowvar = 1;
     private TextureRegion flames[];
@@ -29,6 +28,7 @@ public class Plane {
     public Plane(float xPos, float yPos,float speed, float angle, float planeWidth, float planeHeight, int skinVar) {
         this.xPos = xPos;
         this.yPos = yPos;
+        this.bounds = new Rectangle(xPos, yPos, planeWidth, planeHeight);
         this.speed = speed;
         this.angle = angle;
         this.planeWidth = planeWidth;
@@ -94,6 +94,10 @@ public class Plane {
         this.speed = speed;
     }
 
+    public Rectangle getBounds() {
+        return bounds;
+    }
+
     public float getAngle() {
         return angle;
     }
@@ -106,20 +110,8 @@ public class Plane {
         return planeWidth;
     }
 
-    public void setPlaneWidth(float width) {
-        this.planeWidth = width;
-    }
-
     public float getPlaneHeight() {
         return planeHeight;
-    }
-
-    public void setplaneHeight(float height) {
-        this.planeHeight = height;
-    }
-
-    public TextureRegion getplaneTextureRegion() {
-        return planeTextureRegion;
     }
 
     public void setTexture(TextureRegion texture) {
@@ -135,27 +127,14 @@ public class Plane {
 
     public void updateRotation() {
         if(rotateLeft) {
-            rotate(0.03f);
+            rotate(0.08f);
         }
         if(rotateRight) {
-            rotate(-0.03f);
+            rotate(-0.08f);
         }
     }
 
-    public int getPlaneTextureRegionvar() {
-        return planeTextureRegionvar;
-    }
-
-    public void setPlaneTextureRegionvar(int planeTextureRegionvar) {
-        this.planeTextureRegionvar = planeTextureRegionvar;
-    }
-
-    
-
     public void draw(Batch batch) {
-
-
-
         airflow = new TextureRegion[2];
         airflow[0] = new TextureRegion(new Texture("effects/airflow.png"));
         airflow[1] = new TextureRegion(new Texture("effects/empty.png"));

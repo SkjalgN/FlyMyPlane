@@ -12,11 +12,12 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.mygdx.game.API;
+import com.mygdx.game.FontManager;
 import com.mygdx.game.Model.Score;
 
 import java.util.ArrayList;
 
-public class ScoreboardState extends State{
+public class ScoreboardView extends State{
     private API database;
     private ArrayList<Score> scoreboardList;
     private Texture background;
@@ -26,13 +27,14 @@ public class ScoreboardState extends State{
 
     private BitmapFont customFont;
 
-    protected ScoreboardState(final GameStateManager gsm, API Database) {
+    public ScoreboardView(final GameStateManager gsm, API Database) {
         super(gsm);
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Fonts/AmaticSC-Regular.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 24*6; // Set the font size here
-        customFont = generator.generateFont(parameter);
-        generator.dispose();
+        //Kanskje gjøres i Controller
+        
+        customFont = FontManager.getInstance().getFont();
+
+        //
+
         this.database = Database;
         background = new Texture("gamescreens/scoreboard.jpg");
         cam.setToOrtho(false, width,height);
@@ -53,19 +55,12 @@ public class ScoreboardState extends State{
         //Set button position, size and function
         backButton.setPosition(0, 0);
         backButton.setSize(width/8f, width/8f);
-        backButton.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                gsm.set(new MenuState(gsm, database));
-                System.out.println("Button Pressed");
-                return true;
-            }
-
-
-        });
-
+        
     stage.addActor(backButton);
     Gdx.input.setInputProcessor(stage);
+    }
+    public Button getBackButton(){
+        return this.backButton;
     }
 
     @Override
@@ -77,7 +72,7 @@ public class ScoreboardState extends State{
     public void render(SpriteBatch sb) {
 
         customFont.setColor(Color.BLACK);
-        customFont.getData().setScale(1);
+        customFont.getData().setScale(0.8f);
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         sb.draw(background,0,0,width,height);
